@@ -6,14 +6,29 @@ icon: "shield"
 
 LivingContext is built for teams that hand an AI agent the keys to their documentation — so the security model is deliberately conservative: encrypt everything sensitive, minimize what agents can see, and put a human in front of anything that changes an external system.
 
+## Account security
+
+<CardGroup cols={2}>
+  <Card title="Two-factor authentication" icon="shield-check">
+    Every member can enable TOTP two-factor authentication (any authenticator app) with one-time backup codes, from **Settings → Security**. Sign-in for enrolled accounts requires the second factor.
+  </Card>
+  <Card title="Session control" icon="laptop">
+    Review every active session — device, network, age — and revoke any one of them (or all others at once) from **Settings → Security**. Sessions expire after 7 days.
+  </Card>
+</CardGroup>
+
+Passwords follow a modern (NIST-aligned) policy — a 12-character minimum with a
+breached-password deny-list, enforced server-side — and the sign-in endpoints
+are rate-limited against brute force.
+
 ## Credentials and keys
 
 <CardGroup cols={2}>
   <Card title="Encrypted at rest" icon="lock">
-    OAuth tokens and secrets are encrypted at rest with AES-256-GCM. LivingContext never stores your git or Salesforce credentials in plaintext.
+    OAuth tokens and secrets are encrypted at rest with AES-256-GCM, with support for master-key rotation. LivingContext never stores your git or Salesforce credentials in plaintext.
   </Card>
   <Card title="Hashed API keys" icon="key">
-    API keys — extension keys and MCP keys — are stored as hashes and shown **once** at creation. If you lose a key, you create a new one; nobody can read it back.
+    API keys — extension keys and MCP keys — are stored as hashes and shown **once** at creation. Keys can be minted with an expiry (30/90/365 days), and creation and revocation are recorded in the audit log.
   </Card>
 </CardGroup>
 
@@ -21,9 +36,33 @@ LivingContext is built for teams that hand an AI agent the keys to their documen
   Keys stop working **the moment a member leaves the organization**. Offboarding a teammate automatically revokes every key they created.
 </Warning>
 
+## Organization security policy
+
+Administrators set org-wide access policy in **Settings → Security**:
+
+| Policy | What it does |
+| --- | --- |
+| **Invite domain allowlist** | Restrict member invitations to your company's email domains — invitations to any other domain are blocked at the source. |
+| **IP allowlist** | Restrict organization access to specific networks (IPv4/IPv6 addresses or CIDR blocks). Enforced on every path in — web sessions, the capture extension, and MCP keys. Saving a list that would lock *you* out is rejected. |
+| **AI processing opt-out** | One switch that stops all document content from being sent to AI providers — doc generation, suggestions, and agents pause for the organization until re-enabled. |
+| **Retention windows** | How long the security audit log (default 365 days) and resolved inbox events are kept. |
+
+## Audit log
+
+Beyond the agent action trail, every security-relevant event in the
+organization is recorded append-only — sign-ins across all providers, member
+and role changes, invitations, API keys, connections, and settings edits, each
+with actor, IP address, and timestamp. Administrators review and filter it in
+**Settings → Audit log**; retention follows your policy.
+
 ## Tenant isolation
 
-Each organization lives on its own subdomain (`<slug>.livingcontext.ai`) with per-organization data isolation. Members of one organization can never see another organization's docs, connections, or activity. Sessions expire after 7 days.
+Each organization lives on its own subdomain (`<slug>.livingcontext.ai`) with per-organization data isolation. Members of one organization can never see another organization's docs, connections, or activity.
+
+## Your data
+
+- **Export** — any member can download a JSON export of everything stored about their account (profile, linked sign-in providers, memberships, sessions, key metadata — never secrets) from **Settings → Security**.
+- **Deletion** — self-service account deletion, with a safeguard: the last administrator of an organization with other members must hand over administration first.
 
 ## What agents can and cannot do
 
@@ -57,7 +96,7 @@ Learn more in [Capture](/capture/overview).
 
 You control how your team authenticates:
 
-- Email and password, GitHub, Google, or Salesforce OAuth
+- Email and password (with optional two-factor), GitHub, Google, or Salesforce OAuth
 - **Enterprise SSO** through your identity provider — Okta, Microsoft Entra, Auth0, and other standards-based IdPs
 
 Combine SSO with [roles and permissions](/admin/roles-and-permissions) to keep access aligned with your directory.
@@ -65,16 +104,34 @@ Combine SSO with [roles and permissions](/admin/roles-and-permissions) to keep a
 ## Security checklist for administrators
 
 <Steps>
+  <Step title="Turn on two-factor authentication">
+    Enable 2FA on your own account first (Settings → Security), then ask administrators and creators to do the same.
+  </Step>
+  <Step title="Set the organization policy">
+    Restrict invitations to your email domains, and add an IP allowlist if your team works from known networks.
+  </Step>
   <Step title="Right-size roles">
     Default invitations to Editor, and reserve Administrator for the few people who manage members and billing.
   </Step>
   <Step title="Review keys periodically">
-    Extension and MCP keys are listed in Settings. Delete any that are no longer needed — and remember that offboarding revokes a departing member's keys automatically.
+    Extension and MCP keys are listed in Settings — prefer expiring keys, and delete any that are no longer needed. Offboarding revokes a departing member's keys automatically.
   </Step>
   <Step title="Tune capture blur">
     Review the smart-blur categories in Settings so captures redact the data classes your organization cares about.
   </Step>
-  <Step title="Audit agent actions">
-    Check the audit log for side-effecting actions as part of your regular review cadence.
+  <Step title="Make the audit log part of your cadence">
+    Check Settings → Audit log for sign-ins, role changes, and key activity as part of your regular review.
   </Step>
 </Steps>
+
+## On the roadmap
+
+Being transparent about what's *not* built yet:
+
+| Capability | Status |
+| --- | --- |
+| SCIM provisioning / directory sync | Planned — membership is currently managed through invitations and removal (which revoke access and keys immediately). |
+| SAML | OIDC SSO covers Okta, Entra, Google Workspace, Auth0 and other modern IdPs today; SAML is available on request for SAML-only IdPs. |
+| Support access controls | LivingContext staff have no impersonation mechanism today — a consent-based, audited support-access flow is planned before one is ever added. |
+
+If one of these gates your security review, [contact us](https://livingcontext.ai) — they're prioritized by enterprise demand.
