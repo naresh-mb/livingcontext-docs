@@ -1,0 +1,64 @@
+---
+title: "Commits"
+description: "Browse tracked repositories and turn code commits into documentation updates."
+icon: "git-commit-horizontal"
+---
+
+The Commits view connects your codebase to your docs. Browse the commits on a tracked repository, inspect what changed, and run the doc agent against any commit to generate documentation drafts — or let LivingContext sweep tracked branches automatically and send proposals straight to your [Inbox](/guides/inbox).
+
+## Choosing what to track
+
+Commits works on repo+branch pairs you configure in **Settings → Commits**. Pick the repositories and branches whose changes should drive documentation — typically your main branch, and any long-lived release branches.
+
+See [GitHub](/integrations/github) and [GitLab](/integrations/gitlab) for connecting repositories.
+
+## Browsing commits
+
+Once you select a tracked repo and branch, you get a three-step drill-down:
+
+<Steps>
+  <Step title="Commit list">
+    Every commit on the branch with its message, author, and time.
+  </Step>
+  <Step title="Changed files">
+    Select a commit to see the files it touched.
+  </Step>
+  <Step title="Diff">
+    Select a file to read the unified diff.
+  </Step>
+</Steps>
+
+This is useful on its own for answering "what changed recently?" — but the real power is the next step.
+
+## Generating docs from a commit
+
+Click **Generate** on any commit to run the doc agent against it. The view switches to **Docs mode**, showing the drafts the agent proposes — updates to existing docs affected by the commit, and new docs where the commit introduced something undocumented.
+
+For each draft you can switch between three views:
+
+| View | What you see |
+| --- | --- |
+| **Diff** | What the draft changes, old vs. new |
+| **Previous** | The doc as it stands today |
+| **New** | The full proposed doc, rendered |
+
+Accept or reject each draft. When you're done, click **Create branch** — LivingContext commits every accepted draft to a new branch in your docs repository, ready to open as a pull request.
+
+<Tip>
+Generate is great for catching up on a specific commit — a big feature merge, a refactor you know touched documented behavior. For continuous coverage, rely on automatic sweeps instead.
+</Tip>
+
+## Automatic sweeps
+
+You don't have to click Generate to keep docs current. Tracked branches are **swept automatically every 15 minutes**. When new commits land, LivingContext generates proposals for the affected docs and delivers them as a batch to your [Inbox](/guides/inbox), each with a provenance card explaining which commit triggered it.
+
+<Note>
+Manual Generate and automatic sweeps use the same agent and produce the same kind of drafts. The only difference is where you review them: Generate keeps you in the Commits view; sweeps deliver to the Inbox.
+</Note>
+
+## How this fits together
+
+- **Commits** answers "what changed in the code, and what should the docs say about it?"
+- The **[Inbox](/guides/inbox)** is where automatic proposals wait for triage.
+- **[Change requests](/guides/editing-and-change-requests)** are where you refine drafts that need a human pass before merging.
+- **[Coverage](/guides/coverage)** shows whether the sum of all this activity is keeping your org documented.

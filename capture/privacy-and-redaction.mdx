@@ -1,0 +1,65 @@
+---
+title: "Privacy and redaction"
+description: "How the extension protects sensitive data — by default, before anything is captured."
+icon: "shield-check"
+---
+
+Capture tools see your screen while you work, so the privacy model matters. LivingContext is private by default: sensitive data is protected before it's captured, not cleaned up afterwards.
+
+## Passwords are always masked
+
+Password fields are masked unconditionally. When you type into one, the step records bullets — the plain text is never captured, never stored, and never leaves the field. There is no setting that turns this off.
+
+## Smart blur
+
+Smart blur detects sensitive patterns on the page and blurs them **before the screenshot is taken**. Un-blurred pixels never leave the browser.
+
+Detected categories include:
+
+| Category | Examples |
+| --- | --- |
+| Email addresses | Contact and user emails on records and lists |
+| Phone numbers | Customer and employee numbers |
+| Social Security numbers | US SSNs in any common format |
+| Credit card numbers | Card PANs on payment and billing pages |
+| IP addresses | Network addresses in logs and admin screens |
+
+Choose which categories are active in **Settings → Blur** — you'll also see this choice during first-run onboarding.
+
+When you publish, the blur is permanently baked into the published images. There is no un-blurred original anywhere outside your browser.
+
+<Tip>
+Smart blur is the automatic floor, not the ceiling. For anything it can't detect — account names, internal figures, free-text notes — add manual redaction fills or blur regions in the [annotation editor](/capture/editing-steps). Those are baked in at publish too.
+</Tip>
+
+## No keylogging
+
+The extension records only deliberate keystrokes:
+
+- Typing is captured as the final value of a field — one step per field, never a keystroke log.
+- Only intentional command keys become steps: <kbd>⌘</kbd>/<kbd>Ctrl</kbd> + <kbd>S</kbd>/<kbd>C</kbd>/<kbd>V</kbd>/<kbd>X</kbd>, <kbd>Enter</kbd>, and <kbd>Escape</kbd>.
+- Bare letters, arrow keys, and <kbd>Tab</kbd> are ignored and never recorded.
+- While a capture is paused, nothing is recorded at all — and the paused state survives page reloads and new tabs.
+
+## Video is tab-only
+
+Session video is restricted to the current browser tab. The extension cannot record your monitor, other windows, or other applications — a notification in another app can never end up in a recording.
+
+## Captures stay local until you publish
+
+Everything a capture collects — steps, screenshots, video — lives in your browser's local storage while you record and edit. Nothing is uploaded until you click **Publish**, and publishing sends the capture only to your organization's workspace.
+
+<Warning>
+Review screenshots before publishing. Automatic protections cover passwords and known sensitive patterns, but only you know whether that dashboard number or customer name belongs in a shared guide.
+</Warning>
+
+## Summary
+
+| Protection | When it applies | Reversible? |
+| --- | --- | --- |
+| Password masking | Always, at capture time | Never captured |
+| Smart blur | Before each screenshot, per enabled categories | Baked in at publish |
+| Manual redaction and blur | Applied while editing | Baked in at publish |
+| Keystroke filtering | Always, at capture time | Never captured |
+| Tab-only video | Always | Cannot record beyond the tab |
+| Local-until-publish | Until you click Publish | You control the upload |

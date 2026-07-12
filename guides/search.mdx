@@ -1,0 +1,67 @@
+---
+title: "Search"
+description: "Find anything across your docs with full-text search and sidebar filtering."
+icon: "search"
+---
+
+LivingContext gives you two complementary ways to find things: full-text search across the content of every doc, and a sidebar filter that narrows the file tree by name. Together they cover both "I remember a phrase" and "I know roughly where it lives".
+
+## Full-text search
+
+Press <kbd>⌘</kbd> <kbd>K</kbd> anywhere in the workspace to open search.
+
+- **Every doc is indexed** — search looks inside the content of all pages, not just titles.
+- **Results are ranked** — the best matches surface first.
+- **Snippets are highlighted** — each result shows the matching passage with your terms highlighted, so you can judge relevance before clicking.
+
+Selecting a result takes you straight to the page in the [docs viewer](/guides/docs-viewer).
+
+<Tip>
+Search by the words readers would use, not just component names. Because docs describe *behavior* — "quarterly discount approval" — search often finds the right page faster than hunting through Salesforce Setup for the flow that implements it.
+</Tip>
+
+## Sidebar filtering
+
+The search box in the docs sidebar works differently: it **filters the file tree** in place. Type a few characters and the tree collapses to matching files and their parent folders. This is the fastest option when you know roughly what a page is called or where it lives.
+
+| | Full-text search (<kbd>⌘</kbd> <kbd>K</kbd>) | Sidebar filter |
+| --- | --- | --- |
+| Looks at | Content of every doc | File and folder names in the tree |
+| Best for | "I remember what it said" | "I remember what it's called" |
+| Result | Ranked list with snippets | Narrowed tree, structure intact |
+
+## Freshness
+
+The index stays current automatically. When docs sync from your repository or a [change request](/guides/editing-and-change-requests) merges, search reflects the new content — no manual reindexing, no stale results pointing at deleted pages.
+
+<Note>
+Search covers your published docs. Draft content on an unmerged change request branch is not part of the shared index — it becomes searchable when the CR merges.
+</Note>
+
+## A typical search flow
+
+<Steps>
+  <Step title="Open search">
+    Press <kbd>⌘</kbd> <kbd>K</kbd> from any page in the workspace.
+  </Step>
+  <Step title="Type a phrase">
+    Use the words you remember from the doc — a feature name, a process term, an error message.
+  </Step>
+  <Step title="Scan the snippets">
+    The highlighted passages tell you which result actually answers your question.
+  </Step>
+  <Step title="Jump to the page">
+    Select a result to open it in the docs viewer, with breadcrumbs showing where it lives.
+  </Step>
+</Steps>
+
+## Search-friendly docs
+
+A few habits make your docs easier to find:
+
+- **Descriptive titles** — "Quote approval process" beats "Process notes".
+- **Use your team's vocabulary** — write the terms people will actually type, including common synonyms.
+- **One topic per page** — focused pages rank cleanly; sprawling pages match everything weakly.
+- **Tag docs to Salesforce components** — tags don't just power [coverage](/guides/coverage); they keep docs organized around the things people search for.
+
+Agent-generated docs follow your configured [style](/guides/templates-and-style), so consistent terminology across generated and hand-written docs comes largely for free.

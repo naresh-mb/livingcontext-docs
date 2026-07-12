@@ -1,0 +1,108 @@
+---
+title: "MCP server"
+description: "Give AI tools like Claude Code, Cursor, and Cline direct access to your org's docs and Salesforce intelligence — reads, reviewed writes, and guide recording over MCP."
+icon: "plug"
+---
+
+Every LivingContext organization exposes a **Model Context Protocol (MCP) server**. Point your AI coding tool at it and that tool can search your docs, query your Salesforce catalog, draft doc changes, and even drive the browser capture extension — all under your organization's permissions.
+
+```
+https://<your-org>.livingcontext.ai/api/mcp
+```
+
+The endpoint speaks **streamable HTTP JSON-RPC**, the standard MCP transport supported by modern clients.
+
+## Create a key
+
+<Steps>
+  <Step title="Open Settings → MCP">
+    Keys are managed per organization.
+  </Step>
+  <Step title="Create a key">
+    Keys are prefixed `lcmcp_` and **shown once** — copy it immediately and store it like any credential.
+  </Step>
+  <Step title="Copy a config snippet">
+    The Settings page provides ready-to-paste configuration for **Claude Code**, **Cursor**, and **Cline**.
+  </Step>
+</Steps>
+
+For example, with Claude Code:
+
+```bash
+claude mcp add --transport http livingcontext \
+  https://your-org.livingcontext.ai/api/mcp \
+  --header "Authorization: Bearer lcmcp_your_key_here"
+```
+
+## Security model
+
+- Keys are **org-scoped** — a key only reaches the organization it was created in.
+- Your **membership is re-checked on every call**; if you leave the org, the key stops working.
+- **Writes respect your role** — the MCP server can't do anything you couldn't do in the app. See [Roles and permissions](/admin/roles-and-permissions).
+- Write tools never publish directly: they land as [change requests](/guides/editing-and-change-requests) or pull requests for human review.
+
+## Tools
+
+The server exposes 18+ tools across four areas.
+
+### Reads
+
+| Tool | What it does |
+| --- | --- |
+| `resolve_doc_id` | Find a doc's identifier from a path or title |
+| `get_doc_content` | Read a doc's full content |
+| `get_metadata_context` | Grounding context for a Salesforce component |
+| `list_recent_changes` | Recent documentation changes |
+| `suggest_metadata` | Suggest Salesforce components relevant to a topic |
+
+### Writes
+
+| Tool | What it does |
+| --- | --- |
+| `create_doc` | Draft a new doc — lands as a change request |
+| `update_doc` | Edit an existing doc — lands as a change request |
+| `set_doc_metadata` | Tag a doc to Salesforce components |
+| `submit_for_review` | Ship the change request — opens a PR |
+| `upload_guide_asset` | Upload an asset for a guide |
+| `create_guide` | Create a step-by-step guide |
+
+### Guide recording
+
+Drive the [browser capture extension](/capture/overview) remotely:
+
+| Tool | What it does |
+| --- | --- |
+| `start_guide_recording` | Start a capture session in the connected browser |
+| `stop_guide_recording` | Stop the session |
+| `get_guide_recording_status` | Poll recording state |
+
+### Org intelligence
+
+The same Salesforce analysis available to the [workspace agent](/agents/workspace-agent):
+
+| Tool | What it does |
+| --- | --- |
+| `find_metadata_usages` | Where a component is referenced |
+| `list_metadata_dependencies` | What a component depends on |
+| `search_org_source` | Full-text search across org source |
+| `list_recent_metadata_changes` | Recently changed components |
+| `get_metadata_change_diffs` | Before/after diffs |
+| `get_object_schema` | Object fields, types, relationships |
+| `find_unreferenced_fields` | Fields nothing references |
+| `who_can_access` | Who can see or edit an object or field |
+| `get_org_debt_signals` | Technical-debt indicators for the org |
+
+## Example: docs maintenance from your editor
+
+1. Add the MCP server to Claude Code with your `lcmcp_` key.
+2. Ask: *"Our discount approval flow changed — update the docs that describe it."*
+3. The tool searches your docs, reads the current pages, pulls fresh metadata context, and drafts edits via `update_doc`.
+4. The edits arrive in LivingContext as **change requests** — you review and ship them like any other change.
+
+<Note>
+Nothing bypasses review. Even a fully automated MCP client ends at the same gate as every agent: a human approves before anything merges.
+</Note>
+
+<Warning>
+Treat `lcmcp_` keys like passwords. They're shown once at creation — if a key leaks, revoke it in **Settings → MCP** and create a new one.
+</Warning>

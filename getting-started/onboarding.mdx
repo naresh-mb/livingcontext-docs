@@ -1,0 +1,92 @@
+---
+title: "Onboarding"
+description: "Sign up, create or join an organization, and complete the setup wizard."
+icon: "door-open"
+---
+
+Onboarding takes you from a fresh account to a working workspace in three stages: sign up, choose an organization, and complete a short setup wizard.
+
+## Sign up
+
+You can create a LivingContext account in any of these ways:
+
+- **Email and password**
+- **GitHub** OAuth
+- **Google** OAuth
+- **Salesforce** OAuth
+- **Enterprise SSO** through your identity provider — Okta, Microsoft Entra, Auth0, and other standards-based IdPs
+
+<Note>
+  How you sign up doesn't limit what you can connect later. For example, you can sign up with Google and still connect GitHub and Salesforce from inside the app.
+</Note>
+
+## Choose your organization
+
+After signing in for the first time, you land on the organization chooser. From here you either create a new organization or accept an invitation to an existing one.
+
+### Creating an organization
+
+<Steps>
+  <Step title="Name your organization">
+    Type a name — for example, *Acme*. LivingContext turns it into a URL slug automatically.
+  </Step>
+  <Step title="Confirm the subdomain">
+    The slug becomes your organization's subdomain, like `acme.livingcontext.ai`. Availability is checked live as you type, and reserved slugs are blocked.
+  </Step>
+  <Step title="Create">
+    You become the organization's first member with the **Administrator** role.
+  </Step>
+</Steps>
+
+<Note>
+  Each user can create **one** organization. To work in additional organizations, join them through an invitation.
+</Note>
+
+### Joining by invitation
+
+An Administrator invites you by email from the [Organization page](/admin/organizations). Keep these limits in mind:
+
+- Invitations expire after **48 hours** — ask for a new one if yours has lapsed.
+- An organization can have up to **100 members**.
+- New members receive the **Editor** role by default; an Administrator can change it at any time. See [Roles and permissions](/admin/roles-and-permissions).
+
+## The setup wizard
+
+New organizations walk through a three-step wizard before the workspace unlocks.
+
+<Steps>
+  <Step title="Connect GitHub or GitLab">
+    Connect one git provider. You need either GitHub **or** GitLab — not both. This is where your documentation lives, so LivingContext can't do useful work without it.
+  </Step>
+  <Step title="Pick your documentation repositories">
+    Select at least one repository to hold your docs. All documentation is stored as Markdown files in this repo, and git remains the source of truth.
+  </Step>
+  <Step title="Connect Salesforce (optional)">
+    Connect a Salesforce org so agents can ground documentation in your actual metadata. This step is optional — you can add Salesforce later from [Connections](/integrations/salesforce).
+  </Step>
+</Steps>
+
+When the required steps are complete, click **Enter your workspace** to land on Home.
+
+<Tip>
+  If you leave partway through — for example, to authorize an OAuth connection — LivingContext returns you to the wizard until setup is complete.
+</Tip>
+
+## After onboarding
+
+A few things worth doing early:
+
+<CardGroup cols={2}>
+  <Card title="Invite your team" icon="users" href="/admin/organizations">
+    Add teammates and assign roles from the Organization page.
+  </Card>
+  <Card title="Organize with spaces" icon="folder-git-2" href="/admin/spaces-and-repos">
+    Group repositories and Salesforce connections into scoped spaces.
+  </Card>
+  <Card title="Tune your settings" icon="settings" href="/admin/settings-reference">
+    Set your style guide, templates, and agent suggestion cadence.
+  </Card>
+  <Card title="Learn the concepts" icon="book-open" href="/getting-started/concepts">
+    Understand docs, change requests, the Inbox, and coverage.
+  </Card>
+</CardGroup>

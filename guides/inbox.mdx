@@ -1,0 +1,74 @@
+---
+title: "Inbox"
+description: "Triage agent-proposed documentation with a fast, keyboard-driven review queue."
+icon: "inbox"
+---
+
+The Inbox is where agent-proposed documentation waits for your decision. When a tracked commit changes something your docs describe, or an agent sweep finds an undocumented area, the resulting drafts land here — you accept or reject each one, then ship everything you accepted in a single step.
+
+You stay in control: nothing an agent proposes reaches your docs without a human decision.
+
+## Layout
+
+The Inbox has three panes:
+
+<CardGroup cols={3}>
+  <Card title="Batches" icon="layers">
+    One batch per commit or agent sweep, each showing its acceptance progress.
+  </Card>
+  <Card title="Files" icon="files">
+    Every proposed doc in the batch, with Accepted/Rejected tags, a progress bar, and batch actions.
+  </Card>
+  <Card title="Detail" icon="file-search">
+    The selected proposal — why it exists, and exactly what it changes.
+  </Card>
+</CardGroup>
+
+## Understanding a proposal
+
+The detail pane leads with a **provenance card** that explains why the doc was proposed — for example, "commit changed the discount approval flow, which this doc describes" or "the agent found the invoicing process undocumented". You never have to guess where a draft came from.
+
+Below it, a **Preview/Changes** toggle shows the proposal two ways:
+
+- **Preview** — rendered markdown, best for brand-new docs.
+- **Changes** — a unified diff, best for updates to existing docs.
+
+Diagrams render live in the preview, so a proposed Mermaid or Excalidraw change is judged as a picture, not a wall of syntax. See [Diagrams](/guides/diagrams).
+
+## Triage
+
+Work through a batch with the keyboard:
+
+| Key | Action |
+| --- | --- |
+| <kbd>J</kbd> / <kbd>K</kbd> | Next / previous file |
+| <kbd>A</kbd> | Accept |
+| <kbd>X</kbd> | Reject |
+
+Accepting or rejecting **auto-advances** to the next undecided file, so a batch of ten proposals takes seconds. Decisions apply optimistically and every one offers **Undo**, so a slip of the finger costs nothing.
+
+Batch actions are available on the file list when you want to move faster:
+
+- **Accept all** / **Reject all**
+- **Create PR** / **Create CR** — ship the batch immediately
+
+## Shipping accepted files
+
+When every item in a batch is decided, you get a summary and a **Ship accepted files** action. It rolls all accepted docs into one unit for your workflow:
+
+- **A pull request** in your docs repository, if you review in GitHub or GitLab.
+- **A [change request](/guides/editing-and-change-requests)**, if you want to polish the drafts in LivingContext before merging.
+
+<Tip>
+Shipping as a CR is the right choice when a draft is close but not perfect — you can refine it with the Doc Editor Agent before it merges, instead of rejecting it outright.
+</Tip>
+
+## Where proposals come from
+
+- **Tracked commits** — branches you track are swept automatically, and each relevant commit produces a batch. See [Commits](/guides/commits).
+- **Agent sweeps** — the [Coverage Auditor](/agents/coverage-auditor) proposes brand-new docs for undocumented areas of your Salesforce org.
+- **Drifted API specs** — when your org's API surface changes, updated OpenAPI specs are proposed rather than overwritten. See [API reference](/guides/api-reference).
+
+<Note>
+The Inbox is the single front door for agent output. If an agent generated it, you'll find it — and decide on it — here.
+</Note>

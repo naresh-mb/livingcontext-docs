@@ -1,0 +1,61 @@
+---
+title: "Install and connect"
+description: "Install the Chrome extension and link it to your LivingContext organization."
+icon: "plug"
+---
+
+The extension runs in Google Chrome (version 118 or later) and connects to your organization with a single click — there are no keys to copy or paste.
+
+## Install the extension
+
+Install LivingContext from the Chrome Web Store. If your organization distributes the extension directly, you may instead receive a zip file with install instructions from your admin.
+
+Once installed, pin the extension to your toolbar so the side panel is always one click away.
+
+## Connect to your organization
+
+<Steps>
+  <Step title="Open the extension">
+    Click the LivingContext icon to open the side panel.
+  </Step>
+  <Step title="Click Connect extension">
+    This opens your organization's connect page at `<your-org>.livingcontext.ai/connect-extension`. Sign in if you aren't already.
+  </Step>
+  <Step title="Authorize">
+    Click **Authorize extension**. An organization-scoped key is handed directly to the extension in the background — it is never displayed, and there is nothing to copy.
+  </Step>
+</Steps>
+
+That's it. The side panel now shows your organization, and you're ready to [record your first capture](/capture/recording).
+
+<Note>
+The key is scoped to your membership. If you leave the organization, the extension's key stops working automatically.
+</Note>
+
+## First-run onboarding
+
+The first time you open the extension, a short wizard walks you through setup:
+
+| Step | What it covers |
+| --- | --- |
+| Welcome | A quick tour of capture, Guide Me, and Ask docs |
+| AI setup | Confirms the AI features used when composing guides |
+| Smart blur | Choose which sensitive-data categories are blurred before screenshots are taken |
+| Pin extension | Reminds you to pin LivingContext to the Chrome toolbar |
+
+You can revisit any of these choices later in the extension's settings. Smart blur in particular is worth reviewing — see [Privacy and redaction](/capture/privacy-and-redaction).
+
+## Managing extension keys (admins)
+
+Admins can manage extension access for the whole organization in **Settings → Extension**:
+
+- **Create** keys for members who need them.
+- **Revoke** any key at any time — the extension it belongs to disconnects immediately.
+
+Revoking a key does not affect anything the member has already published; it only stops future connections from that extension.
+
+## Troubleshooting
+
+- **The connect page says I'm not signed in** — sign in to your organization at `<your-org>.livingcontext.ai` first, then click **Connect extension** again.
+- **The extension shows as disconnected** — your key may have been revoked, or you may have left the organization. Reconnect from the side panel.
+- **Nothing happens when I click Authorize** — make sure the extension is installed and enabled in Chrome, then reload the connect page.

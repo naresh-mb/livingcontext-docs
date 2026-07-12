@@ -1,0 +1,67 @@
+---
+title: "Confluence"
+description: "Connect Atlassian Confluence and sync spaces into your docs repository — bring existing documentation into the Git-backed workflow."
+icon: "book-open"
+---
+
+If your team's documentation already lives in Confluence, you don't have to start over. The Confluence integration syncs entire spaces into a docs repository, so existing content joins the same Git-backed, agent-maintained workflow as everything else in LivingContext.
+
+## Connect
+
+<Steps>
+  <Step title="Authorize with Atlassian">
+    From the **Connections** page, connect via Atlassian OAuth (3LO). The grant uses **granular scopes** — only the Confluence permissions the sync needs.
+  </Step>
+  <Step title="Choose a site">
+    The integration supports **multiple Atlassian sites**. If your account spans several, pick which site the connection targets.
+  </Step>
+  <Step title="Set up a sync job">
+    Create a job that maps a Confluence **space** to a target docs **repository**.
+  </Step>
+</Steps>
+
+## How sync works
+
+Sync runs as **space → repo jobs**:
+
+- Each job takes one Confluence space and syncs its pages into the target docs repository.
+- Jobs report **progress** while running.
+- Completed runs appear in a **history** on the Sync page, so you can see what ran, when, and how it went.
+
+Once synced, the content is ordinary docs in your repository — browsable in the [Docs viewer](/guides/docs-viewer), searchable, editable through [change requests](/guides/editing-and-change-requests), and available as grounding for agents.
+
+<Tip>
+Use Confluence sync as a migration path: bring a space across, then let the [commit updater](/guides/commits) and [coverage auditor](/agents/coverage-auditor) keep it alive — instead of letting it rot in a wiki.
+</Tip>
+
+## Multiple sites and spaces
+
+- One organization can hold connections to **more than one Atlassian site**.
+- Each space you want synced gets its **own job**, so you control exactly what comes across and where it lands.
+
+## Security
+
+- Authorization uses Atlassian's standard OAuth 2.0 (3LO) flow — LivingContext never sees your Atlassian password.
+- Scopes are granular: the connection can read the content it syncs, nothing broader.
+- Tokens are encrypted at rest, like all connection credentials.
+
+## After the sync
+
+Synced pages behave exactly like any other doc in the repository:
+
+| Surface | What you get |
+| --- | --- |
+| [Docs viewer](/guides/docs-viewer) | Browse and read the imported pages |
+| [Search](/guides/search) | Full-text search across the imported content |
+| [Change requests](/guides/editing-and-change-requests) | Edit imported pages through the normal review flow |
+| Agent grounding | The [workspace agent](/agents/workspace-agent) and doc agents can search and cite them |
+
+## Troubleshooting
+
+<Accordion title="A space doesn't appear as a sync option">
+  Confirm the authorizing Atlassian account can access the space, and that you selected the right site when connecting. Reconnect from the Connections page to refresh the grant.
+</Accordion>
+
+<Accordion title="A sync run failed">
+  Open the run in the Sync page history for details, then re-run the job. Transient Atlassian API errors usually clear on retry.
+</Accordion>

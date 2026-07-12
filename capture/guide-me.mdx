@@ -1,0 +1,53 @@
+---
+title: "Guide Me"
+description: "Replay any published guide directly on the live page, one spotlighted step at a time."
+icon: "footprints"
+---
+
+Guide Me turns published guides into interactive walkthroughs. Instead of reading a doc in one window and clicking in another, the extension overlays each step on the live application — highlighting the exact element to act on.
+
+It's especially effective for Salesforce, where multi-step admin and user workflows are hard to describe and easy to get lost in.
+
+## Running a guide
+
+<Steps>
+  <Step title="Pick a guide">
+    Open the side panel and choose any published guide.
+  </Step>
+  <Step title="Follow the spotlight">
+    Guide Me highlights the current step's element with a blue spotlight and a numbered badge showing where you are in the guide.
+  </Step>
+  <Step title="Click to advance">
+    Perform the step — clicking the highlighted element moves you to the next one. Navigation steps advance automatically when the page changes.
+  </Step>
+</Steps>
+
+## Resilient element finding
+
+Applications change between the day a guide is recorded and the day it's replayed. Guide Me finds each step's target resiliently rather than relying on a single brittle pointer:
+
+- Matches elements by their text, selectors, labels, and surrounding context.
+- Waits for pages to finish rendering before searching, so dynamic UIs don't cause false misses.
+- Scrolls the target into view automatically.
+- Heals stale selectors when the page structure has drifted, so guides keep working as the app evolves.
+
+This works inside Salesforce Classic iframes and Lightning shadow DOM, just like recording does.
+
+## When an element can't be found
+
+If a step's target genuinely no longer exists — a button was removed, a layout changed completely — Guide Me doesn't guess. It shows a card with the original screenshot and step description so you can complete the step manually and continue the guide.
+
+<Tip>
+If a guide's steps regularly fall back to the screenshot card, the underlying workflow has probably changed. Re-record the capture and publish an updated guide.
+</Tip>
+
+## Replays travel
+
+Guides aren't tied to the machine or environment where they were recorded:
+
+- **Across devices** — anyone in your organization with the extension can replay any published guide.
+- **Across orgs** — URL patterns adapt, so a guide recorded in one Salesforce org replays correctly in another (for example, from a sandbox to production).
+
+## Driving guides from AI agents
+
+AI agents can start and stop guide recordings remotely through the [MCP server](/integrations/mcp-server), letting automation kick off a capture session on a connected browser.

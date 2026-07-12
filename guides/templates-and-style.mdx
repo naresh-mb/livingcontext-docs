@@ -1,0 +1,74 @@
+---
+title: "Templates and style"
+description: "Define starting points and a house style that shape every doc — human-written or AI-generated."
+icon: "layout-template"
+---
+
+Consistent docs come from two levers: **templates**, which define the shape a new doc starts from, and **style**, which defines the voice everything is written in. Both live in Settings, and both apply to human authors and AI generation alike.
+
+## Templates
+
+Open **Settings → Templates** to manage your organization's doc templates. A template is a starting point for a new doc, with:
+
+- A **name** and **description** so authors know when to use it.
+- A **body** — the headings and boilerplate a new doc begins with.
+- Optionally, a **gold-standard exemplar** — a finished doc that shows what "great" looks like for this type.
+
+### Built-in starters
+
+Fifteen built-in starters cover the common Salesforce documentation shapes, grouped in two families:
+
+<AccordionGroup>
+  <Accordion title="Functional">
+    For business audiences — process guides, user FAQs, business glossaries, onboarding guides. These explain what the org does in the language of the people who use it.
+  </Accordion>
+  <Accordion title="Technical">
+    For builders — technical references, integration docs, data dictionaries, runbooks, troubleshooting guides. These explain how things work and what to do when they don't.
+  </Accordion>
+</AccordionGroup>
+
+You can use starters as-is, or save your own templates tailored to your team's conventions.
+
+### Exemplars teach the AI
+
+An exemplar is more than an example for humans. When a template carries one, the AI uses it as a **few-shot example** during generation — matching its depth, structure, and tone. If your best runbook sets the exemplar, generated runbooks aim for that bar.
+
+<Tip>
+Pick your single best doc of each type and attach it as the exemplar. One genuinely good example moves generation quality more than a page of written instructions.
+</Tip>
+
+### Where templates apply
+
+The **New page** dialog in the [docs viewer](/guides/docs-viewer) offers three choices: **Plain** (empty page), a **built-in starter**, or one of your **saved templates**. Pick one, name the page, optionally link it to Salesforce metadata, and start writing.
+
+## Style
+
+Open **Settings → Style** to define how your docs sound.
+
+<Steps>
+  <Step title="Pick a built-in preset">
+    Choose a recognized style baseline — for example, Google developer style or Write the Docs.
+  </Step>
+  <Step title="Add organization overrides">
+    Layer your own rules on top: terminology ("say 'customer', never 'client'"), formatting conventions, tone adjustments, things to avoid.
+  </Step>
+  <Step title="LivingContext composes the effective style">
+    The preset plus your overrides form a single effective style, applied to every generation.
+  </Step>
+</Steps>
+
+The effective style applies everywhere docs are generated — [Inbox](/guides/inbox) proposals, [Commits](/guides/commits) drafts, and [Doc Editor Agent](/agents/doc-editor-agent) edits — so agent output reads like your team wrote it.
+
+<Note>
+Style guides generation; it doesn't rewrite existing pages retroactively. Existing docs pick up the style as they are next updated through the normal flows.
+</Note>
+
+## Putting both to work
+
+| Lever | Controls | Strongest effect on |
+| --- | --- | --- |
+| Templates | Structure — what sections a doc has | New docs |
+| Exemplars | Quality bar — depth and tone by doc type | AI-generated docs |
+| Style | Voice — terminology and phrasing everywhere | Every generation |
+
+Start with the built-in starters and a preset, then tighten with saved templates, exemplars, and overrides as your team's preferences become clear.

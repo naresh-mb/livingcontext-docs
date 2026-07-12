@@ -1,0 +1,46 @@
+---
+title: "Welcome to LivingContext"
+description: "AI agents that create and maintain living documentation for your Salesforce team"
+icon: "house"
+---
+
+LivingContext is a documentation platform where AI agents do the documenting. Instead of asking your team to write and maintain docs, LivingContext connects to your Salesforce org and your git repositories, watches what changes, and keeps a searchable, always-fresh documentation site up to date — with a human reviewing every change before it ships.
+
+## What LivingContext does
+
+<CardGroup cols={2}>
+  <Card title="Living documentation" icon="book-open" href="/guides/docs-viewer">
+    A docs site backed by your own GitHub or GitLab repo. Markdown in git stays the source of truth; LivingContext renders, searches, and maintains it.
+  </Card>
+  <Card title="AI documentation agents" icon="robot" href="/agents/overview">
+    Agents watch commits and Salesforce metadata, draft updates and brand-new pages, and file them for your review. Nothing ships without a human accepting it.
+  </Card>
+  <Card title="Browser capture" icon="camera" href="/capture/overview">
+    A Chrome extension records workflows step by step — screenshots, annotations, video — and publishes them as polished guides in one click.
+  </Card>
+  <Card title="Salesforce intelligence" icon="cloud" href="/integrations/salesforce">
+    A synced catalog of your org's metadata powers coverage scoring, impact analysis, drift detection, and an org-aware chat agent.
+  </Card>
+</CardGroup>
+
+## How it works
+
+1. **Connect your tools.** Link GitHub or GitLab (where your docs live) and optionally Salesforce, Confluence, and Slack.
+2. **Agents observe.** Every 15 minutes, LivingContext sweeps tracked branches and Salesforce metadata for changes and documentation gaps.
+3. **Review in the Inbox.** Proposed updates and new pages land in a triage queue. Accept or reject each one — accepted work ships as a pull request or change request.
+4. **Everyone reads fresh docs.** Your team browses, searches, and asks questions against documentation that never goes stale.
+
+## The review principle
+
+Every AI-generated change in LivingContext is **grounded or it doesn't ship**: drafts are grounded in real evidence (commit diffs, metadata, your existing docs) and always pass through human review — the [Inbox](/guides/inbox), a [change request](/guides/editing-and-change-requests), or a pull request — before reaching your documentation.
+
+## Start here
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/getting-started/quickstart">
+    Create your workspace and publish your first doc in minutes.
+  </Card>
+  <Card title="Core concepts" icon="lightbulb" href="/getting-started/concepts">
+    Docs, change requests, spaces, coverage, and the other terms you'll see everywhere.
+  </Card>
+</CardGroup>

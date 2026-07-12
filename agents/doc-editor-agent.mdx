@@ -1,0 +1,73 @@
+---
+title: "Doc editor agent"
+description: "An AI pair-writer in the change request editor — chat about the open doc, mention Salesforce components for context, and review its edits as inline tracked changes."
+icon: "pen-line"
+---
+
+The doc editor agent lives in the **right panel of the change request editor**. It knows which doc you have open, can pull in exactly the context you point it at, and proposes edits you review word by word — never silent rewrites.
+
+Open any doc in a [change request](/guides/editing-and-change-requests) and start typing in the agent panel.
+
+## Give it context
+
+The agent already sees the open doc. You can sharpen its focus two ways:
+
+- **@-mention** a Salesforce component or another doc in your message. Mentions become context pills — the agent fetches that component's metadata or that doc's content before answering.
+- **Pin a selection** — highlight text in the editor and pin it as a reference. Pinned selections stay attached to the conversation so you can ask things like "rewrite this section" without re-selecting.
+
+The agent also pulls context on its own when it needs to: Salesforce metadata, doc search, related docs, and your connected code repositories.
+
+## How edits arrive
+
+When the agent proposes a change, it doesn't replace your text. Edits appear as **inline tracked-change suggestions** directly in the document — word-level insertions and deletions, the way a careful colleague would mark up a draft.
+
+For each suggestion you can:
+
+- **Accept** or **reject** it individually
+- **Accept all** or **reject all** in one action
+
+Nothing is final until you accept it, and the underlying change request still goes through normal review before merging.
+
+<Tip>
+Ask for one focused change at a time — "tighten the intro" or "update the field table to match the current schema" — and you'll get small, easy-to-review suggestion sets.
+</Tip>
+
+## Slash playbooks
+
+| Command | What it does |
+| --- | --- |
+| `/diagram` | Create or update a diagram in the doc |
+| `/freshen` | Compare the doc against current Salesforce metadata and propose updates for anything that drifted |
+| `/template` | Restructure the doc to match one of your [templates](/guides/templates-and-style) |
+
+## AI skills
+
+Beyond the chat panel, the editor has two lighter-weight AI entry points.
+
+### Selection menu
+
+Select text and the floating menu offers **Skills** — one-click transformations applied to just that selection.
+
+### Inline AI bar
+
+Press **⌘^E** (Edit with AI) or use the selection menu to open an inline AI bar where you can type a freeform instruction, chat, or compose new content in place.
+
+Built-in skills:
+
+| Skill | What it does |
+| --- | --- |
+| Improve Writing | Tighten and clarify the selection |
+| Proofread | Fix grammar, spelling, and punctuation |
+| Explain | Explain the selected content |
+| Reformat | Restructure the selection (lists, tables, headings) |
+
+### Custom skills
+
+Admins can add organization-specific skills under **Settings → Skills** — for example "Convert to admin runbook tone" or "Add a compliance disclaimer". Each skill has a behavior:
+
+- **Edit** — the result arrives as tracked changes, just like agent suggestions.
+- **Chat** — the result appears as an answer card without touching the doc.
+
+<Note>
+Whether an edit comes from the agent panel, a skill, or the inline AI bar, it lands as a reviewable change inside your change request — the [grounded-or-it-doesn't-ship](/agents/overview#grounded-or-it-doesnt-ship) rule applies everywhere.
+</Note>

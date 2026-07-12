@@ -1,0 +1,74 @@
+---
+title: "Diagrams"
+description: "Author Mermaid, D2, draw.io, and Excalidraw diagrams that live in your docs."
+icon: "shapes"
+---
+
+Docs about systems need pictures. LivingContext supports four diagram formats — two text-based, two canvas-based — and renders all of them live wherever docs appear: the [docs viewer](/guides/docs-viewer), [change request](/guides/editing-and-change-requests) previews, and the [Inbox](/guides/inbox).
+
+## Text-based diagrams
+
+Fenced code blocks render as live diagrams. Write the diagram as text; readers see the picture.
+
+<CardGroup cols={2}>
+  <Card title="Mermaid" icon="git-fork">
+    Flowcharts, sequence diagrams, state machines, ER diagrams — the widely used ```mermaid syntax.
+  </Card>
+  <Card title="D2" icon="network">
+    A modern declarative diagram language with clean automatic layout — ```d2 blocks.
+  </Card>
+</CardGroup>
+
+Rendered diagrams support **pan and zoom**, so large flowcharts stay readable — zoom into the branch you care about instead of squinting at the whole graph.
+
+<Tip>
+Text-based diagrams are ideal for agent-maintained docs. Because the source is text, agents can propose precise diagram updates as reviewable diffs — "add the new approval step after stage two" becomes a few changed lines you can accept or reject like any other edit.
+</Tip>
+
+## Canvas-based diagrams
+
+For free-form drawing, LivingContext supports two canvas editors.
+
+### draw.io
+
+draw.io diagrams embed in a page as **editable single-file SVG** — one file that is both the rendered image and the editable source. Double-click to open the embedded editor, make your change, and save; there is no separate export step and no source file to lose track of.
+
+### Excalidraw
+
+Excalidraw gives you a hand-drawn sketch style in two forms:
+
+- **Inline blocks** — a sketch embedded inside a doc page.
+- **Full-canvas files** — standalone `.excalidraw` files that live in the file tree like any other page and open as a full canvas. Use these for large architecture diagrams that deserve their own page.
+
+## Salesforce icon library
+
+The Excalidraw canvas ships with a bundled Salesforce icon library: **1,780 SLDS icons in real brand colors** — standard objects, custom objects, actions, utilities. Drag them onto the canvas to build org diagrams that look like Salesforce, not like generic boxes.
+
+<Note>
+The icon library loads automatically in every Excalidraw canvas. There is nothing to install or import.
+</Note>
+
+## Where diagrams render
+
+Diagrams are first-class everywhere docs appear:
+
+| Surface | Behavior |
+| --- | --- |
+| Docs viewer | Live rendering with pan/zoom |
+| Change request preview | Rendered in Visual mode while you edit |
+| Inbox | Agent-proposed diagram changes render live in the preview |
+
+This matters most during review: when an agent proposes a diagram update, you judge the picture, not the syntax.
+
+## Choosing a format
+
+| You want | Use |
+| --- | --- |
+| A flowchart or sequence diagram agents can maintain | Mermaid or D2 |
+| Clean auto-layout for system/architecture views | D2 |
+| Precise, hand-arranged technical diagrams | draw.io |
+| Quick sketches, whiteboard-style org maps with Salesforce icons | Excalidraw |
+
+<Tip>
+Prefer text-based formats when the diagram describes something that changes — flows, integrations, processes. Canvas formats shine for stable, presentation-quality visuals.
+</Tip>

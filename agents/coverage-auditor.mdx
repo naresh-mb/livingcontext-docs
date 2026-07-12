@@ -1,0 +1,63 @@
+---
+title: "Coverage auditor"
+description: "An autonomous agent that finds undocumented Salesforce components and proposes brand-new docs — evidence-backed, styled to your templates, delivered to the Inbox."
+icon: "radar"
+---
+
+Most documentation tooling only updates what already exists. The coverage auditor closes the other gap: it finds important Salesforce components that have **no documentation at all** and drafts new docs for them, so your coverage grows without anyone assigning writing work.
+
+Everything it produces lands in the [Inbox](/guides/inbox) as a **new doc** proposal for you to review.
+
+## How a run works
+
+<Steps>
+  <Step title="Find undocumented components">
+    The auditor scans your synced Salesforce catalog for components with **zero doc tags** — nothing in your docs claims to cover them. It respects your coverage eligibility settings, so components you've excluded (for example, managed-package namespaces) are never proposed. See [Coverage](/guides/coverage).
+  </Step>
+  <Step title="Rank by importance and recency">
+    Candidates are ranked so the components that matter most — heavily referenced, recently changed — come first.
+  </Step>
+  <Step title="Check your docs corpus first">
+    Before drafting anything, the auditor searches your existing documentation. If a component is already meaningfully mentioned somewhere, it's skipped — no duplicate pages.
+  </Step>
+  <Step title="Require real evidence">
+    The auditor only writes about what it can actually see. Components with hidden or empty source are skipped rather than guessed at, and skips are remembered for **30 days** so the same dead ends aren't retried every run.
+  </Step>
+  <Step title="Draft and file">
+    For each surviving candidate, the auditor drafts a doc per configured doc type, grounded in the component's real metadata and shaped by your [templates and style](/guides/templates-and-style). The batch is filed into the Inbox as new-doc proposals.
+  </Step>
+</Steps>
+
+<Note>
+This is the same rule every LivingContext agent follows: **grounded or it doesn't ship**. A proposal without evidence is a skip, not a guess.
+</Note>
+
+## Configure it
+
+Configuration lives at **Settings → Suggestions**:
+
+| Setting | Options |
+| --- | --- |
+| Enable | Turn the auditor on or off |
+| Frequency | Daily, weekly, monthly, or manual |
+| Doc types | Which kinds of docs it should draft |
+| Max per run | How many proposals per batch (default **5**) |
+| Run now | Trigger a run immediately, regardless of schedule |
+
+Scheduled runs ride the shared agent sweep, which checks every 15 minutes whether a run is due — see [Agents overview](/agents/overview#how-often-agents-run).
+
+<Tip>
+Start with a low **max per run** and weekly frequency. Reviewing five well-grounded proposals a week is sustainable; fifty at once is not.
+</Tip>
+
+## Reviewing proposals
+
+New-doc proposals appear in the [Inbox](/guides/inbox) alongside commit-driven updates, grouped as suggestions. For each one you can read the full draft, see why the component was proposed, and accept or dismiss it.
+
+When you accept and ship a proposal, the new doc is **automatically tagged to the Salesforce component that prompted it** — so the component immediately counts as documented in [Coverage](/guides/coverage), and future org changes to it will trigger freshness checks.
+
+## What it won't do
+
+- It never publishes directly — every draft goes through Inbox review and lands as a normal change in your Git repository.
+- It never proposes components excluded by your eligibility settings.
+- It never fabricates content for components whose source it can't read.

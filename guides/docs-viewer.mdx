@@ -1,0 +1,85 @@
+---
+title: "Docs viewer"
+description: "Read, navigate, and author documentation in the three-pane docs workspace."
+icon: "book-open"
+---
+
+The docs viewer is where your team reads published documentation. It is a three-pane workspace: a left sidebar with the file tree and search, the document itself in the center, and the Doc Agent panel on the right.
+
+Everything you see is backed by git. Every page is a file in your docs repository, and every change you make lands as a commit.
+
+## Layout
+
+| Pane | What it does |
+| --- | --- |
+| Left sidebar | File tree, tabs, sections, and search that filters the tree |
+| Main content | The rendered document with breadcrumbs and prev/next navigation |
+| Right panel | The [Doc Agent](/agents/doc-editor-agent) for questions and edits |
+
+Your repository's welcome file (the README) is highlighted at the top of the tree so readers always have an obvious starting point.
+
+Toggle the table of contents for the current page with <kbd>⌘</kbd> <kbd>⌥</kbd> <kbd>T</kbd>.
+
+## Tabs
+
+Top-level tabs partition the docs tree — for example **Product**, **Admin**, and **API**. Each tab owns its own tree, so files live in exactly one tab.
+
+Tabs are configured in your repository's `livingcontext.json` under the `tabs` key. If you don't configure any, a single **Docs** tab holds everything.
+
+<Note>
+Tabs are read-only in the viewer. To create, rename, or reorder tabs — or move files between them — open a [change request](/guides/editing-and-change-requests).
+</Note>
+
+## Sections
+
+Sections are collapsible group headers inside the sidebar, useful for visually grouping related folders and pages under labels like "Guides" or "Reference". They are configured in `livingcontext.json` under the `sections` key and edited through the change request flow.
+
+You can also drag folders in the tree to reorder them. The new order persists for everyone, because it is written back to `livingcontext.json`.
+
+## Reading a page
+
+Every page renders with:
+
+- **Breadcrumbs** showing where the page lives in the tree.
+- **Prev/next links** at the bottom for linear reading.
+- **Live diagrams** — Mermaid, D2, draw.io, and Excalidraw content render as interactive canvases. See [Diagrams](/guides/diagrams).
+- **A metadata panel** at the bottom that links the doc to Salesforce components.
+
+Standalone diagram files (`.excalidraw` and draw.io files) appear in the tree like any other page and open as full canvases.
+
+Deep links carry the repository, file path, and tab in the URL, so you can share a link to any page and the recipient lands in exactly the right place.
+
+## Authoring directly on the default branch
+
+For quick changes you don't need a change request. The viewer supports direct authoring, and each action lands as a single commit on the default branch:
+
+<Steps>
+  <Step title="Create a page">
+    Click **New page**, give it a name, pick a template (Plain, a built-in starter, or one of your saved templates), and optionally link it to Salesforce metadata. See [Templates and style](/guides/templates-and-style).
+  </Step>
+  <Step title="Edit a page">
+    Press <kbd>⌘</kbd> <kbd>E</kbd> or click **Edit** to open the rich WYSIWYG editor in place. Saving commits your change to git.
+  </Step>
+  <Step title="Rename, move, or delete">
+    Use the row menu in the file tree. Each operation is committed individually, so history stays clean and reviewable.
+  </Step>
+</Steps>
+
+<Tip>
+For larger or multi-file edits — or anything you want reviewed before it ships — use a [change request](/guides/editing-and-change-requests) instead. It gives you a real branch, a diff view, and a merge step.
+</Tip>
+
+## Linking docs to Salesforce
+
+The metadata panel at the bottom of every page lets you tag the doc with the Salesforce components it describes — objects, flows, Apex classes, and so on. LivingContext suggests tags with AI, and you can accept or adjust them.
+
+These tags matter beyond navigation:
+
+- They power the [Coverage](/guides/coverage) dashboard, which measures how much of your org is documented.
+- They let agents know which docs to update automatically when the underlying metadata changes.
+
+See [Salesforce integration](/integrations/salesforce) for how metadata is synced, and [Concepts](/getting-started/concepts) for the vocabulary used throughout LivingContext.
+
+## Search
+
+Press <kbd>⌘</kbd> <kbd>K</kbd> for full-text search across every doc, or type in the sidebar search to filter the file tree in place. See [Search](/guides/search).

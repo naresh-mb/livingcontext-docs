@@ -1,0 +1,60 @@
+---
+title: "GitHub"
+description: "Connect GitHub so LivingContext can read your docs repositories, commit changes, and open pull requests — your repo stays the source of truth."
+icon: "github"
+---
+
+LivingContext stores documentation in **your** GitHub repositories. The GitHub connection is what lets the platform read those repos, write agent-drafted changes as commits, and open pull requests for review.
+
+## Connect
+
+<Steps>
+  <Step title="Start the connection">
+    Go to the **Connections** page (or connect during [onboarding](/getting-started/onboarding) — a Git provider is required before the app unlocks).
+  </Step>
+  <Step title="Authorize with OAuth">
+    You're sent to GitHub to grant access with the `repo` scope, which covers reading repository content and pushing commits.
+  </Step>
+  <Step title="Pick your docs repos">
+    Select which repositories hold documentation under **Settings → Repos**.
+  </Step>
+</Steps>
+
+## What the connection powers
+
+| Capability | Where you see it |
+| --- | --- |
+| Repository listing | Choosing docs repos in Settings and onboarding |
+| Reading docs content | The [Docs viewer](/guides/docs-viewer), search, and agent grounding |
+| Committing changes | Direct authoring, published [captures](/capture/publishing), and change request branches |
+| Opening pull requests | Shipping a [change request](/guides/editing-and-change-requests) for final review |
+
+## Tracked branches
+
+Beyond docs repos, you can track branches of your **code** repositories under **Settings → Commits**. The commit updater watches tracked branches and drafts documentation updates for each commit that lands — see [Commits](/guides/commits).
+
+## Security
+
+- OAuth tokens are **encrypted at rest**.
+- Tokens are **refreshed automatically** — no manual re-authentication under normal use.
+- Revoking the grant (from GitHub or from Connections) disconnects the integration immediately.
+
+<Note>
+Because every write is an ordinary Git commit or pull request, you retain full history and can review or revert anything LivingContext writes using your normal Git workflow.
+</Note>
+
+## Working with multiple repos
+
+You can select more than one docs repository. The **repo switcher** controls which one repo-bound surfaces — Docs, Changelog, Commits, API Reference — display at any moment, and [spaces](/admin/spaces-and-repos) group repositories into scopes for workspace-wide surfaces like Home and the [Inbox](/guides/inbox).
+
+## Troubleshooting
+
+<Accordion title="Repositories are missing from the list">
+  Make sure the OAuth grant covers the organization that owns the repository — GitHub organization owners may need to approve third-party access. Reconnecting from the Connections page re-runs the authorization.
+</Accordion>
+
+<Accordion title="Commits or PRs are failing">
+  A revoked or expired grant is the usual cause. Check the connection status on the Connections page and reconnect if it shows an error.
+</Accordion>
+
+Prefer GitLab? The [GitLab integration](/integrations/gitlab) offers the same capabilities.

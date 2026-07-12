@@ -1,0 +1,85 @@
+---
+title: "Spaces and repos"
+description: "Scope your workspace with spaces, and switch between documentation repos."
+icon: "folder-git-2"
+---
+
+LivingContext has two levels of scoping: **spaces**, which group repositories and Salesforce connections, and the **active repo**, which selects a single repository for repo-bound surfaces.
+
+## What a space is
+
+A space is a named scope that groups:
+
+- One or more **documentation repositories**
+- One or more **Salesforce connections**
+
+Workspace-wide surfaces operate on your **active space**:
+
+| Surface | What the space scopes |
+| --- | --- |
+| **Home** | The workspace agent's view of activity and org intelligence |
+| **Inbox** | Which agent proposals and generation events you triage |
+| **Coverage** | Which repos and Salesforce metadata count toward documentation coverage |
+
+Use spaces to keep unrelated work separate — for example, a *Sales Cloud* space and a *Service Cloud* space, each with its own repo and Salesforce connection, so each team's Home, [Inbox](/guides/inbox), and Coverage only show what's theirs.
+
+<Note>
+  Organizations created before spaces existed get one space automatically created per repository, so nothing changes until you decide to reorganize.
+</Note>
+
+## Managing spaces
+
+Manage spaces in **Settings**:
+
+<Steps>
+  <Step title="Open the Spaces section">
+    Go to Settings and choose **Spaces**.
+  </Step>
+  <Step title="Create or edit a space">
+    Name the space, then assign the documentation repositories and Salesforce connections it should include.
+  </Step>
+  <Step title="Switch your active space">
+    Pick the space you want to work in. Home, Inbox, and Coverage update to match.
+  </Step>
+</Steps>
+
+See the [settings reference](/admin/settings-reference) for everything else in Settings.
+
+## The active repo
+
+Some surfaces are bound to a single repository rather than a space. The **repo switcher** in the workspace sets your active repo, which scopes:
+
+| Surface | What you see |
+| --- | --- |
+| **Docs** | The rendered documentation in that repo |
+| **Changelog** | The repo's changelog page |
+| **Edits** | Change requests for that repo |
+| **Commits** | The tracked commit timeline for that repo |
+| **API Reference** | API reference pages generated for that repo |
+
+Switching repos in the switcher changes all of these at once, so the surfaces always agree on which repo you're looking at.
+
+<Tip>
+  Space and active repo are independent choices: the space decides what Home, Inbox, and Coverage aggregate; the active repo decides which single repo the docs surfaces display. Most teams set both once and rarely think about them again.
+</Tip>
+
+## Adding repositories
+
+Repositories come from your connected git provider:
+
+1. Connect **GitHub or GitLab** on the Connections page if you haven't already (one provider is required during [onboarding](/getting-started/onboarding)).
+2. In Settings, open the **Repos** section and choose which repositories hold documentation.
+3. Assign the repo to a space in the **Spaces** section.
+
+Docs are stored as Markdown files in the repo itself, so anything you merge in LivingContext appears as commits in your git history — and anything committed directly to the repo appears in Docs.
+
+## Related pages
+
+<CardGroup cols={2}>
+  <Card title="Settings reference" icon="settings" href="/admin/settings-reference">
+    Every Settings section, including Spaces, Repos, and Commits.
+  </Card>
+  <Card title="Core concepts" icon="book-open" href="/getting-started/concepts">
+    How spaces, docs, and change requests fit together.
+  </Card>
+</CardGroup>

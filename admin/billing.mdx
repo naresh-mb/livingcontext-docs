@@ -1,0 +1,78 @@
+---
+title: "Billing"
+description: "Plans, seats, credits, and what each tier unlocks."
+icon: "credit-card"
+---
+
+LivingContext pricing combines a **base plan**, **per-seat pricing** on paid plans, and **credits** — the usage currency that agent work consumes. Billing is managed by members with the **Administrator** role.
+
+## Credits
+
+Credits meter agent usage:
+
+- **1 credit = $0.01.**
+- Every plan includes a **monthly credit grant** that refreshes each billing cycle.
+- On plans that support it, you can **top up** credits at any time through Stripe checkout.
+
+## Plans at a glance
+
+| Plan | Base price | Credits / month | Credit top-ups |
+| --- | --- | --- | --- |
+| **Free** | $0 | 500 | — |
+| **Starter** | $20 + $20/seat | 2,000 | — |
+| **Pro** | $50 + $20/seat | 5,000 | — |
+| **Business** | $200 + $20/seat | 20,000 | Yes |
+| **Ultra** | $500 + $20/seat | 50,000 | Yes |
+
+## Limits and capabilities
+
+| Plan | Concurrent runs | Triggers | Connectors | Side-effects | Autonomous |
+| --- | --- | --- | --- | --- | --- |
+| **Free** | 2 | 1 | 2 | — | — |
+| **Starter** | 3 | 5 | 5 | Yes | — |
+| **Pro** | 5 | 20 | 10 | Yes | Yes |
+| **Business** | 10 | 50 | 25 | Yes | Yes |
+| **Ultra** | 20 | 200 | 100 | Yes | Yes |
+
+### What the columns mean
+
+<AccordionGroup>
+  <Accordion title="Concurrent runs">
+    How many agent runs can execute at the same time. Additional runs queue until a slot frees up.
+  </Accordion>
+  <Accordion title="Triggers">
+    How many triggers you can configure to start agent work automatically.
+  </Accordion>
+  <Accordion title="Connectors">
+    How many external connections (git providers, Salesforce orgs, and other integrations) your organization can attach.
+  </Accordion>
+  <Accordion title="Side-effects">
+    Whether agents may take actions that change external systems — Salesforce writes, deployments, or outbound calls. Side-effecting actions are **always behind human approval gates**, on every plan that allows them. See [Security](/admin/security).
+  </Accordion>
+  <Accordion title="Autonomous">
+    Whether agents can be started without a human in the loop: cron schedules, webhook triggers, and the public API. Even autonomous runs still require human approval before any side-effecting action or doc change ships.
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Enabling side-effects or autonomous triggers never bypasses review. Every change to your docs passes through the [Inbox](/guides/inbox), a change request, or a PR, and every side-effecting action needs explicit human approval.
+</Note>
+
+## Managing your plan
+
+Administrators manage the subscription, seats, and credit top-ups. Top-ups (Business and Ultra) go through Stripe checkout and are added to your balance immediately.
+
+<Tip>
+  Watch your credit usage for the first month or two. If agents regularly exhaust the monthly grant, moving up a tier is usually cheaper than constraining how often they run.
+</Tip>
+
+## Related pages
+
+<CardGroup cols={2}>
+  <Card title="Roles and permissions" icon="shield-check" href="/admin/roles-and-permissions">
+    Only Administrators can manage billing.
+  </Card>
+  <Card title="Agents overview" icon="bot" href="/agents/overview">
+    What agent runs do and how approval gates work.
+  </Card>
+</CardGroup>

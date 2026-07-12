@@ -1,0 +1,107 @@
+---
+title: "Workspace agent"
+description: "A conversational org-intelligence agent on Home that answers questions about your Salesforce org and docs — read-only, grounded, and always showing its work."
+icon: "message-square-text"
+---
+
+The workspace agent lives on **Home** and answers questions about your organization in plain language: "What changed in the org last week?", "Who can edit Opportunity Amount?", "Which fields on Case are never used?". It reasons over your synced Salesforce catalog and your documentation corpus, running tools in a loop until it has a grounded answer.
+
+Conversations are **persisted, private threads** — you can leave and come back, and other members can't see your threads.
+
+<Note>
+The workspace agent is **read-only**. It never modifies your Salesforce org or your docs. Its single write path is [Save as doc](#save-an-answer-as-a-doc), which goes through the normal change request review flow.
+</Note>
+
+## What it can see
+
+The agent chooses from 19 tools. As it works, tool activity streams live into the transcript so you can see exactly what it looked at.
+
+### Metadata and schema
+
+| Tool | What it does |
+| --- | --- |
+| `search_metadata` | Find components in your synced Salesforce catalog |
+| `get_metadata` | Fetch full details for a specific component |
+| `get_object_schema` | Object shape — fields, types, relationships |
+
+### Source search
+
+| Tool | What it does |
+| --- | --- |
+| `search_org` | Full-text search across your org's source (Apex, flows, and more), with regex support |
+
+### Impact analysis
+
+| Tool | What it does |
+| --- | --- |
+| `find_usages` | Where a component is referenced across the org |
+| `list_dependencies` | What a component depends on |
+
+### Change history
+
+| Tool | What it does |
+| --- | --- |
+| `recent_changes` | Components that changed recently |
+| `get_change_diffs` | Before/after diffs of changed components |
+| `audit_trail` | Live Setup Audit Trail entries from your org |
+
+### Security and access
+
+| Tool | What it does |
+| --- | --- |
+| `who_can` | Who can see or edit a given object or field |
+| `security_health_check` | Live security health check results from your org |
+
+### Field hygiene and org health
+
+| Tool | What it does |
+| --- | --- |
+| `find_unreferenced_fields` | Fields with no references anywhere in the org |
+| `field_utilization` | Live population counts for fields — counts only |
+| `get_org_score` | A 0–100 org health score with trend |
+
+### Integrations and docs
+
+| Tool | What it does |
+| --- | --- |
+| `list_integrations` | Inbound Apex REST endpoints and outbound Named Credentials, with vendor mapping |
+| `search_docs` | Full-text search across your documentation |
+| `read_doc` | Read a specific doc |
+| `get_coverage` | Documentation coverage of your Salesforce components |
+| `get_freshness` | Which docs are stale relative to org changes |
+
+<Warning>
+Live tools (`audit_trail`, `security_health_check`, `field_utilization`) call Salesforce using your organization's connection. Field utilization returns **counts only** — the agent never reads record contents. See [Salesforce integration](/integrations/salesforce).
+</Warning>
+
+## Slash playbooks
+
+Playbooks are pre-built investigations you launch with a slash command:
+
+| Command | What you get |
+| --- | --- |
+| `/audit` | A one-page snapshot of your org — health, changes, risks |
+| `/changes` | A digest of recent org changes with diffs |
+| `/stale` | Docs that have drifted from the components they describe |
+| `/coverage` | Where documentation coverage is thin |
+| `/readiness` | An Agentforce / AI readiness assessment of your org |
+| `/classify` | Heuristic PII/PHI classification of fields (names and metadata only) |
+
+## Prompt commands
+
+Shape how the agent responds within a thread:
+
+| Command | Effect |
+| --- | --- |
+| `/simplify` | Re-explain the last answer in plainer terms |
+| `/table` | Reformat the last answer as a table |
+| `/technical` | Go deeper with technical detail |
+| `/recap` | Summarize the thread so far |
+
+## Save an answer as a doc
+
+When the agent produces something worth keeping — an audit summary, an integration inventory, an architecture explanation — click **Save as doc**. The answer is captured as a [change request](/guides/editing-and-change-requests), filed under a topic folder inside `workspace-notes/` in your docs repo. Like everything else, it ships only after review.
+
+<Tip>
+Run `/audit` weekly and save the result — you get a reviewed, timestamped history of your org's health in your own Git repository.
+</Tip>

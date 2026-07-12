@@ -1,0 +1,63 @@
+---
+title: "Publishing a capture"
+description: "Turn a finished capture into a polished guide, committed to your docs repo as a change request."
+icon: "git-pull-request"
+---
+
+Publishing takes your edited capture and turns it into a real documentation page — written, illustrated, and committed to your docs repository in one step.
+
+## What happens when you publish
+
+Click **Publish** in the extension. A progress bar tracks the upload, and behind the scenes:
+
+<Steps>
+  <Step title="AI composes the guide">
+    AI writes a terse description for each step, a title for the guide, and a prose overview that summarizes the workflow — composed together into a polished, readable page.
+  </Step>
+  <Step title="Assets are prepared">
+    Screenshots are finalized with your annotations, crops, and redactions permanently baked in. Typing steps get their short GIF clips.
+  </Step>
+  <Step title="One atomic commit">
+    Everything lands as a single commit on a new change-request branch in your docs repo.
+  </Step>
+  <Step title="You get a link">
+    The extension hands you a direct link to the change request for review.
+  </Step>
+</Steps>
+
+## What lands in your repo
+
+The commit contains everything the guide needs, versioned alongside the rest of your docs:
+
+| File | Purpose |
+| --- | --- |
+| Guide page (`.mdx`) | The composed guide — title, overview, and one section per step |
+| One image per step | The annotated, framed screenshot, with redaction baked in |
+| Typing GIFs (optional) | Short clips illustrating typing steps |
+| Manifest | Framing and replay data used by [Guide Me](/capture/guide-me) |
+
+Session video is handled separately: it uploads to secure storage and appears in the guide as a playable recording, rather than being committed to the repo.
+
+<Note>
+Captures are limited to 60 steps. If a workflow is longer, split it into two focused guides — they'll be easier to follow and to replay.
+</Note>
+
+## Review and merge
+
+The change request behaves like any other in LivingContext. Open the link to:
+
+- Read the guide as readers will see it.
+- Refine the AI-written text, restructure sections, or add context — all normal change-request editing works.
+- Merge when it's ready. The guide goes live in your docs, and becomes replayable with Guide Me.
+
+See [Editing and change requests](/guides/editing-and-change-requests) for the full review workflow.
+
+<Tip>
+Because publishing creates a change request rather than editing docs directly, nothing goes live without review. Publish freely — a rough capture in a CR is better than a workflow that never gets documented.
+</Tip>
+
+## After publishing
+
+- The published guide can be replayed on the live site with [Guide Me](/capture/guide-me).
+- It becomes part of the knowledge [Ask docs](/capture/ask-docs) draws on when answering questions.
+- The original capture remains in your browser until you clear it, so you can re-publish or keep iterating.

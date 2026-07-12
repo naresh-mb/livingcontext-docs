@@ -1,0 +1,66 @@
+---
+title: "Capture overview"
+description: "Record any browser workflow and turn it into a polished, step-by-step guide in your docs repo."
+icon: "clapperboard"
+---
+
+The LivingContext browser extension turns work you already do into documentation. Click through a process once, and the extension records every step — with annotated screenshots, optional video, and typing clips — then publishes the whole thing into your docs repository as a change request.
+
+No screenshots to take, no steps to write down, no separate tool to paste things into.
+
+## What the extension does
+
+<CardGroup cols={2}>
+  <Card title="Capture" icon="circle-dot" href="/capture/recording">
+    Record clicks, text entry, and navigation as steps with screenshots taken at the moment of action.
+  </Card>
+  <Card title="Edit" icon="pencil-ruler" href="/capture/editing-steps">
+    Refine descriptions, reorder steps, and annotate screenshots with boxes, arrows, labels, and redaction.
+  </Card>
+  <Card title="Publish" icon="git-pull-request" href="/capture/publishing">
+    One click writes an AI-composed guide into your docs repo as a reviewable change request.
+  </Card>
+  <Card title="Guide Me" icon="footprints" href="/capture/guide-me">
+    Replay any published guide directly on the live page with a spotlight on each element.
+  </Card>
+</CardGroup>
+
+Beyond capture, the side panel also includes [Ask docs](/capture/ask-docs) — a chat mode that answers questions grounded in your organization's documentation, with citations that link straight to the source page.
+
+## How a capture flows
+
+<Steps>
+  <Step title="Record">
+    Start Capture in the side panel and work through the process normally. Steps stream into the panel as you go.
+  </Step>
+  <Step title="Review">
+    Edit step text, adjust the click highlight, annotate or redact screenshots, and trim anything you don't need.
+  </Step>
+  <Step title="Publish">
+    AI writes the title, per-step descriptions, and an overview, then commits everything to a change-request branch in your docs repo.
+  </Step>
+  <Step title="Merge">
+    Review the change request in LivingContext, refine it like any other doc, and merge. The guide is now live — and replayable with Guide Me.
+  </Step>
+</Steps>
+
+## Built for real applications
+
+The extension is designed for the messy reality of enterprise web apps:
+
+- Works across iframes and shadow DOM, including Salesforce Classic and Lightning.
+- Aggregates typing into one step per field, so a form fill is one clean step — not forty keystrokes.
+- Records session video of the browser tab alongside the steps, and generates short GIF clips for typing steps automatically.
+- Survives page reloads and new tabs, including while paused.
+
+## Privacy by default
+
+Passwords are always masked, smart blur removes sensitive data before screenshots are ever taken, and captures stay in your browser until you choose to publish. See [Privacy and redaction](/capture/privacy-and-redaction) for the full model.
+
+<Note>
+The extension requires Google Chrome 118 or later.
+</Note>
+
+## Get started
+
+Head to [Install and connect](/capture/install-and-connect) to set up the extension and link it to your organization — it takes about a minute.

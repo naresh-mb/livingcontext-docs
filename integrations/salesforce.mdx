@@ -1,0 +1,84 @@
+---
+title: "Salesforce"
+description: "Connect Salesforce orgs and sync a metadata catalog — the foundation for coverage, doc generation, impact analysis, and the workspace agent."
+icon: "cloud"
+---
+
+The Salesforce connection is the heart of LivingContext. It builds a **metadata catalog** of your org — the objects, code, and automation that make up your business logic — and keeps it fresh on a schedule. That catalog is what grounds every agent, coverage score, and impact analysis in the product.
+
+## Connect
+
+<Steps>
+  <Step title="Choose the environment">
+    When you connect from the **Connections** page, choose **Production** (`login.salesforce.com`) or **Sandbox** (`test.salesforce.com`). You can connect multiple orgs.
+  </Step>
+  <Step title="Authorize with OAuth">
+    LivingContext requests the `api` and `refresh_token` scopes — enough to read metadata and stay connected, nothing more.
+  </Step>
+  <Step title="Run the first sync">
+    The initial catalog sync starts building your metadata inventory. Progress and history are visible on the Sync page.
+  </Step>
+</Steps>
+
+## What syncs
+
+The catalog covers your org's structural metadata, with **source bodies where available**:
+
+- Apex classes and triggers
+- Custom objects and fields
+- Flows
+- Page layouts
+- Pages
+- …and more component types
+
+<Note>
+Sync reads **metadata only** — the shape and source of your org. It never syncs your records or business data.
+</Note>
+
+### Ingest settings
+
+Each connection has its own ingest settings:
+
+| Setting | What it controls |
+| --- | --- |
+| Exclude types | Skip component types you don't care about |
+| Namespace filter | Include or exclude managed-package namespaces |
+
+These pair with the coverage eligibility settings that decide which components count toward [Coverage](/guides/coverage).
+
+## Sync schedules
+
+Choose a cadence per connection: **Manual**, **Hourly**, **Every 6 hours**, or **Daily**. Schedules can be **paused** at any time.
+
+- Failed runs **retry automatically**.
+- Every run appears in a **run history** with status and timing.
+- When a component changes between syncs, LivingContext captures **before/after versions**, powering change diffs and freshness detection.
+
+## What the connection powers
+
+| Feature | How Salesforce data is used |
+| --- | --- |
+| [Coverage](/guides/coverage) | Which components are documented, which aren't |
+| Doc generation | Agents ground drafts in real component metadata and source |
+| Impact analysis | Usages and dependencies across the org |
+| [API reference](/guides/api-reference) | Inbound and outbound API surface derived from metadata |
+| [Workspace agent](/agents/workspace-agent) | The full org-intelligence tool set |
+| [Coverage auditor](/agents/coverage-auditor) | Candidates for brand-new docs |
+
+## Live reads
+
+A few capabilities query your org **live** rather than from the synced catalog, using your connection's token:
+
+- **Setup Audit Trail** — recent configuration changes
+- **Security health check** — your org's current security posture
+- **Field utilization** — how populated fields are, as **counts only**
+
+<Warning>
+Live reads never touch record contents. Field utilization runs count queries and returns numbers — no field values, no records, ever.
+</Warning>
+
+## Managing connections
+
+- Connect additional orgs (production and sandboxes side by side) from the Connections page.
+- Assign connections to [spaces](/admin/spaces-and-repos) to scope which surfaces see which org.
+- Disconnecting revokes LivingContext's access; the synced catalog stops updating.

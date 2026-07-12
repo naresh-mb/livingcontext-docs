@@ -1,0 +1,80 @@
+---
+title: "Organizations"
+description: "Manage your organization's subdomain, members, and invitations."
+icon: "building-2"
+---
+
+An organization is your team's tenant in LivingContext. It owns your connections, spaces, docs, and settings, and it lives on its own subdomain.
+
+## Your organization's subdomain
+
+Every organization gets a dedicated subdomain:
+
+```
+<slug>.livingcontext.ai
+```
+
+The slug is generated from your organization name when you create it, with live availability checking and reserved names blocked. All of your team's work happens on this subdomain, and each organization's data is isolated from every other organization — see [Security](/admin/security).
+
+## Creating and joining organizations
+
+- Each user can **create one organization**. The creator receives the **Administrator** role.
+- You can belong to **multiple organizations**, but you join additional ones **by invitation only**.
+- If you belong to more than one organization, you pick which one to enter when you sign in.
+
+## Managing members
+
+Open the **Organization** page to manage your team. For each member you can see their name, email, and role.
+
+| Action | Who can do it |
+| --- | --- |
+| Invite a member | Administrator |
+| Change a member's role | Administrator |
+| Remove a member | Administrator |
+| View the member list | Any member |
+
+Roles determine what each member can do across docs, change requests, and agents. See [Roles and permissions](/admin/roles-and-permissions) for the full breakdown.
+
+## Invitations
+
+Invite teammates by email from the Organization page. Each invitation carries a role, which you can set at invite time.
+
+- New members get the **Editor** role by default.
+- Invitations **expire after 48 hours**. You can **resend** an expired or lost invitation, or **cancel** one that's still pending, from the pending invitations list.
+- An organization can have up to **100 members**.
+
+<Tip>
+  Invite reviewers and stakeholders with the **Reviewer** or **Commenter** role. They can participate in reviews and chat with agents without being able to author docs.
+</Tip>
+
+## Sessions
+
+Sign-in sessions last **7 days**. After that, members sign in again with any of the supported methods — email and password, GitHub, Google, Salesforce, or enterprise SSO.
+
+## Removing a member
+
+When a member is removed from the organization (or leaves), their access ends immediately:
+
+- They can no longer sign in to the organization's subdomain.
+- Any API keys or extension keys they created **stop working the moment they leave**.
+
+<Warning>
+  Before removing a member who set up shared automation — for example, an MCP key used by the team — recreate those keys under another member first, or the automation breaks.
+</Warning>
+
+## Related pages
+
+<CardGroup cols={2}>
+  <Card title="Roles and permissions" icon="shield-check" href="/admin/roles-and-permissions">
+    What each of the seven roles can see and do.
+  </Card>
+  <Card title="Spaces and repos" icon="folder-git-2" href="/admin/spaces-and-repos">
+    Scope your workspace by grouping repos and Salesforce connections.
+  </Card>
+  <Card title="Billing" icon="credit-card" href="/admin/billing">
+    Plans, seats, and credits — managed by Administrators.
+  </Card>
+  <Card title="Security" icon="shield" href="/admin/security">
+    How LivingContext protects your tokens, keys, and data.
+  </Card>
+</CardGroup>

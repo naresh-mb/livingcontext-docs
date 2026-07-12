@@ -1,0 +1,80 @@
+---
+title: "Security"
+description: "How LivingContext protects your credentials, data, and Salesforce org."
+icon: "shield"
+---
+
+LivingContext is built for teams that hand an AI agent the keys to their documentation — so the security model is deliberately conservative: encrypt everything sensitive, minimize what agents can see, and put a human in front of anything that changes an external system.
+
+## Credentials and keys
+
+<CardGroup cols={2}>
+  <Card title="Encrypted at rest" icon="lock">
+    OAuth tokens and secrets are encrypted at rest with AES-256-GCM. LivingContext never stores your git or Salesforce credentials in plaintext.
+  </Card>
+  <Card title="Hashed API keys" icon="key">
+    API keys — extension keys and MCP keys — are stored as hashes and shown **once** at creation. If you lose a key, you create a new one; nobody can read it back.
+  </Card>
+</CardGroup>
+
+<Warning>
+  Keys stop working **the moment a member leaves the organization**. Offboarding a teammate automatically revokes every key they created.
+</Warning>
+
+## Tenant isolation
+
+Each organization lives on its own subdomain (`<slug>.livingcontext.ai`) with per-organization data isolation. Members of one organization can never see another organization's docs, connections, or activity. Sessions expire after 7 days.
+
+## What agents can and cannot do
+
+### Reads are minimized
+
+When agents ground documentation against your live Salesforce org, they work from **metadata, not record contents**. For example, field utilization analysis is count-only — the agent learns *how many* records populate a field, never *what's in* them.
+
+### Writes are gated
+
+Every side-effecting agent action — a Salesforce write, a deployment, an outbound call — requires **explicit human approval** before it runs, on every plan. There is no configuration that removes the approval gate.
+
+### Everything is auditable
+
+Every side-effecting agent action is written to an **immutable audit log**, so you can always answer who approved what, and when.
+
+<Note>
+  Documentation changes follow the same principle: agent-drafted docs ship only through human review in the [Inbox](/guides/inbox), a change request, or a PR. See [Core concepts](/getting-started/concepts).
+</Note>
+
+## Browser capture safety
+
+The capture extension is designed so sensitive data never leaves the browser in the first place:
+
+- **Redaction happens at capture time**, not after upload. Configurable smart-blur categories (see the [settings reference](/admin/settings-reference)) are applied as the capture is recorded.
+- **Passwords are always masked**, regardless of your blur settings. This floor cannot be turned off.
+- **Screen recording is constrained to the browser tab only** — the extension cannot record your full screen or other application windows.
+
+Learn more in [Capture](/capture/overview).
+
+## Sign-in options
+
+You control how your team authenticates:
+
+- Email and password, GitHub, Google, or Salesforce OAuth
+- **Enterprise SSO** through your identity provider — Okta, Microsoft Entra, Auth0, and other standards-based IdPs
+
+Combine SSO with [roles and permissions](/admin/roles-and-permissions) to keep access aligned with your directory.
+
+## Security checklist for administrators
+
+<Steps>
+  <Step title="Right-size roles">
+    Default invitations to Editor, and reserve Administrator for the few people who manage members and billing.
+  </Step>
+  <Step title="Review keys periodically">
+    Extension and MCP keys are listed in Settings. Delete any that are no longer needed — and remember that offboarding revokes a departing member's keys automatically.
+  </Step>
+  <Step title="Tune capture blur">
+    Review the smart-blur categories in Settings so captures redact the data classes your organization cares about.
+  </Step>
+  <Step title="Audit agent actions">
+    Check the audit log for side-effecting actions as part of your regular review cadence.
+  </Step>
+</Steps>

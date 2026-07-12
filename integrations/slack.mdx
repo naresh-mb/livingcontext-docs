@@ -1,0 +1,67 @@
+---
+title: "Slack"
+description: "Connect a Slack workspace so your agents can post and respond in channels — bring org intelligence to where your team already talks."
+icon: "slack"
+---
+
+Connect Slack and your LivingContext agents become part of the conversation: they can post updates into channels and respond when your team asks questions — no context-switching into another tool.
+
+Slack is managed from the **Channels** tab of the [Agent platform](/agents/agent-platform).
+
+## Connect
+
+<Steps>
+  <Step title="Open Channels">
+    Go to **Agents → Channels**.
+  </Step>
+  <Step title="Connect your workspace">
+    Authorize LivingContext with your Slack workspace. Workspace admins may need to approve the app depending on your Slack settings.
+  </Step>
+  <Step title="Wire agents to channels">
+    Choose which agents participate and where — an agent can post results into a channel or respond to messages there.
+  </Step>
+</Steps>
+
+## What agents can do in Slack
+
+- **Post** — deliver run results, digests, or alerts into a channel. Pair this with cron [triggers](/agents/agent-platform#triggers) for scheduled updates, like a weekly org-change digest.
+- **Respond** — answer questions in channels they're connected to, grounded in the same Salesforce catalog and docs corpus as everywhere else.
+
+<Tip>
+A common setup: an autonomous agent on a daily cron that summarizes recent Salesforce changes and posts them to `#salesforce-changes`.
+</Tip>
+
+## Formatting
+
+Agents think in Markdown; Slack doesn't. LivingContext **converts Markdown to Slack formatting automatically**, so answers with headings, lists, links, and code render cleanly in channels without manual cleanup.
+
+## Security
+
+- Inbound Slack traffic is protected by **signed request verification** — LivingContext validates Slack's signature on every request, so forged messages can't reach your agents.
+- Agents in Slack operate under the same governance as everywhere else: allowed tools, permission modes, and [approvals](/agents/agent-platform#approvals) for side-effecting actions.
+- Every side-effecting action an agent takes is recorded in the platform [Audit log](/agents/agent-platform#audit), regardless of whether it was triggered from Slack or the app.
+
+<Note>
+Autonomous agents — the kind you'd typically run behind a Slack channel — require a Pro or higher plan. See [Billing](/admin/billing).
+</Note>
+
+## Troubleshooting
+
+<Accordion title="An agent isn't responding in a channel">
+  Confirm the workspace connection is healthy in **Agents → Channels**, and that the agent is actually wired to that channel. Check the Runs tab for failed runs — the transcript usually explains what went wrong.
+</Accordion>
+
+<Accordion title="Messages look broken or unformatted">
+  Slack rendering differs from web Markdown. If a specific answer renders oddly, ask the agent for a simpler format — for example, lists instead of wide tables.
+</Accordion>
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Agent platform" icon="workflow" href="/agents/agent-platform">
+    Define the agents, triggers, and approvals behind your Slack channels.
+  </Card>
+  <Card title="Workspace agent" icon="message-square-text" href="/agents/workspace-agent">
+    The org-intelligence tool set agents draw on when answering.
+  </Card>
+</CardGroup>

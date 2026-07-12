@@ -1,0 +1,70 @@
+---
+title: "Changelog"
+description: "Publish a running changelog as a normal doc with structured update blocks."
+icon: "megaphone"
+---
+
+The changelog is a docs-style page for announcing what changed — releases, new features, process updates, anything your readers should know about over time. It renders as a clean timeline: date on the left, content on the right.
+
+## How it works
+
+The changelog is **a normal doc**, maintained like any other page in your docs repository — by convention it lives at `changelog/index.mdx`. What makes it special is its content: a series of repeating **Update blocks**, each with a date on the left and rich content on the right.
+
+Because it is just a doc:
+
+- It lives in git with full history, like everything else.
+- It is edited through the same [change request](/guides/editing-and-change-requests) flow as any other page.
+- It is indexed by [search](/guides/search), so past announcements are findable.
+
+<Note>
+There is no separate changelog database or publishing pipeline to manage. If you can edit a doc, you can maintain the changelog.
+</Note>
+
+## Adding an entry
+
+<Steps>
+  <Step title="Open the changelog for editing">
+    Edit it directly from the [docs viewer](/guides/docs-viewer) for a quick entry, or open a [change request](/guides/editing-and-change-requests) if the announcement should be reviewed first.
+  </Step>
+  <Step title="Insert an Update block">
+    Add a new Update block at the top of the page. Set its date and write the content — headings, lists, images-free callouts, and [diagrams](/guides/diagrams) all work inside a block.
+  </Step>
+  <Step title="Save or merge">
+    A direct edit commits immediately; a change request publishes when merged. Either way, the entry is live in the viewer right away.
+  </Step>
+</Steps>
+
+## What goes in an Update block
+
+Each block is free-form rich content, so you can shape entries however your team likes. Common patterns:
+
+- **Release notes** — a heading per feature, with short descriptions.
+- **Breaking changes** — a warning callout with migration steps.
+- **Process announcements** — "the discount approval flow changed; see the updated guide", with a link to the doc.
+
+<Tip>
+Link each entry to the docs it relates to. A changelog entry that says "the approval flow changed" is good; one that links to the updated approval-flow doc is better.
+</Tip>
+
+## Agents and the changelog
+
+Because the changelog is a normal doc, agents can maintain it too. Agents can **append entries** — for example, summarizing what a merged batch of doc updates changed — and those proposals go through the same review surfaces as everything else: your [Inbox](/guides/inbox) or a change request. Nothing is appended silently.
+
+## Where it appears
+
+The changelog gets its own place in the docs navigation, so readers can always find it. Deep links work like any other page, which makes individual announcements easy to share in Slack or email.
+
+## Why a doc, not a feed
+
+Treating the changelog as a doc rather than a separate publishing system has practical benefits:
+
+| Benefit | What it means for you |
+| --- | --- |
+| One editing flow | The same editor, review, and merge steps as every other page |
+| Full git history | Every entry is attributable and revertible |
+| Searchable | Past announcements show up in <kbd>⌘</kbd> <kbd>K</kbd> results |
+| Agent-maintainable | Agents propose entries through the normal review surfaces |
+
+<Warning>
+Keep the newest Update block at the top of the page. The timeline renders in document order, so entry order is entirely under your control — a misplaced block will appear exactly where you put it.
+</Warning>

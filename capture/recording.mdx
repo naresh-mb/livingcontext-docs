@@ -1,0 +1,57 @@
+---
+title: "Recording a capture"
+description: "Start a capture, work through your process, and watch steps appear as you go."
+icon: "circle-dot"
+---
+
+Recording is designed to disappear into the background: start a capture, do the work the way you normally would, and every meaningful action becomes a documented step.
+
+## Start recording
+
+Open the side panel and click **Start Capture**. From that moment, every click, text entry, and navigation becomes a step — each with a screenshot captured at the exact moment of the action, so the page looks the way it did when you acted on it.
+
+Steps stream into the side panel in real time, so you can see the guide taking shape as you work.
+
+## What becomes a step
+
+| Action | Result |
+| --- | --- |
+| Click | One step, with the clicked element highlighted in the screenshot |
+| Typing in a field | One step per field, showing what you entered |
+| Navigation | One step marking the page change |
+| Deliberate keys | One step each — <kbd>⌘</kbd>/<kbd>Ctrl</kbd> + <kbd>S</kbd>/<kbd>C</kbd>/<kbd>V</kbd>/<kbd>X</kbd>, <kbd>Enter</kbd>, <kbd>Escape</kbd> |
+
+Typing is always aggregated into a single step per field — never one step per keystroke. Bare letters, arrow keys, and <kbd>Tab</kbd> are ignored entirely, so incidental keyboard activity never clutters the guide (and is never recorded — see [Privacy and redaction](/capture/privacy-and-redaction)).
+
+## Pause and resume
+
+Pause the capture at any time from the side panel — for example, to look something up or handle an interruption you don't want documented. While paused, nothing is recorded.
+
+The paused state is durable: it survives page reloads and carries into new tabs, so a capture never silently re-arms itself mid-pause.
+
+## Session video and typing GIFs
+
+Alongside the step-by-step record, the extension can record a session video of the current browser tab:
+
+- Video is **tab-only** — the extension cannot record your monitor or other windows.
+- Recordings run up to **15 minutes** per capture.
+- The video is published with the guide as a playable recording.
+
+Typing steps also get short, automatically generated GIF clips at publish time, so readers can see exactly how a field was filled in.
+
+## Complex pages just work
+
+The extension records reliably inside modern enterprise apps:
+
+- **Iframes** — steps and screenshots capture correctly even when the page renders inside a frame, as Salesforce Classic does.
+- **Shadow DOM** — components in Salesforce Lightning and other web-component UIs are captured like any other element.
+
+You don't need to do anything special — record the workflow as you'd normally perform it.
+
+<Tip>
+Keep captures focused on one task. Shorter, single-purpose guides are easier to follow, easier to replay with [Guide Me](/capture/guide-me), and stay well within the 60-step limit per capture.
+</Tip>
+
+## Finish
+
+When you're done, stop the capture from the side panel. Your steps are saved locally in the browser and ready for [editing](/capture/editing-steps) — nothing leaves your machine until you [publish](/capture/publishing).

@@ -1,0 +1,105 @@
+---
+title: "Agent platform"
+description: "Build and operate your own agents — no-code definitions, triggers, approvals, connectors, secrets, and a full audit trail, all from the Agents surface."
+icon: "workflow"
+---
+
+The Agent platform (**Agents** in the navigation) is where you go beyond the built-in roles and run your own agents: define what an agent knows and may do, schedule it, review what it did, and gate anything risky behind human approval.
+
+## Agent modes
+
+Every agent runs in one of three modes:
+
+| Mode | Behavior |
+| --- | --- |
+| Interactive | You drive the conversation; the agent acts turn by turn |
+| Assisted | The agent works through a task but pauses for your input at key points |
+| Autonomous | The agent runs unattended on triggers |
+
+<Note>
+Autonomous mode requires a **Pro or higher** plan. See [Billing](/admin/billing).
+</Note>
+
+## The tabs
+
+### Agents
+
+Define agents with **no code**:
+
+- **Persona** — written in Markdown: who the agent is, what it's for, how it should behave.
+- **Allowed tools** — exactly which tools this agent may call.
+- **Model** — which AI model powers it.
+- **Permission mode** — `ask` (request approval for side effects), `auto` (act within its allowed tools), or `read-only` (never change anything).
+
+### Runs
+
+Every execution appears here with live status: **queued → running → awaiting approval → completed / failed**. Open a run to see the full transcript and tool activity. Runs have **shareable links**, so you can send a colleague exactly what an agent did.
+
+### Approvals
+
+Side-effecting actions — Salesforce writes, deployments, outbound calls — don't execute immediately. They **park as pending approvals**. You review the exact input, then approve or deny.
+
+<Warning>
+When you approve an action, the stored input executes **exactly as you approved it** — the agent can't swap the payload after the fact.
+</Warning>
+
+### Triggers
+
+Start runs three ways:
+
+| Trigger | Notes |
+| --- | --- |
+| Cron schedule | Recurring runs, with 15-minute resolution |
+| Webhook | External systems start a run by calling an endpoint |
+| Manual | Run on demand from the UI |
+
+### Skills
+
+Reusable know-how that agents load — procedures, conventions, domain knowledge. Write a skill once, attach it to many agents.
+
+### Marketplace
+
+Publish agents and skills for other organizations, or install ones shared by others — a way to distribute proven automations across orgs.
+
+### Connectors
+
+Give agents reach beyond LivingContext by registering outbound endpoints:
+
+- **MCP servers** — connect external MCP tools
+- **HTTP** — plain HTTP endpoints
+- **OpenAPI** — endpoints described by an OpenAPI spec
+
+### Secrets
+
+Store encrypted values (API keys, tokens) that connectors and tools need. Secrets are **injected server-side at call time and never shown to the model** — an agent can use a credential without ever seeing it.
+
+### Channels
+
+Connect Slack so agents can post and respond in your channels. See [Slack integration](/integrations/slack).
+
+### Memory
+
+Long-term memory agents accumulate across runs — **decisions, facts, workflows, and blockers**. You can inspect and curate what an agent remembers.
+
+### Audit
+
+An **immutable log of every side-effecting action** any agent has taken: what ran, who approved it, what it touched. This is your compliance trail.
+
+### Billing
+
+Usage and credits for agent runs. See [Billing](/admin/billing).
+
+## Programmatic access
+
+Create **public API bearer keys** to start runs from your own systems — CI pipelines, internal tools, or scheduled jobs outside LivingContext. Combined with webhook triggers and shareable run links, you can wire agents into existing workflows end to end.
+
+## Governance in one picture
+
+1. An agent's **allowed tools** and **permission mode** bound what it can attempt.
+2. **Approvals** gate every side effect in `ask` mode.
+3. **Secrets** keep credentials out of model context entirely.
+4. **Audit** records everything that actually happened.
+
+<Tip>
+Start new agents in `read-only` or `ask` mode. Promote to `auto` only after the Runs history shows consistent, correct behavior.
+</Tip>

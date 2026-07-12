@@ -1,0 +1,75 @@
+---
+title: "Settings reference"
+description: "Every section of the Settings area, what it controls, and where to find it."
+icon: "settings"
+---
+
+Settings is where you configure your organization's workspace: repositories, agent behavior, keys, and integrations. Open **Settings** from the workspace navigation and pick a section from the left-hand list.
+
+## Sections at a glance
+
+| Section | What it controls |
+| --- | --- |
+| **Account** | Your profile details (read-only) |
+| **Spaces** | Named scopes that group repos and Salesforce connections |
+| **Repos** | Which repositories hold your documentation |
+| **Commits** | Repo + branch pairs tracked for the commit timeline and automatic doc generation |
+| **Eligibility** | Which Salesforce metadata counts toward coverage |
+| **Style** | The organization style guide agents follow when writing |
+| **Templates** | Doc templates agents follow when drafting |
+| **Suggestions** | The Coverage Auditor agent's schedule and limits |
+| **Skills** | Custom AI skills for the doc editor |
+| **Extension** | Keys for the browser capture extension |
+| **Blur** | Smart-blur categories the extension redacts |
+| **MCP** | Keys and client config for MCP-compatible tools |
+| **API references** | Generate OpenAPI specs from Salesforce |
+| **AI** | Bring your own Anthropic API key |
+
+## Section details
+
+<AccordionGroup>
+  <Accordion title="Spaces, Repos, and Commits">
+    **Spaces** groups documentation repositories and Salesforce connections into named scopes — see [Spaces and repos](/admin/spaces-and-repos). **Repos** selects which repositories from your connected git provider hold documentation. **Commits** picks the repo and branch pairs LivingContext tracks: tracked branches feed the commit timeline and trigger automatic doc generation when code changes.
+  </Accordion>
+  <Accordion title="Eligibility (coverage scope)">
+    Choose which Salesforce metadata types and namespaces count toward your documentation coverage score, and exclude managed packages entirely. Tightening eligibility keeps coverage focused on metadata your team actually owns instead of third-party packages you can't document.
+  </Accordion>
+  <Accordion title="Style (organization style guide)">
+    Set the writing style every agent follows. Pick a built-in style preset — for example, Google developer style — and layer your own overrides on top. The result applies to agent-generated docs, editor assistance, and suggestions alike.
+  </Accordion>
+  <Accordion title="Templates">
+    Define doc templates with a name, description, body, and a gold-standard exemplar. When agents draft a doc of a given type, they follow the matching template's structure and imitate its exemplar, so generated docs look like your best hand-written ones.
+  </Accordion>
+  <Accordion title="Suggestions (Coverage Auditor)">
+    Configure the agent that proposes missing docs: turn it on or off, set the frequency (daily, weekly, monthly, or manual), choose which doc types it may suggest, and cap the number of suggestions per run. A **Run now** button triggers an immediate pass. Suggestions land in the [Inbox](/guides/inbox).
+  </Accordion>
+  <Accordion title="Skills (custom editor AI)">
+    Create custom AI skills for the doc editor: give each an emoji, a name, a prompt, and a behavior — **edit** (rewrites the selection) or **chat** (answers in the side panel). Skills appear in the editor's AI menus alongside the built-ins.
+  </Accordion>
+  <Accordion title="Extension and Blur">
+    **Extension** creates keys that link the browser capture extension to your organization. **Blur** selects the smart-blur categories the extension redacts at capture time — passwords are always masked regardless of these settings. See [Capture](/capture/overview) and [Security](/admin/security).
+  </Accordion>
+  <Accordion title="MCP">
+    Create MCP keys and copy ready-made client configuration snippets for Claude Code, Cursor, and Cline, so AI coding tools can read and update your docs through the Model Context Protocol. Keys are shown once and stored as hashes.
+  </Accordion>
+  <Accordion title="API references">
+    Generate OpenAPI specifications from your connected Salesforce org, which power the API Reference surface for the active repo.
+  </Accordion>
+  <Accordion title="AI (bring your own key)">
+    Provide your own Anthropic API key if you want agent work billed directly to your Anthropic account. The key is encrypted at rest.
+  </Accordion>
+</AccordionGroup>
+
+## Standalone admin pages
+
+A few administrative areas live outside Settings:
+
+| Page | What it does |
+| --- | --- |
+| **Connections** | Connect and manage GitHub, GitLab, Salesforce, and Confluence — see [Salesforce integration](/integrations/salesforce) |
+| **Sync** | Job history for synchronization runs |
+| **Organization** | Members, roles, and invitations — see [Organizations](/admin/organizations) |
+
+<Note>
+  What you can change depends on your role. Organization-wide settings are managed by Administrators; see [Roles and permissions](/admin/roles-and-permissions).
+</Note>

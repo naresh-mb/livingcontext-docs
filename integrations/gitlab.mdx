@@ -1,0 +1,62 @@
+---
+title: "GitLab"
+description: "Connect GitLab as your Git provider — repository listing, docs content, commits, and merge requests, equivalent to the GitHub integration."
+icon: "gitlab"
+---
+
+GitLab is a first-class Git provider in LivingContext. Everything the [GitHub integration](/integrations/github) does — hosting your docs repos, receiving agent-drafted commits, opening reviews — works the same way with GitLab, using merge requests instead of pull requests.
+
+## Connect
+
+<Steps>
+  <Step title="Start the connection">
+    Go to the **Connections** page, or connect during [onboarding](/getting-started/onboarding). LivingContext requires either GitHub **or** GitLab before the app unlocks — you don't need both.
+  </Step>
+  <Step title="Authorize with OAuth">
+    You're sent to GitLab to grant the `api` and `read_repository` scopes.
+  </Step>
+  <Step title="Enter your groups and projects">
+    During onboarding, GitLab groups and projects are **entered manually** — type the group or project path rather than picking from a list.
+  </Step>
+</Steps>
+
+## What the connection powers
+
+| Capability | Where you see it |
+| --- | --- |
+| Repository listing | Choosing docs repos in Settings |
+| Reading docs content | The [Docs viewer](/guides/docs-viewer), search, and agent grounding |
+| Committing changes | Direct authoring, published [captures](/capture/publishing), and change request branches |
+| Opening merge requests | Shipping a [change request](/guides/editing-and-change-requests) for final review |
+
+## Tracked branches
+
+As with GitHub, you can track branches of your code repositories so the commit updater drafts documentation updates for new commits — see [Commits](/guides/commits).
+
+## Security
+
+- OAuth tokens are **encrypted at rest** and **refreshed automatically**.
+- Revoking the grant — from GitLab or from the Connections page — disconnects the integration immediately.
+- Every write LivingContext makes is an ordinary commit or merge request in your project, fully visible in your GitLab history.
+
+## Working with multiple repos
+
+As with GitHub, you can select more than one docs repository. The **repo switcher** controls which one repo-bound surfaces — Docs, Changelog, Commits, API Reference — display, and [spaces](/admin/spaces-and-repos) group repositories into scopes for workspace-wide surfaces like Home and the [Inbox](/guides/inbox).
+
+## Troubleshooting
+
+<Accordion title="A project isn't found during onboarding">
+  Double-check the full path (including the group, for example `my-group/my-project`) and confirm the account you authorized has access to it. Manual entry means typos are the most common cause.
+</Accordion>
+
+<Accordion title="Commits or merge requests are failing">
+  Check the connection status on the Connections page. If the grant was revoked or expired, reconnect to restore access.
+</Accordion>
+
+<Note>
+Only one Git provider is required. If you connect both GitHub and GitLab, each repository still belongs to exactly one provider — pick whichever hosts the repo in question.
+</Note>
+
+<Tip>
+A capability documented for [GitHub](/integrations/github) works the same way here unless this page says otherwise — the two providers are kept at parity.
+</Tip>

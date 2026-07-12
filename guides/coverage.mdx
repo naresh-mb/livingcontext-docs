@@ -1,0 +1,80 @@
+---
+title: "Coverage"
+description: "Measure how much of your Salesforce org is documented, and find the gaps."
+icon: "gauge"
+---
+
+Coverage answers one question: **how much of your Salesforce org is documented?** It measures every eligible metadata component against your docs and shows you exactly where the gaps are — per connection, per metadata type, down to the individual component.
+
+## How coverage is counted
+
+A doc **covers** a Salesforce component when it is tagged to that component in the metadata panel at the bottom of the page. Tagging is how LivingContext knows which doc describes which flow, object, or Apex class — see [Docs viewer](/guides/docs-viewer#linking-docs-to-salesforce).
+
+A component with at least one tagged doc counts as **documented**. Everything else eligible counts as **undocumented**.
+
+<Tip>
+Tags do double duty: beyond coverage, they tell agents which docs to update automatically when the underlying metadata changes. Well-tagged docs stay fresh on their own.
+</Tip>
+
+## The dashboard
+
+### KPI tiles
+
+Four tiles summarize the org at a glance:
+
+| Tile | Meaning |
+| --- | --- |
+| **Coverage %** | Documented components as a share of all eligible components |
+| **Documented** | Count of components with at least one tagged doc |
+| **Undocumented** | Count of eligible components with no doc |
+| **Connections** | Salesforce connections included in the measurement |
+
+### Scope callout
+
+Not everything in an org deserves documentation. A scope callout lists what is currently excluded from the denominator:
+
+- Excluded metadata types
+- Managed packages
+- Excluded namespaces
+
+The callout includes an **Edit in settings** link to **Settings → Eligibility**, where you adjust these rules.
+
+<Note>
+Excluding managed packages is usually the right call — you rarely document a vendor's internals — and it keeps your coverage number honest about the metadata your team actually owns.
+</Note>
+
+### Per-connection cards
+
+Each Salesforce connection gets its own card with a sortable per-type table:
+
+| Column | Meaning |
+| --- | --- |
+| **Type** | The metadata type (Flow, ApexClass, CustomObject, …) |
+| **Documented** | Components of this type with a tagged doc |
+| **Undocumented** | Components of this type without one |
+| **Total** | All eligible components of this type |
+| **%** | Documented share for the type |
+
+Each card also offers:
+
+- A **search filter** to find a specific type quickly.
+- **CSV export** for reporting or offline analysis.
+- **Refresh** to recount after tagging or a metadata sync.
+
+## Closing the gaps
+
+Coverage tells you where the holes are; the rest of LivingContext fills them:
+
+<Steps>
+  <Step title="Tag existing docs">
+    Often a doc already describes a component but isn't tagged to it. Open the doc, and accept the AI tag suggestions in the metadata panel.
+  </Step>
+  <Step title="Let the Coverage Auditor propose new docs">
+    The [Coverage Auditor](/agents/coverage-auditor) sweeps for undocumented, high-value components and proposes brand-new docs into your [Inbox](/guides/inbox) — each with an explanation of why it matters.
+  </Step>
+  <Step title="Write the rest yourself">
+    Create pages from [templates](/guides/templates-and-style) and link them to metadata as part of the New page flow.
+  </Step>
+</Steps>
+
+See [Salesforce integration](/integrations/salesforce) for how metadata is synced into LivingContext in the first place.

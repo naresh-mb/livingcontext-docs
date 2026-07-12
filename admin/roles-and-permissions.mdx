@@ -1,0 +1,56 @@
+---
+title: "Roles and permissions"
+description: "The seven organization roles and what each one can do."
+icon: "shield-check"
+---
+
+LivingContext uses seven organization roles, from full administrative control down to no access. Roles are assigned per member on the [Organization page](/admin/organizations) and apply across the whole organization.
+
+## The roles
+
+| Role | What they can do |
+| --- | --- |
+| **Administrator** | Everything, including organization administration and billing management |
+| **Creator** | Create, edit, and publish docs; review **and merge** change requests; run agents; approve agent actions |
+| **Reviewer** | Review **and merge** change requests; approve agent actions; chat with agents — no authoring |
+| **Editor** | Create and edit docs; review change requests (**cannot merge**); run agents |
+| **Commenter** | Comment on docs and change requests; read; chat with agents |
+| **Reader** | Read docs; chat with agents |
+| **No access** | Nothing — the member cannot use the organization |
+
+## Key defaults
+
+- The member who **creates the organization** becomes an **Administrator**.
+- **New invitations default to Editor.** You can pick a different role when inviting, and Administrators can change roles at any time.
+
+<Note>
+  If your organization predates the seven-role model, legacy roles map automatically: **owner** and **admin** become **Administrator**, and **member** becomes **Editor**. No action is needed.
+</Note>
+
+## Choosing the right role
+
+<AccordionGroup>
+  <Accordion title="Documentation authors — Creator or Editor">
+    Give **Creator** to people who own the docs end to end: they can draft, review, merge, and approve agent proposals. Give **Editor** to contributors who should draft and review but not have the final say — an Editor's work always needs a Creator, Reviewer, or Administrator to merge it.
+  </Accordion>
+  <Accordion title="Approvers who don't write — Reviewer">
+    **Reviewer** is built for team leads and admins who gatekeep changes without authoring. They can merge change requests and approve agent actions, including any side-effecting agent action, but they can't create or edit docs themselves.
+  </Accordion>
+  <Accordion title="Stakeholders — Commenter or Reader">
+    **Commenter** suits stakeholders who give feedback on drafts. **Reader** suits everyone who just consumes the docs. Both can chat with agents to ask questions grounded in your documentation.
+  </Accordion>
+  <Accordion title="Suspending someone without removing them — No access">
+    **No access** keeps the member on the roster but blocks all use of the organization. It's useful for offboarding in stages or pausing a contractor's access.
+  </Accordion>
+</AccordionGroup>
+
+## How permissions show up in the product
+
+- **Docs and change requests** — members below Editor see docs read-only; merge buttons only appear for roles that can merge.
+- **Agents** — running agents requires Editor or above; **approving agent actions** (including anything that changes an external system) requires Reviewer, Creator, or Administrator. See [Agents](/agents/overview).
+- **Inbox** — triaging agent proposals in the [Inbox](/guides/inbox) follows the same review permissions as change requests.
+- **Organization admin and billing** — only Administrators see member management and [billing](/admin/billing) controls.
+
+<Warning>
+  Every organization needs at least one Administrator. Plan role changes so you never lock yourself out of member management or billing.
+</Warning>

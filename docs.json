@@ -1,0 +1,93 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "LivingContext",
+  "colors": {
+    "primary": "#2563EB",
+    "light": "#60A5FA",
+    "dark": "#1D4ED8"
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "index",
+              "getting-started/quickstart",
+              "getting-started/onboarding",
+              "getting-started/concepts"
+            ]
+          },
+          {
+            "group": "Documentation workspace",
+            "pages": [
+              "guides/docs-viewer",
+              "guides/editing-and-change-requests",
+              "guides/inbox",
+              "guides/commits",
+              "guides/coverage",
+              "guides/changelog",
+              "guides/api-reference",
+              "guides/search",
+              "guides/diagrams",
+              "guides/templates-and-style"
+            ]
+          },
+          {
+            "group": "AI agents",
+            "pages": [
+              "agents/overview",
+              "agents/workspace-agent",
+              "agents/doc-editor-agent",
+              "agents/coverage-auditor",
+              "agents/agent-platform"
+            ]
+          },
+          {
+            "group": "Browser capture",
+            "pages": [
+              "capture/overview",
+              "capture/install-and-connect",
+              "capture/recording",
+              "capture/editing-steps",
+              "capture/publishing",
+              "capture/guide-me",
+              "capture/ask-docs",
+              "capture/privacy-and-redaction"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/github",
+              "integrations/gitlab",
+              "integrations/salesforce",
+              "integrations/confluence",
+              "integrations/slack",
+              "integrations/mcp-server"
+            ]
+          },
+          {
+            "group": "Administration",
+            "pages": [
+              "admin/organizations",
+              "admin/roles-and-permissions",
+              "admin/spaces-and-repos",
+              "admin/settings-reference",
+              "admin/billing",
+              "admin/security"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "footer": {
+    "socials": {
+      "website": "https://livingcontext.ai"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+---
+title: "Agents overview"
+description: "One engine, many roles — interactive agents you chat with and autonomous roles that keep documentation fresh, all shipping through human review."
+icon: "bot"
+---
+
+LivingContext is built on a single agent engine that takes on different roles. Some roles are **interactive** — you chat with them directly. Others are **autonomous** — they watch your Salesforce org and code repositories, then draft documentation changes on their own. Every role shares the same grounding: your synced Salesforce catalog, your docs corpus, and your connected repositories.
+
+## One engine, many roles
+
+### Interactive agents
+
+<CardGroup cols={2}>
+  <Card title="Workspace agent" icon="message-square-text" href="/agents/workspace-agent">
+    Ask anything about your Salesforce org and docs from Home. Read-only org intelligence with live tool activity and slash playbooks like `/audit`.
+  </Card>
+  <Card title="Doc editor agent" icon="pen-line" href="/agents/doc-editor-agent">
+    Chat about the doc you're editing in a change request. Proposes surgical edits as inline tracked changes you accept or reject.
+  </Card>
+</CardGroup>
+
+### Autonomous roles
+
+<CardGroup cols={2}>
+  <Card title="Commit updater" icon="git-commit-horizontal" href="/guides/commits">
+    Watches the branches you track and drafts documentation updates for each commit that lands.
+  </Card>
+  <Card title="Coverage auditor" icon="radar" href="/agents/coverage-auditor">
+    Finds important Salesforce components that have no documentation at all and proposes brand-new docs for them.
+  </Card>
+</CardGroup>
+
+Want to go beyond the built-in roles? The [Agent platform](/agents/agent-platform) lets you define custom agents with their own personas, tools, triggers, and approval rules.
+
+## Grounded or it doesn't ship
+
+No agent in LivingContext publishes anything directly. Every proposal — whether it's an updated paragraph, a new page, or a saved answer — travels through a human review surface before it reaches your documentation:
+
+| Surface | What you review there |
+| --- | --- |
+| [Inbox](/guides/inbox) | Drafted doc updates and new-doc proposals, triaged one at a time |
+| [Change requests](/guides/editing-and-change-requests) | Full editing sessions with diffs, comments, and tracked changes |
+| Pull requests | The final merge into your Git repository — your repo, your history |
+
+Agents must also show their work. Drafts are grounded in real evidence — actual Salesforce metadata, actual commits, actual source — and proposals without evidence are skipped rather than guessed.
+
+<Note>
+Because your docs live in your own GitHub or GitLab repository, every agent-authored change ends up as an ordinary commit you can inspect, revert, or audit later.
+</Note>
+
+## How often agents run
+
+Autonomous roles run on a shared scheduler that sweeps every **15 minutes**. Within a sweep, each role checks whether it has work to do:
+
+- The commit updater looks for new commits on your tracked branches.
+- The coverage auditor checks whether its configured frequency (daily, weekly, or monthly) is due.
+- Salesforce metadata sync schedules fire according to their own cadence.
+
+You can always trigger work manually — for example, the coverage auditor has a **Run now** button, and custom agents on the [Agent platform](/agents/agent-platform) support manual triggers.
+
+## Where to go next
+
+<CardGroup cols={2}>
+  <Card title="Workspace agent" icon="message-square-text" href="/agents/workspace-agent">
+    The full tool catalog and slash playbooks.
+  </Card>
+  <Card title="Doc editor agent" icon="pen-line" href="/agents/doc-editor-agent">
+    Tracked-change editing, mentions, and AI skills.
+  </Card>
+  <Card title="Coverage auditor" icon="radar" href="/agents/coverage-auditor">
+    Configuration and how proposals reach the Inbox.
+  </Card>
+  <Card title="Agent platform" icon="workflow" href="/agents/agent-platform">
+    Build, trigger, and govern your own agents.
+  </Card>
+</CardGroup>

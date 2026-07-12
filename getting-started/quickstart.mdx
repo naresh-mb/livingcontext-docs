@@ -1,0 +1,63 @@
+---
+title: "Quickstart"
+description: "Go from sign-up to your first merged doc in about fifteen minutes."
+icon: "rocket"
+---
+
+LivingContext puts AI agents to work generating and maintaining living documentation for your Salesforce team. Your docs live as Markdown in your own GitHub or GitLab repository — git is the source of truth — and every AI-proposed change passes human review before it ships.
+
+This quickstart takes you from a fresh account to your first merged doc.
+
+<Steps>
+  <Step title="Sign up">
+    Create an account with email and password, or continue with GitHub, Google, or Salesforce. Enterprise teams can sign in through their identity provider (Okta, Entra, Auth0, and others).
+  </Step>
+  <Step title="Create your organization">
+    Give your organization a name. The name becomes your team's subdomain, like `acme.livingcontext.ai`, and availability is checked as you type. If a teammate already created an organization, ask them for an invitation instead — see [Organizations](/admin/organizations).
+  </Step>
+  <Step title="Connect GitHub or GitLab">
+    The onboarding wizard asks you to connect either GitHub or GitLab. You only need one — this is where your documentation repository lives.
+  </Step>
+  <Step title="Pick a documentation repository">
+    Select at least one repository to hold your docs. Everything the agents write lands here as Markdown files, so you keep full ownership and history.
+  </Step>
+  <Step title="Connect Salesforce (optional)">
+    Connect a Salesforce org so agents can ground docs in your real metadata. You can skip this and add it later from [Connections](/integrations/salesforce).
+  </Step>
+  <Step title="Explore your docs">
+    Click **Enter your workspace** to land on Home. Open **Docs** to browse the pages in your repository, organized by the file tree in your repo.
+  </Step>
+  <Step title="Install the browser extension">
+    Create an extension key in Settings, then install the LivingContext browser extension to capture workflows directly from your browser. See [Capture](/capture/overview).
+  </Step>
+  <Step title="Capture your first guide">
+    Start a capture, click through a workflow in Salesforce (or any web app), and stop the recording. The extension turns your clicks and screenshots into a step-by-step guide, with sensitive data redacted at capture time.
+  </Step>
+  <Step title="Review it as a change request">
+    Published captures arrive as a change request — a reviewable draft with a full diff. Edit steps, screenshots, and text before anything reaches your repo.
+  </Step>
+  <Step title="Merge">
+    Approve and merge the change request. The doc is committed to your repository and appears in **Docs** immediately.
+  </Step>
+</Steps>
+
+<Tip>
+  Agent-proposed updates follow the same path: nothing ships without a human approving it. Review agent suggestions in the [Inbox](/guides/inbox).
+</Tip>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Onboarding in depth" icon="door-open" href="/getting-started/onboarding">
+    Every sign-up option, the organization chooser, and the setup wizard step by step.
+  </Card>
+  <Card title="Core concepts" icon="book-open" href="/getting-started/concepts">
+    Docs, spaces, change requests, the Inbox, and how they fit together.
+  </Card>
+  <Card title="Meet the agents" icon="bot" href="/agents/overview">
+    What the documentation agents do and how you stay in control.
+  </Card>
+  <Card title="Browser capture" icon="video" href="/capture/overview">
+    Record workflows and turn them into polished step-by-step guides.
+  </Card>
+</CardGroup>
