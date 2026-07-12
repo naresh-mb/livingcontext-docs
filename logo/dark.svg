@@ -1,7 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 236 40" height="40">
-  <rect width="40" height="40" rx="9" fill="#3B82F6"/>
-  <rect x="11.5" y="8" width="17" height="24" rx="3.2" fill="#FFFFFF"/>
-  <path d="M14 15.5h12M14 27.5h12" stroke="#BFDBFE" stroke-width="2" stroke-linecap="round"/>
-  <path d="M12.5 21.5h4.4l1.9-3.8 2.5 7.6 1.9-3.8h4.3" fill="none" stroke="#2563EB" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 236 40" height="40" role="img" aria-label="LivingContext">
+  <defs>
+    <clipPath id="lc-logo-d"><rect width="40" height="40" rx="10.5"/></clipPath>
+  </defs>
+  <g clip-path="url(#lc-logo-d)">
+    <rect width="40" height="40" fill="#2e5bff"/>
+    <path d="M40 40 H20 A20 20 0 0 1 40 20 Z" fill="#ffaa00"/>
+  </g>
   <text x="52" y="27" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" font-weight="650" fill="#F8FAFC">LivingContext</text>
 </svg>
