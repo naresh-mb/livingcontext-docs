@@ -78,6 +78,7 @@
               "admin/spaces-and-repos",
               "admin/settings-reference",
               "admin/billing",
+              "admin/enterprise",
               "admin/security"
             ]
           }

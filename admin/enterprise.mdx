@@ -1,0 +1,69 @@
+---
+title: "Enterprise"
+description: "Single sign-on, self-hosted deployment, custom agreements, and governance for large organizations"
+icon: "building"
+---
+
+Large teams typically need more than a plan tier: identity federation, deployment control, procurement-friendly terms, and governance they can show an auditor. LivingContext supports all four.
+
+<Note>
+Enterprise agreements are custom — volume seat pricing, custom credit pools, raised concurrency/trigger/connector limits, invoicing, and deployment options are scoped to your requirements. [Contact us](https://livingcontext.ai) to talk through yours.
+</Note>
+
+## Single sign-on (SSO)
+
+LivingContext supports enterprise SSO through any OpenID Connect identity provider — Okta, Microsoft Entra ID, Google Workspace, Auth0, Ping, and others.
+
+- When SSO is configured for your deployment, a **Sign in with SSO** option appears on the login page and users authenticate against your IdP.
+- Standard OIDC discovery is used, with support for non-standard discovery endpoints where an IdP requires it.
+- SSO coexists with the other sign-in methods; you control which your team uses.
+
+## Deployment options
+
+<CardGroup cols={2}>
+  <Card title="Managed cloud" icon="cloud">
+    The default: LivingContext runs on our infrastructure, each organization isolated on its own subdomain, with encrypted credentials and per-organization data scoping.
+  </Card>
+  <Card title="Self-hosted" icon="server">
+    Run LivingContext on your own infrastructure. The self-hosted distribution ships with container tooling and degrades gracefully where managed-cloud services aren't present — email, recordings, and background durability adapt to what your environment provides.
+  </Card>
+</CardGroup>
+
+Self-hosting is the right fit when data residency, network boundaries, or procurement policy require the platform to run inside your perimeter. Agent services can run alongside it or point at externally hosted endpoints you control.
+
+## Bring your own AI key
+
+Organizations can supply their own Anthropic API key (Settings → AI). AI usage then runs against your provider account — useful when you have negotiated provider pricing, provider-side compliance requirements, or want AI spend consolidated with your existing vendor relationship.
+
+## Governance and controls
+
+Everything in the security model applies at every tier — these are the controls enterprise reviews most often ask about:
+
+| Control | What you get |
+| --- | --- |
+| Role-based access | Seven roles from Administrator to No access, with review and merge separated from authoring. See [Roles and permissions](/admin/roles-and-permissions). |
+| Human approval gates | Agent actions that change external systems always park for explicit human approval; the approved input is executed exactly as stored. |
+| Immutable audit log | Every side-effecting agent action is recorded append-only: tool, input, outcome, who, when. |
+| Credential encryption | OAuth tokens and secrets encrypted at rest with AES-256-GCM; API keys stored as hashes and shown once. |
+| Review-gated publishing | No AI-generated content ships without human acceptance — through the Inbox, a change request, or a pull request. |
+| Least-privilege live reads | Live Salesforce reads never touch record contents; field utilization is count-only. |
+| Membership-bound keys | Extension and MCP keys stop working the moment a member leaves the organization. |
+
+See [Security](/admin/security) for the full model.
+
+## Spend governance
+
+Usage is metered per model call and attributed to specific agents and runs, with an append-only credit ledger — finance and engineering reconcile against the same numbers. Spending stops at zero balance rather than accruing overage; there are no surprise bills. Details in [Plans, pricing, and billing](/admin/billing).
+
+## What a typical enterprise agreement covers
+
+- Volume seat pricing beyond the standard $20/seat
+- Custom monthly credit pools sized to your fleet, with invoiced top-ups
+- Raised limits: concurrent runs, triggers, connectors
+- SSO configuration against your IdP
+- Managed cloud or self-hosted deployment
+- Security review support (architecture, data handling, audit evidence)
+
+<Tip>
+Start with the [Business or Ultra plan](/admin/billing) to validate the platform with your team, then move to an enterprise agreement once you know your real usage shape — the credit ledger gives you the data.
+</Tip>

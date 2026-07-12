@@ -1,78 +1,123 @@
 ---
-title: "Billing"
-description: "Plans, seats, credits, and what each tier unlocks."
+title: "Plans, pricing, and billing"
+description: "Plan tiers, seat pricing, usage credits, metering rates, spending limits, and top-ups"
 icon: "credit-card"
 ---
 
-LivingContext pricing combines a **base plan**, **per-seat pricing** on paid plans, and **credits** — the usage currency that agent work consumes. Billing is managed by members with the **Administrator** role.
+LivingContext pricing has three components:
 
-## Credits
+1. **A base subscription** — a flat monthly price per organization, set by your plan.
+2. **Seats** — paid plans add a per-seat price on top of the base subscription.
+3. **Usage credits** — AI usage is metered in credits (**1 credit = $0.01**). Every plan includes a monthly credit grant; heavier usage is covered by top-up packs on Business and Ultra.
 
-Credits meter agent usage:
+Billing lives in the **Billing** tab of the Agents console. Only members with billing management permission (Administrators) can change plans or buy credits; most roles can view usage.
 
-- **1 credit = $0.01.**
-- Every plan includes a **monthly credit grant** that refreshes each billing cycle.
-- On plans that support it, you can **top up** credits at any time through Stripe checkout.
+## Plan comparison
 
-## Plans at a glance
-
-| Plan | Base price | Credits / month | Credit top-ups |
-| --- | --- | --- | --- |
-| **Free** | $0 | 500 | — |
-| **Starter** | $20 + $20/seat | 2,000 | — |
-| **Pro** | $50 + $20/seat | 5,000 | — |
-| **Business** | $200 + $20/seat | 20,000 | Yes |
-| **Ultra** | $500 + $20/seat | 50,000 | Yes |
-
-## Limits and capabilities
-
-| Plan | Concurrent runs | Triggers | Connectors | Side-effects | Autonomous |
+| | Free | Starter | Pro | Business | Ultra |
 | --- | --- | --- | --- | --- | --- |
-| **Free** | 2 | 1 | 2 | — | — |
-| **Starter** | 3 | 5 | 5 | Yes | — |
-| **Pro** | 5 | 20 | 10 | Yes | Yes |
-| **Business** | 10 | 50 | 25 | Yes | Yes |
-| **Ultra** | 20 | 200 | 100 | Yes | Yes |
+| Base price / month | $0 | $20 | $50 | $200 | $500 |
+| Per seat / month | — | $20 | $20 | $20 | $20 |
+| Monthly credit grant | 500 ($5) | 2,000 ($20) | 5,000 ($50) | 20,000 ($200) | 50,000 ($500) |
+| Concurrent agent runs | 2 | 3 | 5 | 10 | 20 |
+| Triggers | 1 | 5 | 20 | 50 | 200 |
+| Connectors | 2 | 5 | 10 | 25 | 100 |
+| Side-effecting actions | — | ✓ | ✓ | ✓ | ✓ |
+| Autonomous execution | — | — | ✓ | ✓ | ✓ |
+| Credit top-ups | — | — | — | ✓ | ✓ |
 
-### What the columns mean
+**Side-effecting actions** are agent tool calls that change external systems — Salesforce writes, deployments, outbound calls. They are always parked behind [human approval gates](/agents/agent-platform) regardless of plan.
 
-<AccordionGroup>
-  <Accordion title="Concurrent runs">
-    How many agent runs can execute at the same time. Additional runs queue until a slot frees up.
-  </Accordion>
-  <Accordion title="Triggers">
-    How many triggers you can configure to start agent work automatically.
-  </Accordion>
-  <Accordion title="Connectors">
-    How many external connections (git providers, Salesforce orgs, and other integrations) your organization can attach.
-  </Accordion>
-  <Accordion title="Side-effects">
-    Whether agents may take actions that change external systems — Salesforce writes, deployments, or outbound calls. Side-effecting actions are **always behind human approval gates**, on every plan that allows them. See [Security](/admin/security).
-  </Accordion>
-  <Accordion title="Autonomous">
-    Whether agents can be started without a human in the loop: cron schedules, webhook triggers, and the public API. Even autonomous runs still require human approval before any side-effecting action or doc change ships.
-  </Accordion>
-</AccordionGroup>
+**Autonomous execution** covers everything that runs without a person in the loop: cron triggers, inbound webhooks, and the public run API. Interactive and assisted agent use is available on every plan.
 
 <Note>
-  Enabling side-effects or autonomous triggers never bypasses review. Every change to your docs passes through the [Inbox](/guides/inbox), a change request, or a PR, and every side-effecting action needs explicit human approval.
+Need higher limits, custom credit pools, single sign-on, or a self-hosted deployment? See [Enterprise](/admin/enterprise).
 </Note>
 
-## Managing your plan
+## How usage is metered
 
-Administrators manage the subscription, seats, and credit top-ups. Top-ups (Business and Ultra) go through Stripe checkout and are added to your balance immediately.
+Every model call an agent makes is metered at the moment it completes and converted to credits:
+
+```
+cost = (input tokens × input rate + output tokens × output rate) × 1.2
+credits = cost ÷ $0.01
+```
+
+- Rates are per million tokens and vary by model (table below).
+- The **1.2× platform multiplier** is applied to the raw model cost.
+- Costs are recorded per message and per run, so the Billing tab can attribute spend to specific agents and runs.
+
+### Billed rates by model
+
+Credits charged per **1 million tokens** (multiplier included):
+
+| Model | Input | Output |
+| --- | --- | --- |
+| Claude Opus 4.5 | 600 | 3,000 |
+| Claude Sonnet 4.6 | 360 | 1,800 |
+| Claude Haiku 4.5 | 120 | 600 |
+| Gemini 3.1 Pro | 240 | 1,440 |
+| Gemini 3.5 Flash | 60 | 360 |
+| Gemini 2.5 Pro | 150 | 1,200 |
+| Gemini 2.5 Flash | 36 | 300 |
+
+Models not in the catalog bill at a conservative premium rate (600 input / 3,000 output per 1M tokens) so an uncatalogued model can never undercharge. The same model bills identically no matter which provider route serves it.
 
 <Tip>
-  Watch your credit usage for the first month or two. If agents regularly exhaust the monthly grant, moving up a tier is usually cheaper than constraining how often they run.
+**Worked example:** one agent turn on Claude Sonnet 4.6 that reads 10,000 tokens and writes 2,000 tokens costs (10,000 × $3 + 2,000 × $15) ÷ 1M × 1.2 = $0.072 → **7.2 credits**. The Free plan's monthly grant covers roughly 70 such turns.
 </Tip>
 
-## Related pages
+## When credits run out
 
-<CardGroup cols={2}>
-  <Card title="Roles and permissions" icon="shield-check" href="/admin/roles-and-permissions">
-    Only Administrators can manage billing.
-  </Card>
-  <Card title="Agents overview" icon="bot" href="/agents/overview">
-    What agent runs do and how approval gates work.
-  </Card>
-</CardGroup>
+When your credit balance reaches zero, **agent runs are blocked** with a clear message ("Out of credits — top up or upgrade"). Blocking applies to every agent surface: chat, triggers, webhooks, and the API.
+
+Everything that doesn't consume AI usage keeps working — reading docs, search, the Inbox for already-generated proposals, change request editing, merges, and integrations syncing.
+
+Balance replenishes automatically with the next monthly grant, immediately on plan change, or instantly with a top-up.
+
+## Concurrency limits
+
+Each plan caps how many agent runs can be active at once (queued, running, or awaiting approval). Starting a run beyond the cap fails with an actionable message that names your current usage and plan — wait for a run to finish, or upgrade.
+
+## Top-ups
+
+Business and Ultra plans can buy additional credits at any time:
+
+- **Card checkout** — a hosted Stripe checkout, from 100 up to 500,000 credits per purchase. Credits land on your balance as soon as payment completes.
+- **Manual grants** — for deployments without card payments configured (for example, self-hosted or invoiced accounts), credits are granted directly by agreement, up to 50,000 per grant.
+
+Purchased credits are priced at the same rate as granted credits: 1 credit = $0.01, so a 1,000-credit pack is $10.
+
+<Note>
+On Free, Starter, and Pro, top-ups are not available — if you regularly exhaust your grant, upgrading is the intended path, and it's usually cheaper than the equivalent top-up volume.
+</Note>
+
+## Plan changes and seats
+
+- Plan changes take effect immediately: new limits apply at once, and the new plan's monthly credit grant is applied on the change.
+- Seats are billed at $20/month each on all paid tiers. Your seat count is managed alongside the plan in the Billing tab.
+- Downgrading never deletes anything — if you exceed the lower plan's trigger or connector caps, existing items stay but new ones can't be created until you're back under the cap.
+
+## Auditability
+
+Every credit movement — grants, usage debits, top-ups, adjustments — is recorded in an append-only ledger with a running balance, visible in the Billing tab. Usage records carry the model, token counts, and originating run, so finance and engineering see the same numbers.
+
+## Frequently asked questions
+
+<AccordionGroup>
+  <Accordion title="Do documentation features consume credits?">
+    Credits meter AI usage: agent conversations, document generation, suggestions, and AI editor actions. Browsing, searching, editing by hand, and merging change requests are free.
+  </Accordion>
+  <Accordion title="Can I cap spending?">
+    Spending is naturally capped by your credit balance — LivingContext blocks agent usage at zero rather than billing overage. On plans without top-ups, your monthly grant is a hard ceiling.
+  </Accordion>
+  <Accordion title="Do unused credits roll over?">
+    The monthly grant sets your balance for the cycle; topped-up credits remain until spent.
+  </Accordion>
+  <Accordion title="Can we use our own AI provider key?">
+    Yes — organizations can bring their own Anthropic API key in Settings → AI, which routes usage to your own provider account. See [Enterprise](/admin/enterprise).
+  </Accordion>
+  <Accordion title="Who can manage billing?">
+    Administrators. Other roles can read billing status. See [Roles and permissions](/admin/roles-and-permissions).
+  </Accordion>
+</AccordionGroup>
