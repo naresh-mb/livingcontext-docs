@@ -12,6 +12,10 @@ Conversations are **persisted, private threads** — you can leave and come back
 The workspace agent is **read-only**. It never modifies your Salesforce org or your docs. Its single write path is [Save as doc](#save-an-answer-as-a-doc), which goes through the normal change request review flow.
 </Note>
 
+<Warning>
+**Secrets are never echoed.** If your synced source or records contain credentials — API keys, tokens, passwords, client secrets — the agent reports *where* they live and flags them as a security risk, but never prints the full value in its answer or inside a code snippet. It treats your documentation as leads to verify, not proof: for questions about how your org is configured today, it confirms against your live org and metadata before asserting.
+</Warning>
+
 ## What it can see
 
 The agent chooses from 19 tools. As it works, tool activity streams live into the transcript so you can see exactly what it looked at.
