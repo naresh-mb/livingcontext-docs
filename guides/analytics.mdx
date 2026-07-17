@@ -8,6 +8,26 @@ icon: "chart-pie"
 
 Open it from **Analytics** in the left navigation. Anyone who can read your docs can view analytics.
 
+## Connect your analytics engine
+
+Analytics runs on your organization's **own Metabase (or compatible BI) instance** — your data stays in your instance, and LivingContext renders the charts natively over it. An administrator connects it once from **Settings → Connections → Analytics**:
+
+<Steps>
+  <Step title="Enter your instance URL and API key">
+    Paste your Metabase base URL (e.g. `https://metabase.your-company.com`) and an API key. Create the key in Metabase under **Settings → Admin → API keys**. LivingContext stores it **encrypted** and never shows it again.
+  </Step>
+  <Step title="Verify and pick the Salesforce mirror">
+    LivingContext verifies the credentials, lists the databases your instance exposes, and asks which one is your **Salesforce mirror** — the database analytics charts by default.
+  </Step>
+  <Step title="Connect">
+    Once connected, the Analytics page and the [workspace agent](/agents/workspace-agent)'s charts go live. Disconnecting removes the stored key and turns analytics off until you reconnect.
+  </Step>
+</Steps>
+
+<Note>
+Each organization connects its own instance — one org can never see another's data or results. Until an instance is connected, the Analytics page shows a **Connect** prompt instead of charts. Non-administrators can view the connection status and ask an admin to set it up.
+</Note>
+
 ## What you can chart
 
 Analytics reads the records behind your Salesforce org — Accounts, Opportunities, Cases, your custom objects — and renders aggregates and trends across the full chart catalog:
