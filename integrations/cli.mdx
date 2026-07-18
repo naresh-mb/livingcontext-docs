@@ -80,6 +80,105 @@ echo "# Updated" | lc doc update --repo acme/docs --path docs/intro.md --file -
 
 Add `--submit` to open the pull request immediately, or `lc doc submit <changeRequestId>` later.
 
+## Command reference
+
+Arguments in `<angle brackets>` are required; `[square brackets]` are optional. Repeatable flags are marked `...`.
+
+<AccordionGroup>
+  <Accordion title="Setup — login, logout, status">
+    | Command | What it does |
+    | --- | --- |
+    | `lc login [--base-url URL] [--mcp-key K] [--agent-key K]` | Store credentials. With no flags it prompts interactively (keys are masked); either key may be left blank. |
+    | `lc logout` | Remove stored keys (the base URL is kept). |
+    | `lc status` | Print the base URL and verify each stored key against the server. |
+  </Accordion>
+
+  <Accordion title="Integrations — connect, github">
+    | Command | What it does |
+    | --- | --- |
+    | `lc connect` | Connection status for GitHub, GitLab, Confluence, and Salesforce — account and connected-since date per service. |
+    | `lc connect <service>` | Opens your browser on the Connections page to complete OAuth (`github`, `gitlab`, `confluence`, or `salesforce`). Connections need a signed-in browser session, so the CLI hands off. |
+    | `lc github` | GitHub connection health plus the docs repositories writes can target. |
+    | `lc github status` / `lc github repos` | Just the connection line, or just the repo list. |
+  </Accordion>
+
+  <Accordion title="Docs — search, read, write">
+    | Command | What it does |
+    | --- | --- |
+    | `lc search <query> [--limit N]` | Full-text search across your docs; returns doc IDs for `lc get`. |
+    | `lc get <docId>` | Print a doc's markdown. Content goes to stdout and provenance (title, source, indexed time) to stderr, so piping captures clean markdown. |
+    | `lc changes [--since ISO] [--limit N]` | Recently updated docs, newest first. |
+    | `lc suggest --doc <docId> [--limit N]` | AI-suggested Salesforce tags for an indexed doc; use `--file <path>` to suggest for a local file instead. |
+    | `lc doc create --repo owner/name --path docs/x.md --file <f>` | Create a page as a draft change request. Optional: `--title`, repeatable `--tag Type:Name`, `--submit` to open the PR now. Use `--file -` to read from stdin. |
+    | `lc doc update --repo owner/name --path docs/x.md --file <f>` | Replace an existing page's content on a fresh change-request branch. Optional: `--message`, `--submit`. |
+    | `lc doc tag --repo owner/name --path docs/x.md [--add Type:Name]... [--remove Type:Name]...` | Add or remove Salesforce tags on a doc — applied immediately, no change request. |
+    | `lc doc submit <changeRequestId> [--body text]` | Open the pull request for a draft change request. |
+  </Accordion>
+
+  <Accordion title="Salesforce intelligence — sf">
+    | Command | What it does |
+    | --- | --- |
+    | `lc sf context <name> [--type T]` | Schema and synced source for one metadata entity (an object, Apex class, flow…). |
+    | `lc sf usages <name>` | Every place an API name is referenced across the org's source. |
+    | `lc sf deps <name> [--type T]` | Dependency edges for an entity. |
+    | `lc sf search <query> [--regex] [--type T] [--limit N]` | Search the synced org source (plain text or `--regex`). |
+    | `lc sf changes [--type T] [--since-days N] [--limit N]` | Recent metadata changes. |
+    | `lc sf diffs [--name N] [--type T] [--since-days N] [--limit N]` | Line-level diffs of recent metadata changes. |
+    | `lc sf schema <objectName>` | An object's fields. |
+    | `lc sf unused <objectName> [--limit N]` | Fields nothing in the org references. |
+    | `lc sf access <objectName>` | Who can access an object. |
+    | `lc sf debt` | Org-wide technical-debt signals (invalid Apex, outdated API versions, inactive triggers…). |
+  </Accordion>
+
+  <Accordion title="Agent runs — agent">
+    | Command | What it does |
+    | --- | --- |
+    | `lc agent run "<instruction>" [--wait] [--mode m]` | Start an [agent run](/agents/agent-platform). `--wait` polls until it finishes and prints the result; `--mode` is `interactive`, `assisted`, or `autonomous`. |
+    | `lc agent get <runId>` | Status and result of one run. |
+    | `lc agent list [--limit N]` | Recent runs. |
+  </Accordion>
+
+  <Accordion title="Advanced — tools, call, version">
+    | Command | What it does |
+    | --- | --- |
+    | `lc tools` | List every tool the [MCP server](/integrations/mcp-server) exposes. |
+    | `lc call <tool> [key=value]... [--json '{...}']` | Call any MCP tool directly — the escape hatch when no dedicated command exists. Values parse as JSON where possible (`limit=5`, `regex=true`). |
+    | `lc version` / `lc help` | Version and the built-in command summary. |
+  </Accordion>
+</AccordionGroup>
+
+## Scripting
+
+`lc` is built to compose with shell pipelines:
+
+- Most read commands accept **`--json`** to emit the raw payload instead of the human-readable rendering.
+- **Exit codes** are strict: `0` on success, `1` on any failure (bad usage, HTTP or tool errors, a failed or cancelled agent run) — safe to chain with `&&`.
+- `lc get` keeps markdown on stdout and metadata on stderr, so `lc get <docId> > page.md` captures clean content.
+- For CI, skip the config file and pass keys through the environment:
+
+```sh
+export LC_MCP_KEY=lcmcp_…        # docs + Salesforce commands
+export LC_AGENT_KEY=lc_live_…    # agent commands
+export LC_BASE_URL=https://app.livingcontext.ai   # optional (this is the default)
+lc changes --since 2026-07-01T00:00:00Z --json
+```
+
+## Troubleshooting
+
+| Symptom | Fix |
+| --- | --- |
+| `lc: command not found` | The launcher installs to `~/.local/bin` — make sure it's on your `PATH`, or re-run the installer with `LC_BIN_DIR=/usr/local/bin`. |
+| `MCP key rejected (401)` | The key was revoked or mistyped. Mint a fresh one in **Settings → MCP server** and run `lc login`. |
+| `forbidden (403)` | Your membership in the key's organization ended, or an IP allowlist is blocking you — check with your admin. |
+| `needs bun or node (>= 20)` | Install [Bun](https://bun.sh) or Node 20+, then re-run the installer. |
+
+To uninstall, delete the launcher, the bundle, and (optionally) your config:
+
+```sh
+rm ~/.local/bin/lc ~/.livingcontext/lc.mjs
+rm -r ~/.config/livingcontext   # stored keys
+```
+
 <Note>
 `lc` speaks to the same [MCP server](/integrations/mcp-server) your AI coding tools use, so it inherits the same guarantees: keys are org-scoped, your membership is re-checked on every call, and writes respect your [role](/admin/roles-and-permissions) and always end at review.
 </Note>
