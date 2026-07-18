@@ -1,0 +1,46 @@
+---
+title: "Schema diagrams"
+description: "An interactive ER diagram of your Salesforce schema, generated automatically from synced metadata."
+icon: "diagram-project"
+---
+
+The **Schema** page renders your Salesforce data model as an interactive entity-relationship diagram — every object, every relationship, laid out automatically. Nothing to draw, nothing to maintain: the diagram is generated from the metadata catalog your [Salesforce connection](/integrations/salesforce) already syncs, so it reflects your org as it actually is.
+
+Open it at `/erd` in your workspace.
+
+## Reading the diagram
+
+Objects appear as tables; relationship fields draw the edges between them, following the same visual language as Salesforce Schema Builder:
+
+| Edge style | Relationship |
+| --- | --- |
+| **Solid line** | Master-detail — the detail record cannot exist without its master |
+| **Dashed line** | Lookup — an optional reference between objects |
+
+Edges carry cardinality markers on each end, so one-to-many relationships read at a glance.
+
+## Display modes
+
+Salesforce objects routinely carry dozens or hundreds of fields — showing them all makes a diagram unreadable. The toolbar offers three display modes:
+
+- **Key fields only** *(default)* — the record Id plus every relationship field. This is the relationship-focused view most schema questions need.
+- **All fields** — the full field list per object.
+- **Object names only** — maximum density for very large schemas.
+
+## Navigating
+
+- **Search** — find any object by name and jump to it.
+- **Object details** — click an object to open a panel with its fields, types, and related objects.
+- **Focus related** — highlight an object's neighborhood to trace how records connect.
+- **Pan and zoom** — the canvas handles large schemas; fit-to-view brings everything back on screen.
+- **Shareable views** — the current view (position, display mode, selection) is captured in the URL, so a link shows a teammate exactly what you see.
+
+## What's included
+
+- The diagram respects your organization's **documentation filters**: managed-package objects excluded there stay out of the diagram too (see [Settings](/admin/settings-reference)).
+- System audit fields (created/modified metadata) are hidden to keep the signal high.
+- With multiple Salesforce connections, the diagram covers the connections in your active [space](/admin/spaces-and-repos).
+
+<Note>
+The Schema page is built on [Liam ERD](https://liambx.com/), an open-source ER diagram engine (Apache-2.0), extended by LivingContext with Salesforce relationship semantics.
+</Note>
