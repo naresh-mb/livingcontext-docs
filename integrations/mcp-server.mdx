@@ -43,7 +43,7 @@ claude mcp add --transport http livingcontext \
 
 ## Tools
 
-The server exposes 18+ tools across four areas.
+The server exposes 20+ tools across five areas.
 
 ### Reads
 
@@ -92,6 +92,15 @@ The same Salesforce analysis available to the [workspace agent](/agents/workspac
 | `who_can_access` | Who can see or edit an object or field |
 | `get_org_debt_signals` | Technical-debt indicators for the org |
 
+### Connections
+
+Check what's wired up before reading or writing (connecting itself happens in the app UI):
+
+| Tool | What it does |
+| --- | --- |
+| `list_connections` | Connection status for each integration (GitHub, GitLab, Confluence, Salesforce) |
+| `list_docs_repos` | The git repositories writes may target |
+
 ## Example: docs maintenance from your editor
 
 1. Add the MCP server to Claude Code with your `lcmcp_` key.
@@ -106,3 +115,7 @@ Nothing bypasses review. Even a fully automated MCP client ends at the same gate
 <Warning>
 Treat `lcmcp_` keys like passwords. They're shown once at creation — if a key leaks, revoke it in **Settings → MCP** and create a new one.
 </Warning>
+
+<Note>
+Prefer the terminal? The [`lc` command-line client](/integrations/cli) wraps these same tools — docs search, reviewed writes, and Salesforce intelligence — using your `lcmcp_` key.
+</Note>

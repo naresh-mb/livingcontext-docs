@@ -73,7 +73,8 @@
               "integrations/salesforce",
               "integrations/confluence",
               "integrations/slack",
-              "integrations/mcp-server"
+              "integrations/mcp-server",
+              "integrations/cli"
             ]
           },
           {

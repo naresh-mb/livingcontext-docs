@@ -1,0 +1,87 @@
+---
+title: "Command-line interface"
+description: "lc — query and update your org's living context from the terminal: docs search and reviewed writes, Salesforce org intelligence, and agent runs."
+icon: "terminal"
+---
+
+**`lc`** is the LivingContext command-line client. From any terminal it can search and read your docs, draft reviewed doc changes, explore your Salesforce org intelligence, check integration status, and start agent runs — all under your organization's permissions.
+
+## Install
+
+```sh
+curl -fsSL https://app.livingcontext.ai/cli/install.sh | sh
+lc login
+```
+
+The installer places a single self-contained file on your machine and a launcher on your `PATH`. There are no other dependencies — `lc` runs on [Bun](https://bun.sh) if it's installed, otherwise Node 20+.
+
+## Sign in
+
+`lc` uses two independent keys, each minted in the app and each unlocking a different set of commands:
+
+| Key | Minted in | Unlocks |
+| --- | --- | --- |
+| MCP key (`lcmcp_`) | **Settings → MCP server** | docs, Salesforce intelligence, integration status, reviewed writes |
+| Agent key (`lc_live_`) | **Settings → Channels** | `agent run`, `agent get`, `agent list` |
+
+`lc login` prompts for whichever keys you have and stores them in a private config file on your machine (readable only by you). You can also set them per-session with the `LC_MCP_KEY` and `LC_AGENT_KEY` environment variables, or point at a specific instance with `LC_BASE_URL` (or `lc login --base-url`).
+
+Run `lc status` any time to confirm connectivity and that your keys are valid.
+
+## What you can do
+
+<CardGroup cols={2}>
+  <Card title="Docs" icon="file-lines">
+    `search` for docs, `get` one's markdown, and list recent `changes`.
+  </Card>
+  <Card title="Reviewed writes" icon="pen-to-square">
+    `doc create`, `doc update`, and `doc tag` — every write lands as a change request.
+  </Card>
+  <Card title="Salesforce intelligence" icon="salesforce">
+    `sf context`, `search`, `deps`, `schema`, `access`, `debt`, and more.
+  </Card>
+  <Card title="Agent runs" icon="robot">
+    `agent run` an instruction and stream its status, then `agent get` / `agent list`.
+  </Card>
+</CardGroup>
+
+### Common commands
+
+```sh
+lc connect                          # integration status (GitHub, GitLab, Confluence, Salesforce)
+lc connect github                   # open the browser to complete a connection
+lc github                           # GitHub health + the docs repos writes can target
+
+lc search "billing runbook"         # find docs (returns doc IDs)
+lc get <docId>                      # print a doc's markdown
+lc changes --limit 10               # what changed recently
+lc suggest --doc <docId>            # AI-suggested Salesforce tags for a doc
+
+lc sf context Renewal_Date__c       # schema + source for one Salesforce entity
+lc sf search "isVoided" --limit 5   # search synced org source
+lc sf unused Account                # object fields nothing references
+lc sf debt                          # org technical-debt signals
+
+lc agent run "Audit stale docs" --wait   # start an agent run and stream status
+```
+
+Most read commands accept `--json` to print the raw payload for scripting.
+
+### Writing docs
+
+Writes never go straight to `main` — they land as a [change request](/guides/editing-and-change-requests) for human review, exactly like edits made in the app:
+
+```sh
+lc doc create --repo acme/docs --path docs/runbooks/refunds.md \
+  --file refunds.md --tag ApexClass:RefundService --submit
+
+echo "# Updated" | lc doc update --repo acme/docs --path docs/intro.md --file -
+```
+
+Add `--submit` to open the pull request immediately, or `lc doc submit <changeRequestId>` later.
+
+<Note>
+`lc` speaks to the same [MCP server](/integrations/mcp-server) your AI coding tools use, so it inherits the same guarantees: keys are org-scoped, your membership is re-checked on every call, and writes respect your [role](/admin/roles-and-permissions) and always end at review.
+</Note>
+
+Run `lc help` for the full command list, or `lc tools` to see every underlying tool.
