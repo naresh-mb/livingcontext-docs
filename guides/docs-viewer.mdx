@@ -51,19 +51,23 @@ Deep links carry the repository, file path, and tab in the URL, so you can share
 
 ## Authoring directly on the default branch
 
-For quick changes you don't need a change request. The viewer supports direct authoring, and each action lands as a single commit on the default branch:
+For quick changes you don't need a change request. If you have edit rights, a doc page **is** the editor — open it and you're already editing, with no Edit button and no mode switch. Readers without edit rights see the read-only view instead.
 
 <Steps>
   <Step title="Create a page">
-    Click **New page**, give it a name, pick a template (Plain, a built-in starter, or one of your saved templates), and optionally link it to Salesforce metadata. See [Templates and style](/guides/templates-and-style).
+    Click **New page**, give it a name, pick a template (Plain, a built-in starter, or one of your saved templates), and optionally link it to Salesforce metadata. See [Templates and style](/guides/templates-and-style). The new page opens straight into the editor.
   </Step>
-  <Step title="Edit a page">
-    Press <kbd>⌘</kbd> <kbd>E</kbd> or click **Edit** to open the rich WYSIWYG editor in place. Saving commits your change to git.
+  <Step title="Edit in place">
+    Type directly in the page. Your changes are saved as you go and committed to git automatically shortly after you stop editing — there's no Save button. To land a commit right away, click **Commit now** next to **History**.
   </Step>
   <Step title="Rename, move, or delete">
     Use the row menu in the file tree. Each operation is committed individually, so history stays clean and reviewable.
   </Step>
 </Steps>
+
+<Note>
+Diagram files and OpenAPI specs aren't edited in place — they open through a [change request](/guides/editing-and-change-requests) with their own editor.
+</Note>
 
 <Tip>
 For larger or multi-file edits — or anything you want reviewed before it ships — use a [change request](/guides/editing-and-change-requests) instead. It gives you a real branch, a diff view, and a merge step.
