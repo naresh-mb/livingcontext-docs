@@ -37,7 +37,9 @@ Salesforce objects routinely carry dozens or hundreds of fields — showing them
 
 ## What's included
 
+- Viewing schema diagrams requires **documentation read access** — the same permission that gates the docs and analytics surfaces (see [Roles and permissions](/admin/roles-and-permissions)).
 - The diagram respects your organization's **documentation filters**: managed-package objects excluded there stay out of the diagram too (see [Settings](/admin/settings-reference)).
+- Very large orgs are bounded by a row budget; if yours exceeds it, the header shows **partial data** — narrowing the active space or excluding managed packages brings the diagram back under budget.
 - System audit fields (created/modified metadata) are hidden to keep the signal high.
 - With multiple Salesforce connections, the diagram covers the connections in your active [space](/admin/spaces-and-repos).
 
