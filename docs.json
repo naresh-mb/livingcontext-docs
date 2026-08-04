@@ -23,7 +23,9 @@
               "index",
               "getting-started/quickstart",
               "getting-started/onboarding",
-              "getting-started/concepts"
+              "getting-started/concepts",
+              "getting-started/common-tasks",
+              "getting-started/troubleshooting"
             ]
           },
           {

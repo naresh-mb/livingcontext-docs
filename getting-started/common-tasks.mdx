@@ -1,0 +1,185 @@
+---
+title: "Common tasks"
+description: "How do I…? Every everyday task in LivingContext, with the exact clicks to do it."
+icon: "list-check"
+sidebarTitle: "Common tasks"
+---
+
+This page is the cookbook: find the task you're trying to do, follow the clicks, and use the link at the end of each answer when you want the full story. If a term is unfamiliar, [Core concepts](/getting-started/concepts) defines it.
+
+## Setting up
+
+### …create a workspace?
+
+1. Sign up (email \+ password, Google, or GitHub) — you land on **Name your organization**.
+2. Type a name; the page confirms your subdomain is available.
+3. Click **Create workspace**, then follow the three-step setup wizard.
+
+More: [Onboarding](/getting-started/onboarding)
+
+### …try LivingContext without a GitHub account?
+
+1. In the setup wizard's first step, click **"No GitHub or GitLab? Start with a LivingContext workspace"**.
+2. Click **Create workspace** — a private, pre-seeded docs repo is hosted for you.
+3. Click **Enter your workspace** and start editing. You can move to your own repo any time later.
+
+More: [Starter workspaces](/getting-started/onboarding#no-repo-start-with-a-starter-workspace)
+
+### …invite a teammate?
+
+1. Open **Settings → Members** (the Organization page).
+2. Enter their email, pick a role (default **Editor**), and send.
+3. They get an email — **Accept invitation** — and land in your workspace. Invitations expire after 48 hours.
+
+More: [Organizations](/admin/organizations)
+
+### …connect Salesforce?
+
+1. In your Salesforce org, create a Connected App (OAuth enabled, callback URL from the Connections page).
+2. On **Connections**, add its consumer key and secret to the Salesforce card.
+3. Click **Connect Production** or **Connect Sandbox**. The first metadata sync starts by itself.
+
+More: [Salesforce integration](/integrations/salesforce)
+
+### …connect the browser extension?
+
+1. Install the LivingContext extension in Chrome and open its side panel.
+2. Click **Connect to LivingContext**, sign in if asked, then click **Authorize extension**.
+3. Done — no keys to copy.
+
+More: [Install and connect](/capture/install-and-connect)
+
+## Writing docs
+
+### …create a new page?
+
+1. Open **Docs** and click **Add new** at the bottom of the sidebar.
+2. Pick a starting point — a plain file, a template, or a diagram canvas — and name the page.
+3. Optionally link the Salesforce components it documents and tick **Draft this page with AI**.
+4. Click **Create** — the page opens ready to edit.
+
+More: [Docs viewer](/guides/docs-viewer#creating-pages)
+
+### …edit an existing page?
+
+1. Open the page in **Docs** — if you have edit rights, it's already the editor. Just type.
+2. Changes save as you type and commit to git shortly after you stop; the toolbar status shows **Saved to git** when done.
+3. In a hurry? Click **Commit now** (the double-tick button).
+
+More: [Docs viewer](/guides/docs-viewer#editing-in-place)
+
+### …get AI to write or fix something for me?
+
+1. With a doc open, click **Agent** in the top bar (or press <kbd>⌘</kbd> <kbd>.</kbd>).
+2. Describe the change — "tighten the intro", "update this to match the current schema" — or use a starter like **Proofread**.
+3. Suggestions appear inline as tracked changes: **Accept** or **reject** each, or **Accept all**.
+
+More: [Doc editor agent](/agents/doc-editor-agent)
+
+### …make a change that needs review before it ships?
+
+1. In **Docs**, click **Edit** in the top bar to start (or continue) a change request — your own branch.
+2. Edit as many files as you need; saving is explicit here.
+3. Click **Merge** → **Request a review** to open a pull request, or **Merge now** if you have merge rights.
+
+More: [Editing and change requests](/guides/editing-and-change-requests)
+
+### …add a diagram?
+
+1. In any doc, type **`/`** and pick **Mermaid diagram**, **D2 diagram**, **draw.io diagram**, or **Excalidraw**.
+2. For a standalone canvas, use **Add new → Diagram** instead.
+
+More: [Diagrams](/guides/diagrams)
+
+### …record a how-to guide from my browser?
+
+1. Open the extension side panel and click **Start Recording**; share the browser tab when Chrome asks.
+2. Click through the workflow normally — every action becomes a step with a screenshot.
+3. Click **Finish Recording**, tidy the steps, then **Publish** to a docs repo — it arrives as a change request under `docs/guides/`.
+
+More: [Recording a capture](/capture/recording)
+
+### …announce a change in the changelog?
+
+1. Open **Changelog** — with edit rights it opens straight into the editor (or offers **Create changelog** the first time).
+2. Add an **Update** block at the top (type `/` and pick **Update**), set the date, write the entry.
+3. It saves as you type and publishes directly.
+
+More: [Changelog](/guides/changelog)
+
+## Reviewing agent work
+
+### …review what the agents proposed?
+
+1. Open **Inbox**. Each request is one commit or agent sweep.
+2. Read each proposal (**Preview** or **Changes**), then press <kbd>A</kbd> to accept or <kbd>X</kbd> to reject — <kbd>J</kbd>/<kbd>K</kbd> move between files.
+3. When everything's decided, click **Ship accepted files** — as a pull request or a change request.
+
+More: [Inbox](/guides/inbox)
+
+### …turn a code commit into doc updates?
+
+1. Track the branch once: **Settings → Commit tracking**.
+2. From then on, sweeps deliver proposals to your **Inbox** automatically — or open **Commits**, pick a commit, and click **Generate** to run it on demand.
+
+More: [Commits](/guides/commits)
+
+### …find what's undocumented?
+
+1. Open **Coverage** — the score, and per-type gaps per Salesforce org.
+2. To have the agent draft the missing docs, turn on **Settings → Doc suggestions** (or click **Run now** there). Proposals land in the Inbox.
+
+More: [Coverage](/guides/coverage) · [Coverage auditor](/agents/coverage-auditor)
+
+## Finding answers
+
+### …find a doc?
+
+- Press <kbd>⌘</kbd> <kbd>K</kbd> anywhere and type a phrase from it — or use the sidebar's **Find pages…** box when you know its name.
+
+More: [Search](/guides/search)
+
+### …ask a question about my org?
+
+- On **Home**, just ask — "who can edit Opportunity Amount?", "what changed last week?" — or run a playbook like `/audit`. Answers show their sources; **Save as doc** keeps a good one.
+- In the browser extension, the **Agent** tab answers from your published docs, wherever you are.
+
+More: [Workspace agent](/agents/workspace-agent) · [Ask docs](/capture/ask-docs)
+
+### …see my Salesforce data model?
+
+- Open **Schema** (`/erd`) — every object and relationship, zoomable, with saved views for focused subsets.
+
+More: [Schema diagrams](/guides/schema-diagrams)
+
+### …chart my Salesforce records?
+
+- Ask the workspace agent on Home — "chart Opportunities won by month" — and find the saved result on **Analytics**. (An admin connects the analytics source once, on Connections.)
+
+More: [Analytics](/guides/analytics)
+
+## Administering
+
+### …change someone's role?
+
+1. **Settings → Members**, find the row, pick the new role in its dropdown. Administrators only.
+
+More: [Roles and permissions](/admin/roles-and-permissions)
+
+### …keep two teams' work separate?
+
+1. **Settings → Spaces** — create a space per team, each with its own repos and Salesforce connections.
+2. Switch with the space switcher at the top of the left rail; Home, Inbox, and Coverage follow it.
+
+More: [Spaces and repos](/admin/spaces-and-repos)
+
+### …make all docs sound like _us_?
+
+1. **Settings → Documentation style** — pick a base style, add your terminology and rules, save.
+2. **Settings → Templates** — define the shapes docs start from, with a gold-standard exemplar each.
+
+More: [Templates and style](/guides/templates-and-style)
+
+<Note>
+  Stuck on something that looks broken or empty? Check [Troubleshooting](/getting-started/troubleshooting) — most "it's empty" moments have a one-click cause.
+</Note>
