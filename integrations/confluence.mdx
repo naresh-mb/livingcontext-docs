@@ -16,22 +16,22 @@ If your team's documentation already lives in Confluence, you don't have to star
     The integration supports **multiple Atlassian sites**. If your account spans several, pick which site the connection targets.
   </Step>
   <Step title="Set up a sync job">
-    Create a job that maps a Confluence **space** to a target docs **repository**.
+    Open the **Sync** page (in the Settings sidebar) and use **Start a sync**: pick a Confluence **space** and a target docs **repository**. GitHub must be connected too — the output lands in git.
   </Step>
 </Steps>
 
 ## How sync works
 
-Sync runs as **space → repo jobs**:
+Sync is **one-way, Confluence → git**, run as space → repo jobs:
 
-- Each job takes one Confluence space and syncs its pages into the target docs repository.
-- Jobs report **progress** while running.
-- Completed runs appear in a **history** on the Sync page, so you can see what ran, when, and how it went.
+- Each job converts one Confluence space's pages into **MDX files with their attachments** and opens a **pull request** on the target repository, so the import itself is reviewable before it merges.
+- Jobs report **progress** while running, page by page.
+- Completed runs appear in **Recent jobs** on the Sync page — space, repo, status, page counts, and a link to the PR.
 
 Once synced, the content is ordinary docs in your repository — browsable in the [Docs viewer](/guides/docs-viewer), searchable, editable through [change requests](/guides/editing-and-change-requests), and available as grounding for agents.
 
 <Tip>
-Use Confluence sync as a migration path: bring a space across, then let the [commit updater](/guides/commits) and [coverage auditor](/agents/coverage-auditor) keep it alive — instead of letting it rot in a wiki.
+  Use Confluence sync as a migration path: bring a space across, then let the [commit updater](/guides/commits) and [coverage auditor](/agents/coverage-auditor) keep it alive — instead of letting it rot in a wiki.
 </Tip>
 
 ## Multiple sites and spaces

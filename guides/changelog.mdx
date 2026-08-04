@@ -4,7 +4,7 @@ description: "Publish a running changelog as a normal doc with structured update
 icon: "megaphone"
 ---
 
-The changelog is a docs-style page for announcing what changed — releases, new features, process updates, anything your readers should know about over time. It renders as a clean timeline: date on the left, content on the right.
+The changelog is a docs-style page for announcing what changed — releases, new features, process updates, anything your readers should know about over time. It renders as a clean timeline: date on the left, content on the right, grouped by year in the left rail.
 
 ## How it works
 
@@ -13,26 +13,40 @@ The changelog is **a normal doc**, maintained like any other page in your docs r
 Because it is just a doc:
 
 - It lives in git with full history, like everything else.
-- It is edited through the same [change request](/guides/editing-and-change-requests) flow as any other page.
+- It opens in the **same live editor** as every other page — if you can edit docs, the changelog opens ready to edit, and your changes save as you type.
 - It is indexed by [search](/guides/search), so past announcements are findable.
 
+Each of your configured docs repositories can have its own changelog — a **repo dropdown** in the left rail switches between them.
+
 <Note>
-There is no separate changelog database or publishing pipeline to manage. If you can edit a doc, you can maintain the changelog.
+  There is no separate changelog database or publishing pipeline to manage. If you can edit a doc, you can maintain the changelog. Readers without edit rights see the read-only timeline.
+</Note>
+
+## Creating the changelog
+
+If a repo has no changelog yet, the page offers a **Create changelog** button. It creates the page in your docs repo and opens it in the editor with a starter Update block — fill it in and it saves as you type.
+
+<Note>
+  If no docs repository is configured yet, the changelog page points you to **Settings → Docs repositories** first — the changelog needs a repo to live in.
 </Note>
 
 ## Adding an entry
 
 <Steps>
-  <Step title="Open the changelog for editing">
-    Edit it directly from the [docs viewer](/guides/docs-viewer) for a quick entry, or open a [change request](/guides/editing-and-change-requests) if the announcement should be reviewed first.
+  <Step title="Open the changelog">
+    Open **Changelog** in the navigation. With edit rights, the page is already the editor — no Edit button, no mode switch.
   </Step>
   <Step title="Insert an Update block">
-    Add a new Update block at the top of the page. Set its date and write the content — headings, lists, images-free callouts, and [diagrams](/guides/diagrams) all work inside a block.
+    Add a new Update block at the top of the page. Set its date and write the content — headings, lists, callouts, and [diagrams](/guides/diagrams) all work inside a block.
   </Step>
-  <Step title="Save or merge">
-    A direct edit commits immediately; a change request publishes when merged. Either way, the entry is live in the viewer right away.
+  <Step title="It publishes itself">
+    Changes are committed to your docs repository automatically shortly after you stop typing — the entry is live in the timeline right away.
   </Step>
 </Steps>
+
+<Warning>
+  Changelog edits publish **directly to the default branch** — there is no review step in between. If an announcement needs sign-off first, draft it in a [change request](/guides/editing-and-change-requests) and merge it when approved.
+</Warning>
 
 ## What goes in an Update block
 
@@ -43,7 +57,7 @@ Each block is free-form rich content, so you can shape entries however your team
 - **Process announcements** — "the discount approval flow changed; see the updated guide", with a link to the doc.
 
 <Tip>
-Link each entry to the docs it relates to. A changelog entry that says "the approval flow changed" is good; one that links to the updated approval-flow doc is better.
+  Link each entry to the docs it relates to. A changelog entry that says "the approval flow changed" is good; one that links to the updated approval-flow doc is better.
 </Tip>
 
 ## Agents and the changelog
@@ -52,7 +66,7 @@ Because the changelog is a normal doc, agents can maintain it too. Agents can **
 
 ## Where it appears
 
-The changelog gets its own place in the docs navigation, so readers can always find it. Deep links work like any other page, which makes individual announcements easy to share in Slack or email.
+The changelog gets its own place in the workspace navigation, so readers can always find it. Deep links work like any other page, which makes individual announcements easy to share in Slack or email.
 
 ## Why a doc, not a feed
 
@@ -60,11 +74,11 @@ Treating the changelog as a doc rather than a separate publishing system has pra
 
 | Benefit | What it means for you |
 | --- | --- |
-| One editing flow | The same editor, review, and merge steps as every other page |
+| One editing flow | The same live editor as every other page |
 | Full git history | Every entry is attributable and revertible |
 | Searchable | Past announcements show up in <kbd>⌘</kbd> <kbd>K</kbd> results |
 | Agent-maintainable | Agents propose entries through the normal review surfaces |
 
 <Warning>
-Keep the newest Update block at the top of the page. The timeline renders in document order, so entry order is entirely under your control — a misplaced block will appear exactly where you put it.
+  Keep the newest Update block at the top of the page. The timeline renders in document order, so entry order is entirely under your control — a misplaced block will appear exactly where you put it.
 </Warning>

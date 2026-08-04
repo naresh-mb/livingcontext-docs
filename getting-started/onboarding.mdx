@@ -4,20 +4,21 @@ description: "Sign up, create or join an organization, and complete the setup wi
 icon: "door-open"
 ---
 
-Onboarding takes you from a fresh account to a working workspace in three stages: sign up, choose an organization, and complete a short setup wizard.
+Onboarding takes you from a fresh account to a working workspace in three stages: sign up, choose an organization, and complete a short setup wizard. If you don't have a GitHub or GitLab repository yet, a **starter workspace** lets you try everything anyway — LivingContext hosts a private docs repo for you.
 
 ## Sign up
 
-You can create a LivingContext account in any of these ways:
+Sign-in and sign-up share one page — use the **Create an account** / **Sign in** toggle at the bottom to switch. You can create a LivingContext account in any of these ways:
 
-- **Email and password**
-- **GitHub** OAuth
-- **Google** OAuth
-- **Salesforce** OAuth
-- **Enterprise SSO** through your identity provider — Okta, Microsoft Entra, Auth0, and other standards-based IdPs
+- **Email and password** — passwords need at least **12 characters**; a passphrase works best. Very common passwords are rejected.
+- **Google**
+- **GitHub**
+- **Enterprise SSO** through your identity provider, where your organization has it enabled.
+
+Signing up logs you straight in. A verification email ("Verify your email for LivingContext") arrives in your inbox — you can keep working before clicking it, but verify soon: unverified accounts have limits, and a starter workspace created by an unverified account is cleaned up after 24 hours.
 
 <Note>
-  How you sign up doesn't limit what you can connect later. For example, you can sign up with Google and still connect GitHub and Salesforce from inside the app.
+  How you sign up doesn't limit what you can connect later. For example, you can sign up with Google and still connect GitHub and Salesforce from inside the app. You can also add **two-factor authentication** (authenticator app \+ backup codes) any time from **Settings → Security**.
 </Note>
 
 ## Choose your organization
@@ -28,23 +29,23 @@ After signing in for the first time, you land on the organization chooser. From 
 
 <Steps>
   <Step title="Name your organization">
-    Type a name — for example, *Acme*. LivingContext turns it into a URL slug automatically.
+    Type a name — for example, _Acme Inc._ There's just one field: your subdomain comes from the name.
   </Step>
-  <Step title="Confirm the subdomain">
-    The slug becomes your organization's subdomain, like `acme.livingcontext.ai`. Availability is checked live as you type, and reserved slugs are blocked.
+  <Step title="Watch the live check">
+    Under the field, LivingContext shows the resulting address — like `acme-inc.livingcontext.ai` — and confirms it's **available**, or tells you the name is taken or reserved so you can adjust.
   </Step>
-  <Step title="Create">
-    You become the organization's first member with the **Administrator** role.
+  <Step title="Create workspace">
+    Click **Create workspace**. You become the organization's first member with the **Administrator** role.
   </Step>
 </Steps>
 
 <Note>
-  Each user can create **one** organization. To work in additional organizations, join them through an invitation.
+  Each account can create **one** organization — one workspace per account. To work in additional organizations, join them through an invitation.
 </Note>
 
 ### Joining by invitation
 
-An Administrator invites you by email from the [Organization page](/admin/organizations). Keep these limits in mind:
+An Administrator invites you by email from the [Organization page](/admin/organizations). The email's **Accept invitation** button opens an invitation page showing who invited you and the role you'll get — accept to land in the workspace, or decline. Keep these limits in mind:
 
 - Invitations expire after **48 hours** — ask for a new one if yours has lapsed.
 - An organization can have up to **100 members**.
@@ -52,25 +53,53 @@ An Administrator invites you by email from the [Organization page](/admin/organi
 
 ## The setup wizard
 
-New organizations walk through a three-step wizard before the workspace unlocks.
+New organizations land on **Set up your workspace** — three numbered steps, each with a status chip (**Required**, **Optional**, **Locked**, or **Done**). The workspace unlocks once a documentation repository is configured; Salesforce is optional.
 
 <Steps>
-  <Step title="Connect GitHub or GitLab">
-    Connect one git provider. You need either GitHub **or** GitLab — not both. This is where your documentation lives, so LivingContext can't do useful work without it.
+  <Step title="Connect your code">
+    Connect **either GitHub or GitLab** — whichever hosts the repo you want documented. You only need one. For GitHub you authorize once, then install the GitHub App on the account or organization you sync from; if your repositories don't appear in the next step, use the **install / manage** link and refresh.
   </Step>
-  <Step title="Pick your documentation repositories">
-    Select at least one repository to hold your docs. All documentation is stored as Markdown files in this repo, and git remains the source of truth.
+  <Step title="Choose a repository">
+    This step stays **Locked** until a provider is connected. With GitHub, tick at least one repository in the picker (there's a filter box for long lists) and click **Save repositories**. With GitLab, enter the project as `group/project` and click **Save repository**. All documentation is stored as Markdown files in the repos you pick — git remains the source of truth.
   </Step>
   <Step title="Connect Salesforce (optional)">
-    Connect a Salesforce org so agents can ground documentation in your actual metadata. This step is optional — you can add Salesforce later from [Connections](/integrations/salesforce).
+    Link a Salesforce org so agents can ground documentation in your actual metadata. Salesforce uses **your own Connected App**: an Administrator first adds its consumer key and secret on [Connections](/integrations/salesforce), after which **Connect Sandbox** and **Connect Production** appear — connect as many orgs as you need. You can skip this entirely and add it later.
   </Step>
 </Steps>
 
-When the required steps are complete, click **Enter your workspace** to land on Home.
+When the required steps are complete, the footer reads **"You're all set — Salesforce is optional."** Click **Enter your workspace** to land on Home.
 
 <Tip>
-  If you leave partway through — for example, to authorize an OAuth connection — LivingContext returns you to the wizard until setup is complete.
+  If you leave partway through — for example, to authorize an OAuth connection — LivingContext returns you to the wizard until setup is complete. A finished workspace never gets stuck here.
 </Tip>
+
+## No repo? Start with a starter workspace
+
+If you don't have a GitHub or GitLab account (or just want to try LivingContext first), look for the link under the first wizard step:
+
+> **No GitHub or GitLab? Start with a LivingContext workspace** — we'll create a private repo for you inside the LivingContext org so you can try everything now. Connect your own GitHub later to move it across.
+
+<Steps>
+  <Step title="Name it (optional)">
+    Optionally name the repository — letters, numbers, dots, hyphens, and underscores. Leave it blank to auto-name.
+  </Step>
+  <Step title="Create workspace">
+    Click **Create workspace**. LivingContext creates a private repository in its own GitHub organization, seeded with a README, a getting-started guide, and navigation config — you never need a GitHub account, and there's nothing to authorize.
+  </Step>
+  <Step title="Enter and explore">
+    The repo is wired up as your documentation repository automatically, with a space created for it. Enter the workspace and start editing — everything works exactly as it would on your own repo.
+  </Step>
+</Steps>
+
+A few practical notes:
+
+- **One starter workspace per person** across the organizations you own. Deleting it (from Connections) frees the slot immediately.
+- **Storage is capped** (about 100 MB) — connect your own GitHub to lift the limit.
+- **Inactivity cleanup**: after 60 days idle you're warned, then the workspace is archived and eventually deleted. Verified, active use never triggers this.
+
+### Moving to your own repo later
+
+When you're ready, connect your own GitHub and the [Connections](/integrations/github) page shows **Move your workspace to your own GitHub**: enter a repository you own as `owner/repo` and click **Move workspace**. Your docs are copied across, the workspace switches over, and the hosted repo is retired — nothing to migrate by hand.
 
 ## After onboarding
 
@@ -80,12 +109,15 @@ A few things worth doing early:
   <Card title="Invite your team" icon="users" href="/admin/organizations">
     Add teammates and assign roles from the Organization page.
   </Card>
+
   <Card title="Organize with spaces" icon="folder-git-2" href="/admin/spaces-and-repos">
     Group repositories and Salesforce connections into scoped spaces.
   </Card>
+
   <Card title="Tune your settings" icon="settings" href="/admin/settings-reference">
-    Set your style guide, templates, and agent suggestion cadence.
+    Set your documentation style, templates, and agent suggestion cadence.
   </Card>
+
   <Card title="Learn the concepts" icon="book-open" href="/getting-started/concepts">
     Understand docs, change requests, the Inbox, and coverage.
   </Card>

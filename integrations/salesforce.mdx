@@ -8,15 +8,20 @@ The Salesforce connection is the heart of LivingContext. It builds a **metadata 
 
 ## Connect
 
+Salesforce connects through **your own Connected App** — your credentials, your org's policies, no platform-wide app in between:
+
 <Steps>
+  <Step title="Add your Connected App">
+    In your Salesforce org, create a Connected App (enable OAuth, paste in the callback URL shown on the Connections page). Then, on the **Connections** page, add its **consumer key** and **consumer secret** to the Salesforce card. Until this is done, the connect buttons stay hidden.
+  </Step>
   <Step title="Choose the environment">
-    When you connect from the **Connections** page, choose **Production** (`login.salesforce.com`) or **Sandbox** (`test.salesforce.com`). You can connect multiple orgs.
+    Click **Connect Production** (`login.salesforce.com`) or **Connect Sandbox** (`test.salesforce.com`). You can connect as many orgs as you need, side by side.
   </Step>
   <Step title="Authorize with OAuth">
-    LivingContext requests the `api` and `refresh_token` scopes — enough to read metadata and stay connected, nothing more.
+    LivingContext requests the `api`, `refresh_token`, and `web` scopes — enough to read metadata and stay connected, nothing more.
   </Step>
-  <Step title="Run the first sync">
-    The initial catalog sync starts building your metadata inventory. Progress and history are visible on the Sync page.
+  <Step title="The first sync starts itself">
+    Connecting automatically kicks off the first metadata sync — no button to find. Progress and history are visible on the Sync page, and each connection card offers **Fetch latest metadata** for a manual run any time.
   </Step>
 </Steps>
 
@@ -32,23 +37,23 @@ The catalog covers your org's structural metadata, with **source bodies where av
 - …and more component types
 
 <Note>
-Sync reads **metadata only** — the shape and source of your org. It never syncs your records or business data.
+  Sync reads **metadata only** — the shape and source of your org. It never syncs your records or business data.
 </Note>
 
 ### Ingest settings
 
-Each connection has its own ingest settings:
+The catalog itself — every metadata entity in your org — is always fully synced. Each connection's **Ingest settings** page controls what additionally gets embedded for AI search and grounding:
 
 | Setting | What it controls |
 | --- | --- |
-| Exclude types | Skip component types you don't care about |
-| Namespace filter | Include or exclude managed-package namespaces |
+| Component types | Which types are chunked and embedded for the agents' semantic search |
+| Managed packages | Ignore all (the default), include all, or include only specific packages |
 
-These pair with the coverage eligibility settings that decide which components count toward [Coverage](/guides/coverage).
+These pair with **Settings → Documentation eligibility**, which decides which components count toward [Coverage](/guides/coverage) — and a **Browse ingested metadata** link on each connection lets you inspect exactly what's in the catalog.
 
 ## Sync schedules
 
-Choose a cadence per connection: **Manual**, **Hourly**, **Every 6 hours**, or **Daily**. Schedules can be **paused** at any time.
+Choose an **Auto-fetch frequency** per connection: **Manual only**, **Hourly**, **Every 6 hours**, or **Daily**.
 
 - Failed runs **retry automatically**.
 - Every run appears in a **run history** with status and timing.
@@ -75,7 +80,7 @@ A few capabilities query your org **live** rather than from the synced catalog, 
 - **Field utilization** — how populated fields are, as **counts only**
 
 <Warning>
-Live reads never touch record contents. Field utilization runs count queries and returns numbers — no field values, no records, ever.
+  Live reads never touch record contents. Field utilization runs count queries and returns numbers — no field values, no records, ever.
 </Warning>
 
 ## Managing connections

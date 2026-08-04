@@ -4,7 +4,7 @@ description: "An auto-derived, always-current catalog of your Salesforce org's R
 icon: "brackets-curly"
 ---
 
-The API reference is an automatically derived catalog of your Salesforce org's REST surface. Instead of hand-maintaining a list of endpoints that drifts out of date, LivingContext derives the catalog from your org's metadata, generates OpenAPI specs on demand, and proposes updates when the underlying implementation changes.
+The API reference is an automatically derived catalog of your Salesforce org's REST surface. Instead of hand-maintaining a list of endpoints that drifts out of date, LivingContext derives the catalog from your org's metadata, generates OpenAPI specs for you, and proposes updates when the underlying implementation changes.
 
 ## What's in the catalog
 
@@ -14,6 +14,7 @@ The catalog covers both directions of traffic:
   <Card title="Inbound" icon="arrow-down-to-line">
     APIs your org exposes: Apex REST resources your team has built, plus the standard Salesforce Data API.
   </Card>
+
   <Card title="Outbound" icon="arrow-up-from-line">
     External services your org calls: the targets of your Named Credentials.
   </Card>
@@ -23,32 +24,58 @@ This gives integration engineers, architects, and auditors one place to answer "
 
 See [Salesforce integration](/integrations/salesforce) for how org metadata reaches LivingContext.
 
-## Generating an OpenAPI spec
+## Specs generate themselves
 
-Any endpoint in the catalog can be turned into a full OpenAPI specification:
+You don't have to create the catalog by hand:
 
 <Steps>
-  <Step title="Pick an endpoint">
-    Browse the Inbound or Outbound list and select the endpoint you want documented.
+  <Step title="Connect Salesforce">
+    Connecting an org kicks off the first metadata sync automatically — there is nothing to trigger manually. See [Salesforce integration](/integrations/salesforce).
   </Step>
-  <Step title="Generate the spec">
-    LivingContext generates an OpenAPI spec describing the endpoint's operations, parameters, and payloads.
+  <Step title="Every sync fills the gaps">
+    After each metadata sync, LivingContext looks for derived endpoints that have no reference yet — Apex REST classes and Named Credentials — and generates a skeleton OpenAPI spec for each one.
   </Step>
-  <Step title="Commit it">
-    The spec is committed to your docs repository as a YAML file. Git is the system of record — the spec is versioned, diffable, and reviewable like any other doc.
+  <Step title="Specs land in your repo">
+    Each generated spec is committed to your docs repository as a YAML file and registered in the API reference. Git is the system of record — the spec is versioned, diffable, and reviewable like any other doc.
   </Step>
 </Steps>
 
+<Note>
+  Auto-generation is deliberately incremental — around 25 specs per sync — so a large org fills in over a few sync cycles rather than flooding your repo in one commit. Anything left over drains on the next sync.
+</Note>
+
+You can also work manually from the **API Reference** page header:
+
+- **Generate from Salesforce** takes you to **Settings → API references** — the console where you pick the source Salesforce org and the target docs repo, generate the org-wide **data-API spec**, sync **External Services** already registered in Salesforce, and generate any inbound or outbound endpoint on demand.
+- **New spec** starts a blank OpenAPI file when you want to document something by hand.
+
+Generated specs land under `openapi/` in your docs repo — for example `openapi/apex-rest/AccountService.yaml` — deliberately kept out of the Docs sidebar so the explorer stays the front door.
+
 ## The interactive explorer
 
-Committed specs render in an interactive explorer: an endpoints navigation pane alongside request and response examples for each operation. Readers can browse the API the way they would any modern API reference — no YAML reading required.
+The API Reference page lists every spec as a card under **Inbound** and **Outbound**, each tagged with its kind — `Data API`, `Apex REST`, `Named Credential`, or `External Service` — and its operation count. Open one and it renders in an interactive explorer: an endpoints navigation pane alongside request and response examples for each operation. No YAML reading required.
+
+For **inbound** references, **Try It is live**: requests run against your connected Salesforce org through a server-side proxy signed as your org's integration user — the browser never holds a token. Anything that could modify data (POST, PUT, PATCH, DELETE) asks you to type the method name to confirm before it sends. Outbound specs render read-only, and an outbound Named Credential gets a live callout tester instead.
+
+Each reference page also offers **Download** (the raw YAML/JSON), **History** (the spec's commit history in your git provider), **Edit**, and **Delete**:
+
+- **Edit** opens the spec's YAML in the docs editor, in place, with an unsaved-changes guard — no detour through a separate flow.
+- **View rendered** takes you from the YAML back to the explorer view.
+- **Delete** removes both the committed file and the reference, after you type `delete` to confirm.
+
+## Which references appear
+
+The API reference shows a spec only while the repository holding its YAML file is one of your configured docs repositories (**Settings → Docs repositories**), and the page follows your [active repo](/admin/spaces-and-repos):
+
+- Remove a repo from your docs repositories and its references disappear from the catalog.
+- Add the repo back and the same references reappear — nothing is destroyed either way.
 
 ## Staying current
 
 APIs drift. When the metadata behind a documented endpoint changes — a new parameter on an Apex REST resource, a changed response shape — LivingContext proposes an **updated spec as a [change request](/guides/editing-and-change-requests)**.
 
 <Note>
-Specs are never overwritten silently. Every update to a committed spec goes through review, so your published API reference only changes when a human approves it — and the git history shows exactly what changed and when.
+  Published specs are never rewritten silently. Skeleton specs for brand-new endpoints are committed directly so the catalog is complete from day one, but every change to an existing spec goes through review — and the git history shows exactly what changed and when.
 </Note>
 
 ## Why git as the system of record
@@ -60,5 +87,5 @@ Keeping specs as YAML files in the docs repository means:
 - **Portability** — the specs are standard OpenAPI; any tool in your pipeline can consume them.
 
 <Tip>
-Treat the generated spec as a starting point. Because it's a file on a branch, you can enrich it — descriptions, examples, auth notes — in a change request before merging, and your additions persist through future updates because changes always arrive as reviewable diffs.
+  Treat the generated spec as a starting point. Because it's a file in your repo, you can enrich it — descriptions, examples, auth notes — right in the editor, and your additions persist because future updates always arrive as reviewable diffs.
 </Tip>

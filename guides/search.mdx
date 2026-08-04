@@ -8,23 +8,29 @@ LivingContext gives you two complementary ways to find things: full-text search 
 
 ## Full-text search
 
-Press <kbd>⌘</kbd> <kbd>K</kbd> anywhere in the workspace to open search.
+Press <kbd>⌘</kbd> <kbd>K</kbd> anywhere in the workspace to open the command palette — it searches your docs and doubles as a navigator ("Go to Home", "Go to Docs", …).
 
-- **Every doc is indexed** — search looks inside the content of all pages, not just titles.
-- **Results are ranked** — the best matches surface first.
+- **Every doc is indexed** — search looks inside titles and content of all pages, including changelog entries. Type at least two characters.
+- **Results are ranked and grouped by repo** — the best matches surface first.
 - **Snippets are highlighted** — each result shows the matching passage with your terms highlighted, so you can judge relevance before clicking.
 
 Selecting a result takes you straight to the page in the [docs viewer](/guides/docs-viewer).
 
+<Note>
+  If results ever look empty or stale, run the palette's **Reindex docs for search** action (requires edit rights) to rebuild the index for your repo.
+</Note>
+
+One exception: on the [Schema page](/guides/schema-diagrams), <kbd>⌘</kbd> <kbd>K</kbd> opens the diagram's own palette instead — jump to an object, zoom, or switch display modes.
+
 <Tip>
-Search by the words readers would use, not just component names. Because docs describe *behavior* — "quarterly discount approval" — search often finds the right page faster than hunting through Salesforce Setup for the flow that implements it.
+  Search by the words readers would use, not just component names. Because docs describe _behavior_ — "quarterly discount approval" — search often finds the right page faster than hunting through Salesforce Setup for the flow that implements it.
 </Tip>
 
 ## Sidebar filtering
 
 The search box in the docs sidebar works differently: it **filters the file tree** in place. Type a few characters and the tree collapses to matching files and their parent folders. This is the fastest option when you know roughly what a page is called or where it lives.
 
-| | Full-text search (<kbd>⌘</kbd> <kbd>K</kbd>) | Sidebar filter |
+|  | Full-text search (<kbd>⌘</kbd> <kbd>K</kbd>) | Sidebar filter |
 | --- | --- | --- |
 | Looks at | Content of every doc | File and folder names in the tree |
 | Best for | "I remember what it said" | "I remember what it's called" |
@@ -32,10 +38,8 @@ The search box in the docs sidebar works differently: it **filters the file tree
 
 ## Freshness
 
-The index stays current automatically. When docs sync from your repository or a [change request](/guides/editing-and-change-requests) merges, search reflects the new content — no manual reindexing, no stale results pointing at deleted pages.
-
 <Note>
-Search covers your published docs. Draft content on an unmerged change request branch is not part of the shared index — it becomes searchable when the CR merges.
+  Search covers your published docs. Draft content on an unmerged change request branch is not part of the shared index — it becomes searchable when the CR merges.
 </Note>
 
 ## A typical search flow

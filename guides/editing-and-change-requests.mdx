@@ -6,28 +6,40 @@ icon: "code-pull-request"
 
 A change request (CR) is an editing session backed by a real git branch. It is the review unit for everything that changes your docs — your own edits, a teammate's draft, or a batch of agent proposals. Nothing in a CR touches published docs until you merge.
 
+<Note>
+  Quick single-page fixes don't need a CR — the docs viewer supports [direct editing in place](/guides/docs-viewer#editing-in-place). Reach for a CR when the change spans files, restructures navigation, or should be reviewed before it ships.
+</Note>
+
+## Starting a change request
+
+Three ways in:
+
+- **The Edit button on Docs** — if drafts are already open, a **Continue an edit** dialog lists your drafts and your team's, with a **Start a new edit** button; otherwise a fresh draft starts immediately.
+- **The branch switcher** in the top bar — pick any open draft by branch name, or create a new one.
+- **From the Inbox** — ship accepted agent proposals with **Open as a change request instead**. See [Inbox](/guides/inbox).
+
 ## Anatomy of a change request
 
 The CR header shows:
 
-- **Title** — what this set of changes is about.
-- **Status chip** — **Draft**, **Pending review**, or **Ready to merge**.
-- **Branch switcher** — jump between open branches.
-- **Merge dropdown** — lists every changed file, lets you jump straight to its diff, and offers **Merge & close**.
-
-When you merge, LivingContext returns you to the [docs viewer](/guides/docs-viewer) with the fresh content already live.
+- **Back to Docs** — return to the viewer at any time.
+- **Branch switcher** — jump between open branches; the hover shows `your-branch → default-branch`.
+- **Title** — editable while the CR is a draft.
+- **Status chip** — **Draft**, **Merged**, or **Closed**.
+- **View tabs** — **Overview**, **Editor**, and **Preview**.
+- **Merge button** and the **Agent** panel toggle.
 
 ## Editor modes
 
-Switch between three views of the file you're editing:
+Inside the Editor view, each file offers three modes:
 
 | Mode | What you see |
 | --- | --- |
-| **Visual** | A rich WYSIWYG editor — headings, tables, callouts, diagrams |
-| **Source** | The raw markdown |
-| **Diff** | A unified old-vs-new comparison against the base branch |
+| **Visual mode** | A rich WYSIWYG editor — headings, tables, callouts, diagrams |
+| **Source mode** | The raw markdown |
+| **View diff** | An old-vs-new comparison against the base branch (a **Back to editing** pill returns you) |
 
-The sidebar also toggles between two layouts: the **nav layout** (tabs and sections, as readers will see them) and the **raw file tree** (every file on the branch).
+The sidebar also toggles between two layouts: **Navigation** (tabs and sections, as readers will see them) and **Files** (every file on the branch).
 
 ## Working on the branch
 
@@ -35,25 +47,42 @@ Everything you'd expect from a branch is available:
 
 - Create, rename, and delete files — the changes stay on the branch until merge.
 - Edit sections and tabs: create, rename, and reorder them, and move files across tabs. Moving between tabs has an explicit menu option, so you never have to rely on drag alone.
-- Saving is **explicit** — there is no autosave. A saving/saved indicator in the toolbar shows exactly where you stand.
+- Saving is **explicit** — there is no autosave in a CR. A saving/saved indicator shows exactly where you stand.
 
 <Warning>
-Unsaved changes block destructive operations. If you try to delete or move something while an edit is pending, save first — this prevents losing work you haven't committed to the branch.
+  Unsaved changes block destructive operations. If you try to delete or move something while an edit is pending, save first — this prevents losing work you haven't committed to the branch.
 </Warning>
 
-## The Doc Editor Agent
+## The doc agent in a CR
 
-The right panel hosts the [Doc Editor Agent](/agents/doc-editor-agent). Describe the change you want — "add a troubleshooting section for the login flow", "update this diagram to include the new approval step" — and the agent proposes targeted edits.
+The **Agent** toggle opens the same doc agent you get on Docs. Describe the change you want — "add a troubleshooting section for the login flow", "update this diagram to include the new approval step" — and the agent proposes targeted edits.
 
-Proposals appear as **inline tracked-change suggestions**, Google-Docs style, directly in the document:
+Proposals appear as **inline tracked-change suggestions**, Google-Docs style. A review bar counts the pending agent edits and steps you through them:
 
-- Accept or reject each change individually.
-- Accept or reject everything at once.
+- **Accept** or **reject** each suggestion individually — clicking a suggestion shows a card describing the addition, deletion, or rewrite.
+- **Accept all** or **reject all** in one action.
 - Nothing is written to the branch until you accept.
 
-<Tip>
-The agent is grounded in your Salesforce metadata and the rest of your docs, so it can answer "what does this flow actually do?" while it edits — not just rephrase what's already on the page.
-</Tip>
+See [Doc editor agent](/agents/doc-editor-agent) for mentions, pinned selections, and skills.
+
+## Merging
+
+The **Merge** button opens a change manifest — every changed file badged **Added**, **Modified**, or **Deleted**, with one-click access to each diff — and two ways to apply:
+
+| Option | What happens |
+| --- | --- |
+| **Merge now** | Apply the changes to the default branch straight away |
+| **Request a review** | Open a pull request in your git provider for teammates to review first |
+
+Merging asks you to confirm — **"Publish these changes?"** — because it makes your edits live for everyone and closes the draft. On success you land back in the [docs viewer](/guides/docs-viewer) with the fresh content already live.
+
+<Note>
+  What you can do here follows your [role](/admin/roles-and-permissions): Editors see only **Request a review**; Reviewers, Creators, and Administrators can merge directly.
+</Note>
+
+## Managing your change requests
+
+The **Change requests** page lists every CR across your tracked repos — filter by repo or by **All / Drafts / Merged / Closed**. Each row shows the author, the branch, a `PR #N` chip when a pull request exists, and a menu to **Open**, **Rename**, or **Close** a draft (closing deletes the branch, after a confirmation).
 
 ## Reviewing and sharing
 
@@ -63,19 +92,15 @@ Share a CR link with anyone in your organization. Viewers without edit rights ge
 
 <Steps>
   <Step title="Open a change request">
-    Start one from the docs viewer, from the [Inbox](/guides/inbox) when shipping agent proposals, or from [Commits](/guides/commits) after generating drafts.
+    Start one from the docs viewer's Edit button, from the [Inbox](/guides/inbox) when shipping agent proposals, or from [Commits](/guides/commits) after generating drafts.
   </Step>
   <Step title="Edit">
     Work in Visual or Source mode, use the agent for targeted edits, and save explicitly as you go.
   </Step>
   <Step title="Review the diff">
-    Switch to Diff mode, or use the Merge dropdown to step through every changed file.
+    Switch to View diff on any file, or open the Merge manifest to step through every change.
   </Step>
-  <Step title="Merge and close">
-    Click **Merge & close**. You land back in the docs viewer with the new content published.
+  <Step title="Merge">
+    Click **Merge now** — or **Request a review** to finish in a pull request. Either way, you land back in the docs viewer with the content published once it merges.
   </Step>
 </Steps>
-
-<Note>
-Quick single-page fixes don't need a CR — the docs viewer supports [direct authoring on the default branch](/guides/docs-viewer#authoring-directly-on-the-default-branch). Reach for a CR when the change spans files, restructures navigation, or should be reviewed before it ships.
-</Note>
