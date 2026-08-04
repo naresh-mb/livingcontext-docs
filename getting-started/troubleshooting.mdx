@@ -1,0 +1,130 @@
+---
+title: "Troubleshooting"
+description: "When a page looks empty or a button is missing — what it means and the one click that fixes it."
+icon: "life-ring"
+sidebarTitle: "Troubleshooting"
+---
+
+Almost every "it's broken" moment in LivingContext is really a "one thing isn't wired up yet" moment — and the app usually says so quietly. This page maps the situations you might hit to their causes and fixes.
+
+## Docs and editing
+
+<AccordionGroup>
+  <Accordion title="Docs shows “Nothing open yet.”">
+    Not an error — no page is selected and there's no remembered last doc for this space \+ repo. Pick a page in the sidebar, or press <kbd>⌘</kbd> <kbd>K</kbd> and jump straight to one.
+  </Accordion>
+
+  <Accordion title="Docs, Commits, Changelog, and Coverage all open empty — no error anywhere">
+    The classic cause: your active **space** doesn't include the repo you expect. Surfaces show the intersection of your configured docs repos and the active space's repos, so a repo in no space shows nothing. Open the space switcher (top of the left rail) and check which space you're in, then **Settings → Spaces** — make sure the repo is ticked in the space you use. Also confirm the repo is still listed under **Settings → Docs repositories**.
+  </Accordion>
+
+  <Accordion title="I can't edit — the page is read-only">
+    Editing needs the **Editor** role or above; Readers, Commenters, and Reviewers get the read-only view by design. An Administrator can change your role under **Settings → Members**. See [Roles and permissions](/admin/roles-and-permissions).
+  </Accordion>
+
+  <Accordion title="The editor says “Conflict — pick a side” or “Branch is protected”">
+    **Conflict**: the branch changed under you and the changes overlap — the banner offers **Keep my version** or **Take the branch version**; both are safe, and both stay in History. **Protected branch**: your repo's branch protection blocks direct commits — work through a [change request](/guides/editing-and-change-requests) and ship it as a pull request instead.
+  </Accordion>
+
+  <Accordion title="I can't merge my change request">
+    Editors can create and submit change requests but not merge them — you'll only see **Request a review**, which opens a pull request. Merging in-app needs Reviewer, Creator, or Administrator. That's the intended review path, not a bug.
+  </Accordion>
+
+  <Accordion title="Search finds nothing, or misses a doc I know exists">
+    Open <kbd>⌘</kbd> <kbd>K</kbd> and run **Reindex docs for search** (needs edit rights) — the full-text index is built per repo and can lag a fresh import. Note the sidebar box only filters page _names_; full-text search lives in <kbd>⌘</kbd> <kbd>K</kbd>.
+  </Accordion>
+</AccordionGroup>
+
+## Connections and setup
+
+<AccordionGroup>
+  <Accordion title="My repositories don't appear in the picker">
+    Authorizing GitHub only proves your identity — repos come from installing the **GitHub App**. On **Connections**, use **Install / manage on GitHub** for the account or organization that owns the repos, grant it access to them, come back, and hit refresh.
+  </Accordion>
+
+  <Accordion title="There are no Connect buttons on the Salesforce card">
+    Salesforce needs **your own Connected App** on file first. Add its consumer key and secret on the Connections page — then **Connect Sandbox** / **Connect Production** appear.
+  </Accordion>
+
+  <Accordion title="A connection shows an error, or Verify fails">
+    The stored token was revoked or expired — the toast says which (for example, “Salesforce refresh token was rejected”). The fix is almost always **re-connect the integration** from the same card. Disconnecting first is safe: “You can connect again anytime from this page.”
+  </Accordion>
+
+  <Accordion title="My starter workspace hit its storage limit">
+    Starter workspaces cap at about 100 MB. Connect your own GitHub and use **Move your workspace to your own GitHub** on Connections — the cap lifts and your docs move with you.
+  </Accordion>
+</AccordionGroup>
+
+## Agents, Inbox, and coverage
+
+<AccordionGroup>
+  <Accordion title="My Inbox is always empty">
+    The Inbox fills from two sources, and both need switching on once: **tracked commits** (pick repo \+ branch pairs under **Settings → Commit tracking**) and **doc suggestions** (enable the schedule — or click **Run now** — under **Settings → Doc suggestions**). Newly tracked branches deliberately start from their current tip, so proposals begin with the _next_ commit.
+  </Accordion>
+
+  <Accordion title="Commits says “No branches tracked yet”">
+    Exactly what it says: pick at least one repository \+ branch pair under **Settings → Commit tracking**. Repos must be selected under **Docs repositories** first.
+  </Accordion>
+
+  <Accordion title="Coverage shows zero components">
+    Coverage counts synced Salesforce metadata. If nothing is ingested yet, run **Fetch latest metadata** on the connection's card (Connections), give the sync a minute, then **Refresh** on Coverage.
+  </Accordion>
+
+  <Accordion title="The API reference says “No references yet”">
+    Specs generate automatically after each Salesforce metadata sync, about 25 per pass — a freshly connected org fills in over a few syncs. To move faster, open **Settings → API references** and generate on demand. If references you _had_ have vanished, the repo holding their specs was removed from **Docs repositories** — add it back and they reappear.
+  </Accordion>
+
+  <Accordion title="Analytics says “Analytics is off”, and chat won't chart">
+    Charts need an analytics source — the database mirroring your Salesforce records — connected once by an admin in the **Analytics** section of [Connections](/integrations/salesforce). Until then the workspace agent answers without charts.
+  </Accordion>
+
+  <Accordion title="The Slack bot doesn't respond">
+    Check three things in [Agents → Channels](/integrations/slack): the workspace shows **Connected**, your Slack app's **Event Subscriptions** and slash command point at `/api/slack/events`, and the bot is actually in the channel you're mentioning it from. Failed runs show up in the **Runs** tab with a transcript.
+  </Accordion>
+</AccordionGroup>
+
+## Capture extension
+
+<AccordionGroup>
+  <Accordion title="The extension shows “Connection expired” or disconnected">
+    Your key was revoked — which also happens automatically when you leave an organization. Click **Reconnect** in the extension (or **Connect to LivingContext** again). Nothing already published is affected.
+  </Accordion>
+
+  <Accordion title="Recording won't start, or asks me to share again">
+    The extension only records a **browser tab**, never your whole screen — picking the screen or a window shows “Share a browser tab” and asks again. Pick the tab you're documenting, or choose **Record without video (screenshots only)**.
+  </Accordion>
+
+  <Accordion title="Publishing fails with “No repositories enabled yet”">
+    Publishing targets your configured docs repos. In the web app, add one under **Settings → Docs repositories** (GitHub must be connected), then publish again.
+  </Accordion>
+
+  <Accordion title="A Guide Me step can't find its element">
+    The page changed since the guide was recorded. Guide Me shows the original screenshot so you can do the step by hand, then click **“I've done this → Next”**. If a guide falls back often, re-record it — the workflow has drifted.
+  </Accordion>
+</AccordionGroup>
+
+## Signing in and membership
+
+<AccordionGroup>
+  <Accordion title="An invitation link says “Wrong account.”">
+    Invitations are bound to the email they were sent to. Sign out, sign in (or sign up) with the invited address, and open the link again.
+  </Accordion>
+
+  <Accordion title="An invitation says “Invitation unavailable.”">
+    It was cancelled, already used, or expired — invitations last **48 hours**. Ask the Administrator to send a fresh one.
+  </Accordion>
+
+  <Accordion title="I can't leave the organization">
+    The organization's only owner can't leave — promote another Administrator first, then leave from your own row on **Settings → Members**.
+  </Accordion>
+
+  <Accordion title="I can't create a second organization">
+    By design: each account can create **one** organization. Join others by invitation — and switch between them from the user menu's **Workspaces** list.
+  </Accordion>
+</AccordionGroup>
+
+## Still stuck?
+
+- Ask the [workspace agent](/agents/workspace-agent) on Home — it can usually explain what a surface is showing and why.
+- Check [Common tasks](/getting-started/common-tasks) for the exact click-path of whatever you're attempting.
+- Reach us at [hello@livingcontext.ai](mailto:hello@livingcontext.ai).

@@ -6,7 +6,7 @@ icon: "plug"
 
 Every LivingContext organization exposes a **Model Context Protocol (MCP) server**. Point your AI coding tool at it and that tool can search your docs, query your Salesforce catalog, draft doc changes, and even drive the browser capture extension — all under your organization's permissions.
 
-```
+```text
 https://<your-org>.livingcontext.ai/api/mcp
 ```
 
@@ -15,14 +15,14 @@ The endpoint speaks **streamable HTTP JSON-RPC**, the standard MCP transport sup
 ## Create a key
 
 <Steps>
-  <Step title="Open Settings → MCP">
-    Keys are managed per organization.
+  <Step title="Open Settings → MCP server">
+    Keys are managed per organization. Name the key (e.g. "Claude Code"), optionally give it an expiry, and click **Create key**.
   </Step>
-  <Step title="Create a key">
+  <Step title="Copy the key">
     Keys are prefixed `lcmcp_` and **shown once** — copy it immediately and store it like any credential.
   </Step>
-  <Step title="Copy a config snippet">
-    The Settings page provides ready-to-paste configuration for **Claude Code**, **Cursor**, and **Cline**.
+  <Step title="Paste the config snippet">
+    The page provides a ready-to-paste `mcpServers` snippet — with your new key already substituted — that works in `.mcp.json` and the MCP settings of Claude Code, Cursor, and Cline alike, plus an optional rules snippet for `CLAUDE.md` / Cursor Rules so your agent reaches for LivingContext automatically.
   </Step>
 </Steps>
 
@@ -43,7 +43,7 @@ claude mcp add --transport http livingcontext \
 
 ## Tools
 
-The server exposes 20+ tools across five areas.
+The server exposes 20\+ tools across five areas.
 
 ### Reads
 
@@ -61,10 +61,10 @@ The server exposes 20+ tools across five areas.
 | --- | --- |
 | `create_doc` | Draft a new doc — lands as a change request |
 | `update_doc` | Edit an existing doc — lands as a change request |
-| `set_doc_metadata` | Tag a doc to Salesforce components |
+| `set_doc_metadata` | Tag a doc to Salesforce components (applies immediately) |
 | `submit_for_review` | Ship the change request — opens a PR |
 | `upload_guide_asset` | Upload an asset for a guide |
-| `create_guide` | Create a step-by-step guide |
+| `create_guide` | Publish a step-by-step guide from agent-recorded steps — same pipeline as the capture extension, landing as a change request |
 
 ### Guide recording
 
@@ -104,18 +104,18 @@ Check what's wired up before reading or writing (connecting itself happens in th
 ## Example: docs maintenance from your editor
 
 1. Add the MCP server to Claude Code with your `lcmcp_` key.
-2. Ask: *"Our discount approval flow changed — update the docs that describe it."*
+2. Ask: _"Our discount approval flow changed — update the docs that describe it."_
 3. The tool searches your docs, reads the current pages, pulls fresh metadata context, and drafts edits via `update_doc`.
 4. The edits arrive in LivingContext as **change requests** — you review and ship them like any other change.
 
 <Note>
-Nothing bypasses review. Even a fully automated MCP client ends at the same gate as every agent: a human approves before anything merges.
+  Nothing bypasses review. Even a fully automated MCP client ends at the same gate as every agent: a human approves before anything merges.
 </Note>
 
 <Warning>
-Treat `lcmcp_` keys like passwords. They're shown once at creation — if a key leaks, revoke it in **Settings → MCP** and create a new one.
+  Treat `lcmcp_` keys like passwords. They're shown once at creation — if a key leaks, revoke it in **Settings → MCP** and create a new one.
 </Warning>
 
 <Note>
-Prefer the terminal? The [`lc` command-line client](/integrations/cli) wraps these same tools — docs search, reviewed writes, and Salesforce intelligence — using your `lcmcp_` key.
+  Prefer the terminal? The [`lc` command-line client](/integrations/cli) wraps these same tools — docs search, reviewed writes, and Salesforce intelligence — using your `lcmcp_` key.
 </Note>

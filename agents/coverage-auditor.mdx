@@ -29,25 +29,25 @@ Everything it produces lands in the [Inbox](/guides/inbox) as a **new doc** prop
 </Steps>
 
 <Note>
-This is the same rule every LivingContext agent follows: **grounded or it doesn't ship**. A proposal without evidence is a skip, not a guess.
+  This is the same rule every LivingContext agent follows: **grounded or it doesn't ship**. A proposal without evidence is a skip, not a guess.
 </Note>
 
 ## Configure it
 
-Configuration lives at **Settings → Suggestions**:
+Configuration lives at **Settings → Doc suggestions**:
 
 | Setting | Options |
 | --- | --- |
-| Enable | Turn the auditor on or off |
-| Frequency | Daily, weekly, monthly, or manual |
-| Doc types | Which kinds of docs it should draft |
-| Max per run | How many proposals per batch (default **5**) |
-| Run now | Trigger a run immediately, regardless of schedule |
+| **Run on a schedule** | Turn scheduled auditing on or off |
+| Frequency | Daily, weekly, monthly, or manual only |
+| Doc types | Which kinds of docs it should draft — functional (process guide, user FAQ, business glossary, onboarding guide) and technical (technical reference, integration doc, data dictionary, runbook, troubleshooting guide) |
+| **Max per run** | How many proposals per batch, 1–20 (default **5**) |
+| **Run now** | Trigger a run immediately with the saved settings, even when the schedule is off |
 
-Scheduled runs ride the shared agent sweep, which checks every 15 minutes whether a run is due — see [Agents overview](/agents/overview#how-often-agents-run).
+A status line shows the cadence and the last run's outcome — how many undocumented components were scanned and how many docs were proposed. Scheduled runs ride the shared agent sweep, which checks every 15 minutes whether a run is due — enabling the schedule starts the first audit within one tick. See [Agents overview](/agents/overview#how-often-agents-run).
 
 <Tip>
-Start with a low **max per run** and weekly frequency. Reviewing five well-grounded proposals a week is sustainable; fifty at once is not.
+  Start with a low **max per run** and weekly frequency. Reviewing five well-grounded proposals a week is sustainable; fifty at once is not.
 </Tip>
 
 ## Reviewing proposals

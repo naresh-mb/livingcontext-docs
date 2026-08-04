@@ -13,31 +13,35 @@ You stay in control: nothing an agent proposes reaches your docs without a human
 The Inbox has three panes:
 
 <CardGroup cols={3}>
-  <Card title="Batches" icon="layers">
-    One batch per commit or agent sweep, each showing its acceptance progress.
+  <Card title="Requests" icon="layers">
+    One request per commit or agent sweep — "Commit `abc1234`" or "N suggested docs" — each showing its origin and review progress.
   </Card>
+
   <Card title="Files" icon="files">
-    Every proposed doc in the batch, with Accepted/Rejected tags, a progress bar, and batch actions.
+    Every proposed doc in the request, with Accepted/Rejected tags, per-row accept/reject buttons, and batch actions.
   </Card>
+
   <Card title="Detail" icon="file-search">
     The selected proposal — why it exists, and exactly what it changes.
   </Card>
 </CardGroup>
 
+Requests come from two origins, and each row says which: **User commit** — a commit on a tracked branch touched something your docs describe — or **Agent sweep** — the [Coverage Auditor](/agents/coverage-auditor) proposed docs with no commit involved.
+
 ## Understanding a proposal
 
-The detail pane leads with a **provenance card** that explains why the doc was proposed — for example, "commit changed the discount approval flow, which this doc describes" or "the agent found the invoicing process undocumented". You never have to guess where a draft came from.
+The detail pane leads with a **provenance card** that explains why the doc was proposed — for example, "Commit `abc1234` changed **Flow** `Discount_Approval`, which this doc describes" or "The agent's coverage sweep found **ApexClass** `InvoiceService` undocumented". You never have to guess where a draft came from. New docs are tagged **New document**; updates are marked **Required update** or **Suggested**.
 
 Below it, a **Preview/Changes** toggle shows the proposal two ways:
 
 - **Preview** — rendered markdown, best for brand-new docs.
-- **Changes** — a unified diff, best for updates to existing docs.
+- **Changes** — a diff against the current doc, best for updates.
 
 Diagrams render live in the preview, so a proposed Mermaid or Excalidraw change is judged as a picture, not a wall of syntax. See [Diagrams](/guides/diagrams).
 
 ## Triage
 
-Work through a batch with the keyboard:
+Work through a request with the keyboard:
 
 | Key | Action |
 | --- | --- |
@@ -45,30 +49,33 @@ Work through a batch with the keyboard:
 | <kbd>A</kbd> | Accept |
 | <kbd>X</kbd> | Reject |
 
-Accepting or rejecting **auto-advances** to the next undecided file, so a batch of ten proposals takes seconds. Decisions apply optimistically and every one offers **Undo**, so a slip of the finger costs nothing.
+Accepting or rejecting **auto-advances** to the next undecided file, so a batch of ten proposals takes seconds. Every decision offers **Undo**, so a slip of the finger costs nothing.
 
-Batch actions are available on the file list when you want to move faster:
+Batch actions sit at the bottom of the file list when you want to move faster:
 
 - **Accept all** / **Reject all**
-- **Create PR** / **Create CR** — ship the batch immediately
+- **Create PR with the accepted files** — open the pull request immediately
+- **Open as a change request instead** — polish the drafts in LivingContext first
 
 ## Shipping accepted files
 
-When every item in a batch is decided, you get a summary and a **Ship accepted files** action. It rolls all accepted docs into one unit for your workflow:
+When every file has a decision, the reading pane becomes a summary — **Queue clear** — with a **Ship accepted files** action. It rolls all accepted docs into one unit for your workflow:
 
 - **A pull request** in your docs repository, if you review in GitHub or GitLab.
-- **A [change request](/guides/editing-and-change-requests)**, if you want to polish the drafts in LivingContext before merging.
+- **A [change request](/guides/editing-and-change-requests)**, if you want to refine the drafts in LivingContext before merging.
+
+Shipped requests link straight to the resulting PR or CR, so you can follow the work to the finish.
 
 <Tip>
-Shipping as a CR is the right choice when a draft is close but not perfect — you can refine it with the Doc Editor Agent before it merges, instead of rejecting it outright.
+  Shipping as a CR is the right choice when a draft is close but not perfect — you can refine it with the doc agent before it merges, instead of rejecting it outright.
 </Tip>
 
 ## Where proposals come from
 
-- **Tracked commits** — branches you track are swept automatically, and each relevant commit produces a batch. See [Commits](/guides/commits).
+- **Tracked commits** — branches you track are swept automatically, and each relevant commit produces a request. See [Commits](/guides/commits).
 - **Agent sweeps** — the [Coverage Auditor](/agents/coverage-auditor) proposes brand-new docs for undocumented areas of your Salesforce org.
 - **Drifted API specs** — when your org's API surface changes, updated OpenAPI specs are proposed rather than overwritten. See [API reference](/guides/api-reference).
 
 <Note>
-The Inbox is the single front door for agent output. If an agent generated it, you'll find it — and decide on it — here.
+  The Inbox is the single front door for agent output. If an agent generated it, you'll find it — and decide on it — here. An empty Inbox greets you with **Inbox zero** and pointers to review a commit or head back Home.
 </Note>

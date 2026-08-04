@@ -13,7 +13,7 @@ A doc **covers** a Salesforce component when it is tagged to that component in t
 A component with at least one tagged doc counts as **documented**. Everything else eligible counts as **undocumented**.
 
 <Tip>
-Tags do double duty: beyond coverage, they tell agents which docs to update automatically when the underlying metadata changes. Well-tagged docs stay fresh on their own.
+  Tags do double duty: beyond coverage, they tell agents which docs to update automatically when the underlying metadata changes. Well-tagged docs stay fresh on their own.
 </Tip>
 
 ## The dashboard
@@ -37,29 +37,23 @@ Not everything in an org deserves documentation. A scope callout lists what is c
 - Managed packages
 - Excluded namespaces
 
-The callout includes an **Edit in settings** link to **Settings → Eligibility**, where you adjust these rules.
+The callout links to **Settings → Documentation eligibility**, where you adjust these rules. Excluded types are still synced and searchable — they just stop counting toward the score.
 
 <Note>
-Excluding managed packages is usually the right call — you rarely document a vendor's internals — and it keeps your coverage number honest about the metadata your team actually owns.
+  Excluding managed packages is usually the right call — you rarely document a vendor's internals — and it keeps your coverage number honest about the metadata your team actually owns.
 </Note>
 
 ### Per-connection cards
 
-Each Salesforce connection gets its own card with a sortable per-type table:
+Each Salesforce connection gets its own card showing the org label, a `sandbox`/`production` chip, its documented share, and a **Browse components** link into the connection's ingested metadata. Inside, a sortable table breaks the numbers down by metadata type:
 
 | Column | Meaning |
 | --- | --- |
 | **Type** | The metadata type (Flow, ApexClass, CustomObject, …) |
 | **Documented** | Components of this type with a tagged doc |
 | **Undocumented** | Components of this type without one |
-| **Total** | All eligible components of this type |
-| **%** | Documented share for the type |
 
-Each card also offers:
-
-- A **search filter** to find a specific type quickly.
-- **CSV export** for reporting or offline analysis.
-- **Refresh** to recount after tagging or a metadata sync.
+The table sorts by **undocumented, descending** by default — your biggest documentation gaps come first — and a **Filter types…** box appears when a connection has many types. The page header offers **Export CSV** for reporting and **Refresh** to recount after tagging or a metadata sync.
 
 ## Closing the gaps
 

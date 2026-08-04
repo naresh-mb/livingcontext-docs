@@ -4,7 +4,7 @@ description: "Build and operate your own agents — no-code definitions, trigger
 icon: "diagram-project"
 ---
 
-The Agent platform (**Agents** in the navigation) is where you go beyond the built-in roles and run your own agents: define what an agent knows and may do, schedule it, review what it did, and gate anything risky behind human approval.
+The Agent platform — **Agents** in the navigation, headed **Agent Control Center** — is where you go beyond the built-in roles and run your own agents: define what an agent knows and may do, schedule it, review what it did, and gate anything risky behind human approval.
 
 ## Agent modes
 
@@ -17,7 +17,7 @@ Every agent runs in one of three modes:
 | Autonomous | The agent runs unattended on triggers |
 
 <Note>
-Autonomous mode requires a **Pro or higher** plan. See [Billing](/admin/billing).
+  Autonomous mode requires a **Pro or higher** plan. See [Billing](/admin/billing).
 </Note>
 
 ## The tabs
@@ -40,7 +40,7 @@ Every execution appears here with live status: **queued → running → awaiting
 Side-effecting actions — Salesforce writes, deployments, outbound calls — don't execute immediately. They **park as pending approvals**. You review the exact input, then approve or deny.
 
 <Warning>
-When you approve an action, the stored input executes **exactly as you approved it** — the agent can't swap the payload after the fact.
+  When you approve an action, the stored input executes **exactly as you approved it** — the agent can't swap the payload after the fact.
 </Warning>
 
 ### Triggers
@@ -75,7 +75,7 @@ Store encrypted values (API keys, tokens) that connectors and tools need. Secret
 
 ### Channels
 
-Connect Slack so agents can post and respond in your channels. See [Slack integration](/integrations/slack).
+Reach the agent where your team already works: connect **Slack** so agents can respond in your channels (see [Slack integration](/integrations/slack)), post a card to **Microsoft Teams** when a background run finishes via an incoming webhook, and mint **public API keys** for driving runs from your own tools.
 
 ### Memory
 
@@ -101,5 +101,5 @@ Create **public API bearer keys** to start runs from your own systems — CI pip
 4. **Audit** records everything that actually happened.
 
 <Tip>
-Start new agents in `read-only` or `ask` mode. Promote to `auto` only after the Runs history shows consistent, correct behavior.
+  Start new agents in `read-only` or `ask` mode. Promote to `auto` only after the Runs history shows consistent, correct behavior.
 </Tip>

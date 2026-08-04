@@ -4,61 +4,71 @@ description: "Native charts and dashboards over your Salesforce records — rend
 icon: "chart-pie"
 ---
 
-**Analytics** turns your synced Salesforce records into charts and dashboards without leaving LivingContext. Everything renders natively in the app — in the same theme as the rest of your workspace, with no external tools, pop-outs, or public share links.
+**Analytics** turns your Salesforce records into charts and dashboards without leaving LivingContext. Everything renders natively in the app — in the same theme as the rest of your workspace, with no external tools, pop-outs, or public share links.
 
-Open it from **Analytics** in the left navigation. Anyone who can read your docs can view analytics.
+Open it from **Analytics** in the left navigation.
 
-## Connect your analytics engine
+## Turn analytics on
 
-Analytics runs on your organization's **own Metabase (or compatible BI) instance** — your data stays in your instance, and LivingContext renders the charts natively over it. An administrator connects it once from **Settings → Connections → Analytics**:
+Analytics charts over a **database that mirrors your Salesforce records** (your Salesforce backup database), connected once by an administrator:
 
 <Steps>
-  <Step title="Enter your instance URL and API key">
-    Paste your Metabase base URL (e.g. `https://metabase.your-company.com`) and an API key. Create the key in Metabase under **Settings → Admin → API keys**. LivingContext stores it **encrypted** and never shows it again.
+  <Step title="Connect a source">
+    Until a source is linked, the Analytics page says **"Analytics is off"** and points you to [Connections](/integrations/salesforce), where the **Analytics** section links your database.
   </Step>
-  <Step title="Verify and pick the Salesforce mirror">
-    LivingContext verifies the credentials, lists the databases your instance exposes, and asks which one is your **Salesforce mirror** — the database analytics charts by default.
-  </Step>
-  <Step title="Connect">
-    Once connected, the Analytics page and the [workspace agent](/agents/workspace-agent)'s charts go live. Disconnecting removes the stored key and turns analytics off until you reconnect.
+  <Step title="Charts go live">
+    Once connected, the Analytics page and the [workspace agent](/agents/workspace-agent)'s chart tools are enabled. If you connect more than one source, a source picker appears in the page header.
   </Step>
 </Steps>
 
 <Note>
-Each organization connects its own instance — one org can never see another's data or results. Until an instance is connected, the Analytics page shows a **Connect** prompt instead of charts. Non-administrators can view the connection status and ask an admin to set it up.
+  Each organization connects its own source — one org can never see another's data or results. Filters and charts read your records; nothing here ever writes to Salesforce.
 </Note>
+
+## Create charts by asking
+
+You don't build charts with a builder — you **ask for them**. On **Home**, ask the [workspace agent](/agents/workspace-agent) in plain language:
+
+- "Chart new Opportunities by month this year"
+- "Build a dashboard of pipeline by stage and owner"
+
+The agent renders the result **inline in the chat**, and saved charts and dashboards appear on the Analytics page, organized into two lists:
+
+| List | What it holds |
+| --- | --- |
+| **Dashboards** | Multi-chart boards with a shared filter bar |
+| **Questions** | Individual saved charts |
+
+Open any of them from the left rail — the URL captures which one you're viewing, so you can share the link with teammates.
+
+## Filter without leaving the page
+
+Every dashboard gets a **filter bar** derived from its charts' own columns — category selects, date ranges, and text search — and filters apply instantly to what's on screen.
+
+<Note>
+  Filters narrow what you see on the page; they never change the underlying question or your Salesforce data.
+</Note>
+
+Use **Refresh** in the header to refetch live data and bypass the cache after a big data change.
 
 ## What you can chart
 
-Analytics reads the records behind your Salesforce org — Accounts, Opportunities, Cases, your custom objects — and renders aggregates and trends across the full chart catalog:
+Analytics reads the records behind your Salesforce org — Accounts, Opportunities, Cases, your custom objects — and renders aggregates and trends across a full chart catalog:
 
 <CardGroup cols={2}>
   <Card title="Trends and comparisons" icon="chart-line">
     Bar, row, line, area, and combo charts for breakdowns and change over time.
   </Card>
+
   <Card title="Distributions" icon="chart-pie">
     Pie, scatter and bubble, funnel, waterfall, and sankey charts.
   </Card>
+
   <Card title="Single numbers" icon="gauge">
     Scalar, trend (vs. the previous period), gauge, and progress indicators.
   </Card>
+
   <Card title="Detail" icon="table">
     Tables when you need the underlying rows.
   </Card>
 </CardGroup>
-
-## Filter without leaving the page
-
-Every chart is **dynamically filterable**. Filter controls come from the chart's own columns — category multi-selects, date ranges, and contains-search — and apply instantly to what's on screen. Dashboards get a single shared filter bar that spans every chart on the board.
-
-<Note>
-Filters narrow what you see on the page; they never change the underlying report or your Salesforce data.
-</Note>
-
-## Create charts by asking
-
-You don't have to build charts by hand. Ask the [workspace agent](/agents/workspace-agent) on **Home** for a chart or dashboard in plain language — "chart new Opportunities by month this year", "build a dashboard of pipeline by stage and owner" — and it renders the result **inline in the chat**. Saved charts and dashboards also show up on the Analytics page, where you can open and filter them any time.
-
-<Tip>
-Deep-link a specific chart or dashboard by opening it from the Analytics list — the URL captures which one you're viewing so you can share it with teammates (they'll need access to sign in).
-</Tip>

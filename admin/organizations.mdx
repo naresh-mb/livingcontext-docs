@@ -10,7 +10,7 @@ An organization is your team's tenant in LivingContext. It owns your connections
 
 Every organization gets a dedicated subdomain:
 
-```
+```text
 <slug>.livingcontext.ai
 ```
 
@@ -20,7 +20,13 @@ The slug is generated from your organization name when you create it, with live 
 
 - Each user can **create one organization**. The creator receives the **Administrator** role.
 - You can belong to **multiple organizations**, but you join additional ones **by invitation only**.
-- If you belong to more than one organization, you pick which one to enter when you sign in.
+
+## Switching between organizations
+
+If you belong to more than one organization, switch from the **user menu** — click your avatar and look under **Workspaces**:
+
+- Every organization you belong to is listed, with a check mark on the one you're in.
+- Pick another workspace and LivingContext takes you to that organization's subdomain, landing on Home.
 
 ## Managing members
 
@@ -31,6 +37,7 @@ Open the **Organization** page to manage your team. For each member you can see 
 | Invite a member | Administrator |
 | Change a member's role | Administrator |
 | Remove a member | Administrator |
+| Leave the organization | Any member (their own row) |
 | View the member list | Any member |
 
 Roles determine what each member can do across docs, change requests, and agents. See [Roles and permissions](/admin/roles-and-permissions) for the full breakdown.
@@ -43,13 +50,45 @@ Invite teammates by email from the Organization page. Each invitation carries a 
 - Invitations **expire after 48 hours**. You can **resend** an expired or lost invitation, or **cancel** one that's still pending, from the pending invitations list.
 - An organization can have up to **100 members**.
 
+### What the invitee sees
+
+The invitation email — subject **"You've been invited to \<your organization\>"** — contains an **Accept invitation** button that opens a dedicated invitation page:
+
+<Steps>
+  <Step title="Sign in or sign up">
+    If the invitee isn't signed in yet, they're taken to the sign-in page first — new users can create their account right there — and return to the invitation automatically.
+  </Step>
+  <Step title="Review the invitation">
+    The page shows who invited them, the organization name, and the role they'll receive.
+  </Step>
+  <Step title="Accept or decline">
+    **Accept and join** makes the organization their active workspace and lands them on Home. **Decline** records the decision — if it was a mistake, the Administrator simply sends a new invitation.
+  </Step>
+</Steps>
+
+<Note>
+  Invitations are bound to the email address they were sent to. If the invitee is signed in with a different account, the page says so and asks them to sign in with the invited address — the invitation can't be hijacked by another account.
+</Note>
+
 <Tip>
   Invite reviewers and stakeholders with the **Reviewer** or **Commenter** role. They can participate in reviews and chat with agents without being able to author docs.
 </Tip>
 
+## Leaving an organization
+
+Any member can leave an organization on their own — no Administrator needed:
+
+1. Open the **Organization** page and find your own row in the members table.
+2. Click **Leave** and confirm. You lose access to the organization's docs and connections immediately.
+3. You land in your next workspace — or on the workspace chooser if this was your only one.
+
+<Warning>
+  The organization's only owner can't leave — transfer ownership or promote another Administrator first, so the organization is never left without an admin.
+</Warning>
+
 ## Sessions
 
-Sign-in sessions last **7 days**. After that, members sign in again with any of the supported methods — email and password, GitHub, Google, Salesforce, or enterprise SSO.
+Sign-in sessions last **7 days**. After that, members sign in again with any of the supported methods — email and password, Google, GitHub, or enterprise SSO. Members can add two-factor authentication from **Settings → Security**.
 
 ## Removing a member
 
@@ -68,12 +107,15 @@ When a member is removed from the organization (or leaves), their access ends im
   <Card title="Roles and permissions" icon="shield-check" href="/admin/roles-and-permissions">
     What each of the seven roles can see and do.
   </Card>
+
   <Card title="Spaces and repos" icon="folder-git-2" href="/admin/spaces-and-repos">
     Scope your workspace by grouping repos and Salesforce connections.
   </Card>
+
   <Card title="Billing" icon="credit-card" href="/admin/billing">
     Plans, seats, and credits — managed by Administrators.
   </Card>
+
   <Card title="Security" icon="shield" href="/admin/security">
     How LivingContext protects your tokens, keys, and data.
   </Card>

@@ -4,71 +4,90 @@ description: "Every section of the Settings area, what it controls, and where to
 icon: "gear"
 ---
 
-Settings is where you configure your organization's workspace: repositories, agent behavior, keys, and integrations. Open **Settings** from the workspace navigation and pick a section from the left-hand list.
+Settings is where you configure your organization's workspace: repositories, agent behavior, keys, and integrations. Open **Settings** from the workspace navigation — the sidebar groups everything under five headings, with a few areas (Members, Sync, Connections) living on their own pages reached from the same list.
 
 ## Sections at a glance
 
-| Section | What it controls |
-| --- | --- |
-| **Account** | Your profile details (read-only) |
-| **Spaces** | Named scopes that group repos and Salesforce connections |
-| **Repos** | Which repositories hold your documentation |
-| **Commits** | Repo + branch pairs tracked for the commit timeline and automatic doc generation |
-| **Eligibility** | Which Salesforce metadata counts toward coverage |
-| **Style** | The organization style guide agents follow when writing |
-| **Templates** | Doc templates agents follow when drafting |
-| **Suggestions** | The Coverage Auditor agent's schedule and limits |
-| **Skills** | Custom AI skills for the doc editor |
-| **Extension** | Keys for the browser capture extension |
-| **Blur** | Smart-blur categories the extension redacts |
-| **MCP** | Keys and client config for MCP-compatible tools |
-| **API references** | Generate OpenAPI specs from Salesforce |
-| **AI** | Bring your own Anthropic API key |
+| Group | Section | What it controls |
+| --- | --- | --- |
+| **Account** | Your account | Who you're signed in as — details come from your login (read-only) |
+| **Account** | Security | Two-factor authentication, active sessions, and organization security policy |
+| **Organization** | Members | Members, roles, and invitations (the [Organization page](/admin/organizations)) |
+| **Organization** | Spaces | Named scopes that group repos and Salesforce connections |
+| **Organization** | Audit log | Administrator-only history of significant actions |
+| **Documentation** | Docs repositories | Which repositories hold your documentation |
+| **Documentation** | API references | Generate OpenAPI specs from Salesforce — see [API reference](/guides/api-reference) |
+| **Documentation** | Sync | Job history for synchronization runs |
+| **Documentation** | Commit tracking | Repo \+ branch pairs tracked for the commit timeline and automatic doc generation |
+| **Documentation** | Documentation eligibility | Which Salesforce metadata counts toward coverage |
+| **Documentation** | Documentation style | The organization style guide agents follow when writing |
+| **Documentation** | Templates | Doc templates agents follow when drafting |
+| **Documentation** | Doc suggestions | The Coverage Auditor agent's schedule and limits |
+| **Documentation** | AI skills | Custom AI actions for the doc editor |
+| **Capture** | Browser extension | Keys for the browser capture extension |
+| **Capture** | Smart blur | Categories the extension redacts at capture time |
+| **Integrations** | Connections | GitHub, GitLab, Salesforce, and Confluence — the [Connections page](/integrations/salesforce) |
+| **Integrations** | MCP server | Keys and client config for MCP-compatible tools |
+| **Integrations** | AI credentials | Bring your own Anthropic API key |
+| **Integrations** | Models | Enable AI models and pick the default |
 
 ## Section details
 
 <AccordionGroup>
-  <Accordion title="Spaces, Repos, and Commits">
-    **Spaces** groups documentation repositories and Salesforce connections into named scopes — see [Spaces and repos](/admin/spaces-and-repos). **Repos** selects which repositories from your connected git provider hold documentation. **Commits** picks the repo and branch pairs LivingContext tracks: tracked branches feed the commit timeline and trigger automatic doc generation when code changes.
+  <Accordion title="Your account and Security">
+    **Your account** shows your profile as it comes from your sign-in method — nothing to configure. **Security** is where you enroll **two-factor authentication** (authenticator app plus backup codes) and review active sessions. For Administrators it also holds the organization security policy: restricting invitations to approved email domains, network/IP allowlisting, whether doc content may be sent to AI providers, and audit retention. See [Security](/admin/security).
   </Accordion>
-  <Accordion title="Eligibility (coverage scope)">
-    Choose which Salesforce metadata types and namespaces count toward your documentation coverage score, and exclude managed packages entirely. Tightening eligibility keeps coverage focused on metadata your team actually owns instead of third-party packages you can't document.
+
+  <Accordion title="Spaces, Docs repositories, and Commit tracking">
+    **Spaces** groups documentation repositories and Salesforce connections into named scopes — see [Spaces and repos](/admin/spaces-and-repos). **Docs repositories** selects which repositories from your connected git provider hold documentation — pick one or several. **Commit tracking** picks the repo and branch pairs LivingContext follows: tracked branches feed the commit timeline and trigger automatic doc generation when code changes. See [Commits](/guides/commits).
   </Accordion>
-  <Accordion title="Style (organization style guide)">
-    Set the writing style every agent follows. Pick a built-in style preset — for example, Google developer style — and layer your own overrides on top. The result applies to agent-generated docs, editor assistance, and suggestions alike.
-  </Accordion>
-  <Accordion title="Templates">
-    Define doc templates with a name, description, body, and a gold-standard exemplar. When agents draft a doc of a given type, they follow the matching template's structure and imitate its exemplar, so generated docs look like your best hand-written ones.
-  </Accordion>
-  <Accordion title="Suggestions (Coverage Auditor)">
-    Configure the agent that proposes missing docs: turn it on or off, set the frequency (daily, weekly, monthly, or manual), choose which doc types it may suggest, and cap the number of suggestions per run. A **Run now** button triggers an immediate pass. Suggestions land in the [Inbox](/guides/inbox).
-  </Accordion>
-  <Accordion title="Skills (custom editor AI)">
-    Create custom AI skills for the doc editor: give each an emoji, a name, a prompt, and a behavior — **edit** (rewrites the selection) or **chat** (answers in the side panel). Skills appear in the editor's AI menus alongside the built-ins.
-  </Accordion>
-  <Accordion title="Extension and Blur">
-    **Extension** creates keys that link the browser capture extension to your organization. **Blur** selects the smart-blur categories the extension redacts at capture time — passwords are always masked regardless of these settings. See [Capture](/capture/overview) and [Security](/admin/security).
-  </Accordion>
-  <Accordion title="MCP">
-    Create MCP keys and copy ready-made client configuration snippets for Claude Code, Cursor, and Cline, so AI coding tools can read and update your docs through the Model Context Protocol. Keys are shown once and stored as hashes.
-  </Accordion>
+
   <Accordion title="API references">
-    Generate OpenAPI specifications from your connected Salesforce org, which power the API Reference surface for the active repo.
+    Generate OpenAPI specifications from your connected Salesforce org: the org-wide data API, one spec per inbound Apex REST endpoint, and one per outbound Named Credential. Specs also generate automatically after each metadata sync — see [API reference](/guides/api-reference).
   </Accordion>
-  <Accordion title="AI (bring your own key)">
-    Provide your own Anthropic API key if you want agent work billed directly to your Anthropic account. The key is encrypted at rest.
+
+  <Accordion title="Documentation eligibility (coverage scope)">
+    Choose which Salesforce metadata types count toward your documentation coverage score. Unchecked types are still synced and searchable — they just stop counting as "undocumented", so the score reflects metadata your team actually owns instead of managed packages you can't document.
+  </Accordion>
+
+  <Accordion title="Documentation style">
+    Set the writing style every agent follows: voice and tone, a terminology table, formatting conventions, and free-form guidance — optionally layered over a recognized base standard. A **Preview** shows the effective style, and **History** tracks revisions. Only a saved style applies. See [Templates and style](/guides/templates-and-style).
+  </Accordion>
+
+  <Accordion title="Templates">
+    Define your documentation type system: each type carries a page structure, a writing guide, and a gold-standard example. When agents draft a doc of a given type, they follow the matching template and imitate its exemplar, so generated docs look like your best hand-written ones. A **Prompt preview** shows exactly what the AI receives.
+  </Accordion>
+
+  <Accordion title="Doc suggestions (Coverage Auditor)">
+    Configure the agent that proposes missing docs: turn it on or off, set the frequency (daily, weekly, monthly, or manual), choose which doc types it may suggest, and cap the number of suggestions per run. A **Run now** button triggers an immediate pass. Suggestions land in the [Inbox](/guides/inbox) — nothing is published without your review.
+  </Accordion>
+
+  <Accordion title="AI skills">
+    Create reusable AI actions for the doc editor: give each an emoji, a name, a prompt, and a behavior — **edit** (rewrites the selection as tracked changes) or **chat** (answers in the panel). Run them from the editor toolbar, the inline AI bar, or by mentioning the skill in agent chat.
+  </Accordion>
+
+  <Accordion title="Browser extension and Smart blur">
+    **Browser extension** creates the keys that link the capture extension to your organization — captures land as a change request in one of your docs repositories. **Smart blur** selects the categories the extension redacts at capture time: email, phone numbers, SSN, credit card, IP address, and MAC address. Redaction is destructive — blurred content never reaches your docs — and passwords are always masked regardless of these settings. See [Capture](/capture/overview) and [Privacy and redaction](/capture/privacy-and-redaction).
+  </Accordion>
+
+  <Accordion title="MCP server">
+    Create MCP keys and copy ready-made client configuration snippets for Claude Code, Cursor, and Cline, so AI coding tools can read and update your docs through the Model Context Protocol. Keys are shown once and stored as hashes. See [MCP server](/integrations/mcp-server).
+  </Accordion>
+
+  <Accordion title="AI credentials and Models">
+    By default the documentation agent runs on LivingContext's shared AI key. **AI credentials** lets you add your organization's own **Anthropic API key** — usage then bills to your Anthropic account, and only the last four characters are ever shown again. **Models** lists the AI models available to your workspace; enable the ones you want and set the default.
   </Accordion>
 </AccordionGroup>
 
 ## Standalone admin pages
 
-A few administrative areas live outside Settings:
+A few administrative areas open as their own pages from the Settings sidebar:
 
 | Page | What it does |
 | --- | --- |
-| **Connections** | Connect and manage GitHub, GitLab, Salesforce, and Confluence — see [Salesforce integration](/integrations/salesforce) |
+| **Members** | Members, roles, and invitations — see [Organizations](/admin/organizations) |
 | **Sync** | Job history for synchronization runs |
-| **Organization** | Members, roles, and invitations — see [Organizations](/admin/organizations) |
+| **Connections** | Connect and manage GitHub, GitLab, Salesforce, and Confluence — see [Salesforce integration](/integrations/salesforce) |
 
 <Note>
   What you can change depends on your role. Organization-wide settings are managed by Administrators; see [Roles and permissions](/admin/roles-and-permissions).

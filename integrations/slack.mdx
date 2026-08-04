@@ -4,51 +4,59 @@ description: "Connect a Slack workspace so your agents can post and respond in c
 icon: "slack"
 ---
 
-Connect Slack and your LivingContext agents become part of the conversation: they can post updates into channels and respond when your team asks questions — no context-switching into another tool.
+Connect Slack and your LivingContext agents become part of the conversation: mention the bot in a channel or DM it, and it starts a real agent run and posts the answer back in the thread — no context-switching into another tool.
 
-Slack is managed from the **Channels** tab of the [Agent platform](/agents/agent-platform).
+Slack is managed from the **Channels** tab of the [Agent platform](/agents/agent-platform): open **Agents → Channels**.
 
 ## Connect
 
+Slack connects with a bot token from your own Slack app — there's no marketplace install:
+
 <Steps>
-  <Step title="Open Channels">
-    Go to **Agents → Channels**.
+  <Step title="Create a Slack app with a bot">
+    In your Slack workspace, create an app with a bot user and install it. Copy the **bot token** (`xoxb-…`) from the app's **OAuth & Permissions** page.
   </Step>
-  <Step title="Connect your workspace">
-    Authorize LivingContext with your Slack workspace. Workspace admins may need to approve the app depending on your Slack settings.
+  <Step title="Point events at LivingContext">
+    In the Slack app's configuration, point **Event Subscriptions** and your **slash command** at your workspace's `/api/slack/events` endpoint.
   </Step>
-  <Step title="Wire agents to channels">
-    Choose which agents participate and where — an agent can post results into a channel or respond to messages there.
+  <Step title="Paste the details in Agents → Channels">
+    Fill in the **Team ID** (`T…`), the **bot token**, and optionally the workspace name and bot user ID, then click **Connect Slack**. The card flips to **Connected**, with a **Disconnect** button when you need it.
   </Step>
 </Steps>
 
 ## What agents can do in Slack
 
-- **Post** — deliver run results, digests, or alerts into a channel. Pair this with cron [triggers](/agents/agent-platform#triggers) for scheduled updates, like a weekly org-change digest.
-- **Respond** — answer questions in channels they're connected to, grounded in the same Salesforce catalog and docs corpus as everywhere else.
+- **Respond to mentions** — `@LivingContext summarize recent metadata changes` in any channel the bot is in starts an agent run; the answer arrives **threaded** under your message.
+- **Respond to DMs** — message the bot directly for the same experience one-on-one.
+- **Slash commands** — `/lc summarize open change requests` acknowledges immediately ("Working on it…") and posts the result to the channel when done.
+
+Answers are grounded in the same Salesforce catalog and docs corpus as everywhere else, and formatted for Slack automatically.
 
 <Tip>
-A common setup: an autonomous agent on a daily cron that summarizes recent Salesforce changes and posts them to `#salesforce-changes`.
+  Want a recurring digest? Create a cron [trigger](/agents/agent-platform#triggers) — for example, "Weekday morning digest: summarize new Salesforce changes since yesterday" — and the agent posts its result wherever you've wired it.
 </Tip>
 
-## Formatting
+## Beyond Slack
 
-Agents think in Markdown; Slack doesn't. LivingContext **converts Markdown to Slack formatting automatically**, so answers with headings, lists, links, and code render cleanly in channels without manual cleanup.
+The same Channels tab also offers:
+
+- **Microsoft Teams** — paste an incoming webhook URL and finished background runs post a card to your Teams channel.
+- **Public API keys** — `lc_live_…` bearer keys for starting runs from the REST API or your own tools.
 
 ## Security
 
-- Inbound Slack traffic is protected by **signed request verification** — LivingContext validates Slack's signature on every request, so forged messages can't reach your agents.
+- Inbound Slack traffic is protected by **signed request verification** — LivingContext validates Slack's signature on every request, so forged messages can't reach your agents. Unknown workspaces are ignored, and duplicate events are deduplicated.
 - Agents in Slack operate under the same governance as everywhere else: allowed tools, permission modes, and [approvals](/agents/agent-platform#approvals) for side-effecting actions.
 - Every side-effecting action an agent takes is recorded in the platform [Audit log](/agents/agent-platform#audit), regardless of whether it was triggered from Slack or the app.
 
 <Note>
-Autonomous agents — the kind you'd typically run behind a Slack channel — require a Pro or higher plan. See [Billing](/admin/billing).
+  Autonomous agents — the kind you'd typically run behind a channel — require a Pro or higher plan. See [Billing](/admin/billing).
 </Note>
 
 ## Troubleshooting
 
-<Accordion title="An agent isn't responding in a channel">
-  Confirm the workspace connection is healthy in **Agents → Channels**, and that the agent is actually wired to that channel. Check the Runs tab for failed runs — the transcript usually explains what went wrong.
+<Accordion title="The bot isn't responding">
+  Confirm the connection is **Connected** in **Agents → Channels**, the bot is actually in the channel you're mentioning it from, and your Slack app's Event Subscriptions point at `/api/slack/events`. Check the Runs tab for failed runs — the transcript usually explains what went wrong.
 </Accordion>
 
 <Accordion title="Messages look broken or unformatted">
@@ -59,8 +67,9 @@ Autonomous agents — the kind you'd typically run behind a Slack channel — re
 
 <CardGroup cols={2}>
   <Card title="Agent platform" icon="workflow" href="/agents/agent-platform">
-    Define the agents, triggers, and approvals behind your Slack channels.
+    Define the agents, triggers, and approvals behind your channels.
   </Card>
+
   <Card title="Workspace agent" icon="message-square-text" href="/agents/workspace-agent">
     The org-intelligence tool set agents draw on when answering.
   </Card>

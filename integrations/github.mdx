@@ -10,15 +10,22 @@ LivingContext stores documentation in **your** GitHub repositories. The GitHub c
 
 <Steps>
   <Step title="Start the connection">
-    Go to the **Connections** page (or connect during [onboarding](/getting-started/onboarding) — a Git provider is required before the app unlocks).
+    Go to the **Connections** page (or connect during [onboarding](/getting-started/onboarding) — a Git provider is required before the app unlocks, unless you start on a [starter workspace](/getting-started/onboarding#no-repo-start-with-a-starter-workspace)).
   </Step>
   <Step title="Authorize with OAuth">
-    You're sent to GitHub to grant access with the `repo` scope, which covers reading repository content and pushing commits.
+    You're sent to GitHub to grant access with the `repo` scope, which covers reading repository content and pushing commits. Authorizing alone only proves your identity, so there's one more step.
+  </Step>
+  <Step title="Install the GitHub App">
+    Use **Install / manage on GitHub** on the connection card to install the LivingContext app on each account or organization you sync from, picking which repositories it may access. Come back and hit **refresh** to pull the new installations in.
   </Step>
   <Step title="Pick your docs repos">
-    Select which repositories hold documentation under **Settings → Repos**.
+    Select which repositories hold documentation under **Settings → Docs repositories**.
   </Step>
 </Steps>
+
+<Note>
+  If repositories are missing from the picker, the app isn't installed on their owner yet — that's what the **Install / manage** link fixes.
+</Note>
 
 ## What the connection powers
 
@@ -31,7 +38,11 @@ LivingContext stores documentation in **your** GitHub repositories. The GitHub c
 
 ## Tracked branches
 
-Beyond docs repos, you can track branches of your **code** repositories under **Settings → Commits**. The commit updater watches tracked branches and drafts documentation updates for each commit that lands — see [Commits](/guides/commits).
+Beyond docs repos, you can track branches of your **code** repositories under **Settings → Commit tracking**. The commit updater watches tracked branches and drafts documentation updates for each commit that lands — see [Commits](/guides/commits).
+
+## Moving off a starter workspace
+
+If you began on a [starter workspace](/getting-started/onboarding#no-repo-start-with-a-starter-workspace), connecting GitHub unlocks a **Move your workspace to your own GitHub** banner on Connections: enter a repository you own as `owner/repo`, click **Move workspace**, and your docs are copied across in one commit while the workspace switches over.
 
 ## Security
 
@@ -40,7 +51,7 @@ Beyond docs repos, you can track branches of your **code** repositories under **
 - Revoking the grant (from GitHub or from Connections) disconnects the integration immediately.
 
 <Note>
-Because every write is an ordinary Git commit or pull request, you retain full history and can review or revert anything LivingContext writes using your normal Git workflow.
+  Because every write is an ordinary Git commit or pull request, you retain full history and can review or revert anything LivingContext writes using your normal Git workflow.
 </Note>
 
 ## Working with multiple repos

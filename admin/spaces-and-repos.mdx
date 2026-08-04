@@ -21,27 +21,37 @@ Workspace-wide surfaces operate on your **active space**:
 | **Inbox** | Which agent proposals and generation events you triage |
 | **Coverage** | Which repos and Salesforce metadata count toward documentation coverage |
 
-Use spaces to keep unrelated work separate — for example, a *Sales Cloud* space and a *Service Cloud* space, each with its own repo and Salesforce connection, so each team's Home, [Inbox](/guides/inbox), and Coverage only show what's theirs.
+Use spaces to keep unrelated work separate — for example, a _Sales Cloud_ space and a _Service Cloud_ space, each with its own repo and Salesforce connection, so each team's Home, [Inbox](/guides/inbox), and Coverage only show what's theirs.
 
 <Note>
-  Organizations created before spaces existed get one space automatically created per repository, so nothing changes until you decide to reorganize.
+  An organization with no spaces yet gets one created automatically per configured docs repository — named after the repo and carrying every connected Salesforce org — so nothing needs setting up until you decide to reorganize.
 </Note>
+
+## The space switcher
+
+The switcher sits at the top of the left rail. It's a two-lane popover: highlight a space on the left to preview its repositories on the right, then pick either — choosing a space switches your scope, choosing a repository also sets the active repo. A **Manage spaces** entry at the bottom jumps to Settings → Spaces. Your choices persist across visits.
+
+If nothing is set up yet, the switcher shows a single **Connect a repository** button instead.
 
 ## Managing spaces
 
-Manage spaces in **Settings**:
+Manage spaces in **Settings → Spaces**:
 
 <Steps>
-  <Step title="Open the Spaces section">
-    Go to Settings and choose **Spaces**.
-  </Step>
   <Step title="Create or edit a space">
-    Name the space, then assign the documentation repositories and Salesforce connections it should include.
+    Each space is a card with a name, a **Repositories** checklist, and a **Salesforce connections** checklist. A space needs at least one repository — the repo list comes from **Settings → Docs repositories**, so configure repos there first.
+  </Step>
+  <Step title="Save">
+    Changes apply immediately. The active space is marked with an **active** pill.
   </Step>
   <Step title="Switch your active space">
-    Pick the space you want to work in. Home, Inbox, and Coverage update to match.
+    Use the space switcher in the rail. Home, Inbox, and Coverage update to match.
   </Step>
 </Steps>
+
+<Warning>
+  Deleting a space also deletes what's scoped to it — saved [ERD views](/guides/schema-diagrams), agent secrets, and agent memories — and any agent triggers scoped to it widen to the whole organization. If you're just removing a repository, remove it from the space instead of deleting the space.
+</Warning>
 
 See the [settings reference](/admin/settings-reference) for everything else in Settings.
 
@@ -67,8 +77,8 @@ Switching repos in the switcher changes all of these at once, so the surfaces al
 
 Repositories come from your connected git provider:
 
-1. Connect **GitHub or GitLab** on the Connections page if you haven't already (one provider is required during [onboarding](/getting-started/onboarding)).
-2. In Settings, open the **Repos** section and choose which repositories hold documentation.
+1. Connect **GitHub or GitLab** on the Connections page if you haven't already (one provider is required during [onboarding](/getting-started/onboarding), unless you're on a [starter workspace](/getting-started/onboarding#no-repo-start-with-a-starter-workspace)).
+2. In Settings, open **Docs repositories** and choose which repositories hold documentation.
 3. Assign the repo to a space in the **Spaces** section.
 
 Docs are stored as Markdown files in the repo itself, so anything you merge in LivingContext appears as commits in your git history — and anything committed directly to the repo appears in Docs.
@@ -79,6 +89,7 @@ Docs are stored as Markdown files in the repo itself, so anything you merge in L
   <Card title="Settings reference" icon="settings" href="/admin/settings-reference">
     Every Settings section, including Spaces, Repos, and Commits.
   </Card>
+
   <Card title="Core concepts" icon="book-open" href="/getting-started/concepts">
     How spaces, docs, and change requests fit together.
   </Card>

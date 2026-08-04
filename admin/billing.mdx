@@ -8,17 +8,17 @@ LivingContext pricing has three components:
 
 1. **A base subscription** — a flat monthly price per organization, set by your plan.
 2. **Seats** — paid plans add a per-seat price on top of the base subscription.
-3. **Usage credits** — AI usage is metered in credits (**1 credit = $0.01**). Every plan includes a monthly credit grant; heavier usage is covered by top-up packs on Business and Ultra.
+3. **Usage credits** — AI usage is metered in credits (**1 credit = \$0.01**). Every plan includes a monthly credit grant; heavier usage is covered by top-up packs on Business and Ultra.
 
 Billing lives in the **Billing** tab of the Agents console. Only members with billing management permission (Administrators) can change plans or buy credits; most roles can view usage.
 
 ## Plan comparison
 
-| | Free | Starter | Pro | Business | Ultra |
+|  | Free | Starter | Pro | Business | Ultra |
 | --- | --- | --- | --- | --- | --- |
-| Base price / month | $0 | $20 | $50 | $200 | $500 |
-| Per seat / month | — | $20 | $20 | $20 | $20 |
-| Monthly credit grant | 500 ($5) | 2,000 ($20) | 5,000 ($50) | 20,000 ($200) | 50,000 ($500) |
+| Base price / month | \$0 | \$20 | \$50 | \$200 | \$500 |
+| Per seat / month | — | \$20 | \$20 | \$20 | \$20 |
+| Monthly credit grant | 500 (\$5) | 2,000 (\$20) | 5,000 (\$50) | 20,000 (\$200) | 50,000 (\$500) |
 | Concurrent agent runs | 2 | 3 | 5 | 10 | 20 |
 | Triggers | 1 | 5 | 20 | 50 | 200 |
 | Connectors | 2 | 5 | 10 | 25 | 100 |
@@ -31,14 +31,14 @@ Billing lives in the **Billing** tab of the Agents console. Only members with bi
 **Autonomous execution** covers everything that runs without a person in the loop: cron triggers, inbound webhooks, and the public run API. Interactive and assisted agent use is available on every plan.
 
 <Note>
-Need higher limits, custom credit pools, single sign-on, or a self-hosted deployment? See [Enterprise](/admin/enterprise).
+  Need higher limits, custom credit pools, single sign-on, or a self-hosted deployment? See [Enterprise](/admin/enterprise).
 </Note>
 
 ## How usage is metered
 
 Every model call an agent makes is metered at the moment it completes and converted to credits:
 
-```
+```text
 cost = (input tokens × input rate + output tokens × output rate) × 1.2
 credits = cost ÷ $0.01
 ```
@@ -64,7 +64,7 @@ Credits charged per **1 million tokens** (multiplier included):
 Models not in the catalog bill at a conservative premium rate (600 input / 3,000 output per 1M tokens) so an uncatalogued model can never undercharge. The same model bills identically no matter which provider route serves it.
 
 <Tip>
-**Worked example:** one agent turn on Claude Sonnet 4.6 that reads 10,000 tokens and writes 2,000 tokens costs (10,000 × $3 + 2,000 × $15) ÷ 1M × 1.2 = $0.072 → **7.2 credits**. The Free plan's monthly grant covers roughly 70 such turns.
+  **Worked example:** one agent turn on Claude Sonnet 4.6 that reads 10,000 tokens and writes 2,000 tokens costs (10,000 × $$3 + 2,000 × $$15) ÷ 1M × 1.2 = \$0.072 → **7.2 credits**. The Free plan's monthly grant covers roughly 70 such turns.
 </Tip>
 
 ## When credits run out
@@ -86,16 +86,16 @@ Business and Ultra plans can buy additional credits at any time:
 - **Card checkout** — a hosted Stripe checkout, from 100 up to 500,000 credits per purchase. Credits land on your balance as soon as payment completes.
 - **Manual grants** — for deployments without card payments configured (for example, self-hosted or invoiced accounts), credits are granted directly by agreement, up to 50,000 per grant.
 
-Purchased credits are priced at the same rate as granted credits: 1 credit = $0.01, so a 1,000-credit pack is $10.
+Purchased credits are priced at the same rate as granted credits: 1 credit = $$0.01, so a 1,000-credit pack is $$10.
 
 <Note>
-On Free, Starter, and Pro, top-ups are not available — if you regularly exhaust your grant, upgrading is the intended path, and it's usually cheaper than the equivalent top-up volume.
+  On Free, Starter, and Pro, top-ups are not available — if you regularly exhaust your grant, upgrading is the intended path, and it's usually cheaper than the equivalent top-up volume.
 </Note>
 
 ## Plan changes and seats
 
 - Plan changes take effect immediately: new limits apply at once, and the new plan's monthly credit grant is applied on the change.
-- Seats are billed at $20/month each on all paid tiers. Your seat count is managed alongside the plan in the Billing tab.
+- Seats are billed at \$20/month each on all paid tiers. Your seat count is managed alongside the plan in the Billing tab.
 - Downgrading never deletes anything — if you exceed the lower plan's trigger or connector caps, existing items stay but new ones can't be created until you're back under the cap.
 
 ## Auditability
@@ -108,15 +108,19 @@ Every credit movement — grants, usage debits, top-ups, adjustments — is reco
   <Accordion title="Do documentation features consume credits?">
     Credits meter AI usage: agent conversations, document generation, suggestions, and AI editor actions. Browsing, searching, editing by hand, and merging change requests are free.
   </Accordion>
+
   <Accordion title="Can I cap spending?">
     Spending is naturally capped by your credit balance — LivingContext blocks agent usage at zero rather than billing overage. On plans without top-ups, your monthly grant is a hard ceiling.
   </Accordion>
+
   <Accordion title="Do unused credits roll over?">
     The monthly grant sets your balance for the cycle; topped-up credits remain until spent.
   </Accordion>
+
   <Accordion title="Can we use our own AI provider key?">
-    Yes — organizations can bring their own Anthropic API key in Settings → AI, which routes usage to your own provider account. See [Enterprise](/admin/enterprise).
+    Yes — organizations can bring their own Anthropic API key in **Settings → AI credentials**, which routes usage to your own provider account. See [Enterprise](/admin/enterprise).
   </Accordion>
+
   <Accordion title="Who can manage billing?">
     Administrators. Other roles can read billing status. See [Roles and permissions](/admin/roles-and-permissions).
   </Accordion>

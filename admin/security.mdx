@@ -12,14 +12,13 @@ LivingContext is built for teams that hand an AI agent the keys to their documen
   <Card title="Two-factor authentication" icon="shield-check">
     Every member can enable TOTP two-factor authentication (any authenticator app) with one-time backup codes, from **Settings → Security**. Sign-in for enrolled accounts requires the second factor.
   </Card>
+
   <Card title="Session control" icon="laptop">
     Review every active session — device, network, age — and revoke any one of them (or all others at once) from **Settings → Security**. Sessions expire after 7 days.
   </Card>
 </CardGroup>
 
-Passwords follow a modern (NIST-aligned) policy — a 12-character minimum with a
-breached-password deny-list, enforced server-side — and the sign-in endpoints
-are rate-limited against brute force.
+Passwords follow a modern (NIST-aligned) policy — a 12-character minimum with a breached-password deny-list, enforced server-side — and the sign-in endpoints are rate-limited against brute force.
 
 ## Credentials and keys
 
@@ -27,6 +26,7 @@ are rate-limited against brute force.
   <Card title="Encrypted at rest" icon="lock">
     OAuth tokens and secrets are encrypted at rest with AES-256-GCM, with support for master-key rotation. LivingContext never stores your git or Salesforce credentials in plaintext.
   </Card>
+
   <Card title="Hashed API keys" icon="key">
     API keys — extension keys and MCP keys — are stored as hashes and shown **once** at creation. Keys can be minted with an expiry (30/90/365 days), and creation and revocation are recorded in the audit log.
   </Card>
@@ -43,17 +43,13 @@ Administrators set org-wide access policy in **Settings → Security**:
 | Policy | What it does |
 | --- | --- |
 | **Invite domain allowlist** | Restrict member invitations to your company's email domains — invitations to any other domain are blocked at the source. |
-| **IP allowlist** | Restrict organization access to specific networks (IPv4/IPv6 addresses or CIDR blocks). Enforced on every path in — web sessions, the capture extension, and MCP keys. Saving a list that would lock *you* out is rejected. |
+| **IP allowlist** | Restrict organization access to specific networks (IPv4/IPv6 addresses or CIDR blocks). Enforced on every path in — web sessions, the capture extension, and MCP keys. Saving a list that would lock _you_ out is rejected. |
 | **AI processing opt-out** | One switch that stops all document content from being sent to AI providers — doc generation, suggestions, and agents pause for the organization until re-enabled. |
 | **Retention windows** | How long the security audit log (default 365 days) and resolved inbox events are kept. |
 
 ## Audit log
 
-Beyond the agent action trail, every security-relevant event in the
-organization is recorded append-only — sign-ins across all providers, member
-and role changes, invitations, API keys, connections, and settings edits, each
-with actor, IP address, and timestamp. Administrators review and filter it in
-**Settings → Audit log**; retention follows your policy.
+Beyond the agent action trail, every security-relevant event in the organization is recorded append-only — sign-ins across all providers, member and role changes, invitations, API keys, connections, and settings edits, each with actor, IP address, and timestamp. Administrators review and filter it in **Settings → Audit log**; retention follows your policy.
 
 ## Tenant isolation
 
@@ -68,7 +64,7 @@ Each organization lives on its own subdomain (`<slug>.livingcontext.ai`) with pe
 
 ### Reads are minimized
 
-When agents ground documentation against your live Salesforce org, they work from **metadata, not record contents**. For example, field utilization analysis is count-only — the agent learns *how many* records populate a field, never *what's in* them.
+When agents ground documentation against your live Salesforce org, they work from **metadata, not record contents**. For example, field utilization analysis is count-only — the agent learns _how many_ records populate a field, never _what's in_ them.
 
 ### Writes are gated
 
@@ -96,7 +92,7 @@ Learn more in [Capture](/capture/overview).
 
 You control how your team authenticates:
 
-- Email and password (with optional two-factor), GitHub, Google, or Salesforce OAuth
+- Email and password (with optional two-factor), Google, or GitHub
 - **Enterprise SSO** through your identity provider — Okta, Microsoft Entra, Auth0, and other standards-based IdPs
 
 Combine SSO with [roles and permissions](/admin/roles-and-permissions) to keep access aligned with your directory.
@@ -126,7 +122,7 @@ Combine SSO with [roles and permissions](/admin/roles-and-permissions) to keep a
 
 ## On the roadmap
 
-Being transparent about what's *not* built yet:
+Being transparent about what's _not_ built yet:
 
 | Capability | Status |
 | --- | --- |
