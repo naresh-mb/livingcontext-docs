@@ -8,14 +8,17 @@ The Salesforce connection is the heart of LivingContext. It builds a **metadata 
 
 ## Connect
 
-Salesforce connects through **your own Connected App** — your credentials, your org's policies, no platform-wide app in between:
+Salesforce connects through **your own Connected Apps** — your credentials, your org's policies, no platform-wide app in between. Production and each sandbox are different Salesforce orgs, so each environment gets its own app:
 
 <Steps>
-  <Step title="Add your Connected App">
-    In your Salesforce org, create a Connected App (enable OAuth, paste in the callback URL shown on the Connections page). Then, on the **Connections** page, add its **consumer key** and **consumer secret** to the Salesforce card. Until this is done, the connect buttons stay hidden.
+  <Step title="Add a Connected App per environment">
+    In each Salesforce org you want to connect, create a Connected App (enable OAuth, paste in the callback URL shown on the Connections page). Then, on the **Connections** page, add it to the Salesforce card's **Connected Apps** panel: a name (say, *Production* or *UAT sandbox*), its **login URL**, and its **consumer key** and **consumer secret**.
   </Step>
-  <Step title="Choose the environment">
-    Click **Connect Production** (`login.salesforce.com`) or **Connect Sandbox** (`test.salesforce.com`). You can connect as many orgs as you need, side by side.
+  <Step title="Set the login URL">
+    Use `https://login.salesforce.com` for production, `https://test.salesforce.com` for sandboxes, or your org's **My Domain** URL. LivingContext authorizes and refreshes tokens against this host.
+  </Step>
+  <Step title="Connect each environment">
+    Every registered app has its own **Connect** button. Connect as many orgs as you need, side by side — each connection remembers which app authorized it.
   </Step>
   <Step title="Authorize with OAuth">
     LivingContext requests the `api`, `refresh_token`, and `web` scopes — enough to read metadata and stay connected, nothing more.
