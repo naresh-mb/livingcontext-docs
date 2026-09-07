@@ -10,7 +10,7 @@ LivingContext is built for teams that hand an AI agent the keys to their documen
 
 <CardGroup cols={2}>
   <Card title="Two-factor authentication" icon="shield-check">
-    Every member can enable TOTP two-factor authentication (any authenticator app) with one-time backup codes, from **Settings → Security**. Sign-in for enrolled accounts requires the second factor.
+    Every member can enable TOTP two-factor authentication (any authenticator app) with one-time backup codes, from **Settings → Security**. Sign-in for enrolled accounts requires the second factor. Ten failed verification attempts temporarily pause second-factor verification for 15 minutes.
   </Card>
 
   <Card title="Session control" icon="laptop">
@@ -18,7 +18,7 @@ LivingContext is built for teams that hand an AI agent the keys to their documen
   </Card>
 </CardGroup>
 
-Passwords follow a modern (NIST-aligned) policy — a 12-character minimum with a breached-password deny-list, enforced server-side — and the sign-in endpoints are rate-limited against brute force.
+Passwords follow a modern (NIST-aligned) policy — a 12-character minimum with a common-password deny-list, enforced server-side — and the sign-in endpoints are rate-limited against brute force.
 
 ## Credentials and keys
 
@@ -35,6 +35,10 @@ Passwords follow a modern (NIST-aligned) policy — a 12-character minimum with 
 <Warning>
   Keys stop working **the moment a member leaves the organization**. Offboarding a teammate automatically revokes every key they created.
 </Warning>
+
+## Verified invitations
+
+Invitation recipients must verify the invited email address before viewing, accepting, or declining an invitation. The invitation page offers a verification email and returns them to the invitation afterward. This protection applies to every organization.
 
 ## Organization security policy
 
@@ -127,7 +131,7 @@ Being transparent about what's _not_ built yet:
 | Capability | Status |
 | --- | --- |
 | SCIM provisioning / directory sync | Planned — membership is currently managed through invitations and removal (which revoke access and keys immediately). |
-| SAML | OIDC SSO covers Okta, Entra, Google Workspace, Auth0 and other modern IdPs today; SAML is available on request for SAML-only IdPs. |
+| SAML | Planned for required SAML-only identity providers. OIDC SSO supports Okta, Entra, Google Workspace, Auth0 and other modern identity providers today. |
 | Support access controls | LivingContext staff have no impersonation mechanism today — a consent-based, audited support-access flow is planned before one is ever added. |
 
 If one of these gates your security review, [contact us](https://livingcontext.ai) — they're prioritized by enterprise demand.

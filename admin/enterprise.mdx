@@ -47,6 +47,7 @@ Everything in the security model applies at every tier — these are the control
 | Credential encryption | OAuth tokens and secrets encrypted at rest with AES-256-GCM; API keys stored as hashes and shown once. |
 | Review-gated publishing | No AI-generated content ships without human acceptance — through the Inbox, a change request, or a pull request. |
 | Least-privilege live reads | Live Salesforce reads never touch record contents; field utilization is count-only. |
+| Verified invitation recipients | Invitees must prove ownership of the invited email address before viewing or responding to an invitation. |
 | Membership-bound keys | Extension and MCP keys stop working the moment a member leaves the organization. |
 
 See [Security](/admin/security) for the full model.
