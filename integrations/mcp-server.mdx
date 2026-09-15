@@ -45,7 +45,7 @@ claude mcp add --transport http livingcontext \
 
 ## Tools
 
-The server exposes 20\+ tools across five areas.
+The server exposes 30+ tools across six areas.
 
 ### Reads
 
@@ -94,6 +94,19 @@ The same Salesforce analysis available to the [workspace agent](/agents/workspac
 | `find_unreferenced_fields` | Fields nothing references |
 | `who_can_access` | Who can see or edit an object or field |
 | `get_org_debt_signals` | Technical-debt indicators for the org |
+
+### Workspace health and analytics
+
+The same read-only health and analytics tools the [workspace agent](/agents/workspace-agent) uses, answered for the key's space:
+
+| Tool | What it does |
+| --- | --- |
+| `get_org_score` | Org-health score out of 100 with its breakdown and trend |
+| `list_integrations` | The org's API surface — inbound endpoints it serves and outbound systems it calls |
+| `get_coverage` | Documented versus total components per connected org, with the largest gaps |
+| `get_freshness` | Doc freshness scores, stalest first |
+| `get_analytics_model` | The analytics semantic model — cubes, measures, dimensions (needs an analytics source) |
+| `query_analytics` | A governed analytics query over the org's records (needs an analytics source) |
 
 ### Connections
 
