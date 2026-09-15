@@ -16,7 +16,7 @@ The endpoint speaks **streamable HTTP JSON-RPC**, the standard MCP transport sup
 
 <Steps>
   <Step title="Open Settings → MCP server">
-    Keys are managed per organization. Name the key (e.g. "Claude Code"), optionally give it an expiry, and click **Create key**.
+    Keys are managed per organization. Name the key (e.g. "Claude Code"), pick the **space** it should act in, optionally give it an expiry, and click **Create key**. A key reads and writes only that space's docs repositories and Salesforce orgs — the same scope the space switcher gives you in the app. Create one key per space if a tool needs more than one.
   </Step>
   <Step title="Copy the key">
     Keys are prefixed `lcmcp_` and **shown once** — copy it immediately and store it like any credential.
@@ -38,10 +38,10 @@ claude mcp add --transport http livingcontext \
 
 ## Security model
 
-- Keys are **org-scoped** — a key only reaches the organization it was created in.
+- Keys are **space-scoped** — a key only reaches the organization it was created in, and within it only the docs repositories and Salesforce orgs of the space chosen at creation. Deleting that space disables the key rather than widening it. Keys created before spaces existed act in the organization's first space.
 - Your **membership is re-checked on every call**; if you leave the org, the key stops working.
 - **Writes respect your role** — the MCP server can't do anything you couldn't do in the app. See [Roles and permissions](/admin/roles-and-permissions).
-- Write tools never publish directly: they land as [change requests](/guides/editing-and-change-requests) or pull requests for human review.
+- By default, write tools land in a **draft** — a private copy readers don't see until a person publishes it. A tool can also add to an existing draft, or, if your role allows editing Live, commit straight to the live site — the same choices the editor offers. Pages open in the editor pick up MCP commits live instead of overwriting them.
 
 ## Tools
 
@@ -61,10 +61,11 @@ The server exposes 20\+ tools across five areas.
 
 | Tool | What it does |
 | --- | --- |
-| `create_doc` | Draft a new doc — lands as a change request |
-| `update_doc` | Edit an existing doc — lands as a change request |
+| `create_doc` | Create a new doc — in a new draft by default, in an existing draft with `draft`, or straight to Live with `direct` |
+| `update_doc` | Replace an existing doc's content — same three destinations as `create_doc` |
+| `list_drafts` | The open drafts in the key's space, with the branch names `draft` takes |
 | `set_doc_metadata` | Tag a doc to Salesforce components (applies immediately) |
-| `submit_for_review` | Ship the change request — opens a PR |
+| `submit_for_review` | Open a pull request for a draft so a person can review and publish it |
 | `upload_guide_asset` | Upload an asset for a guide |
 | `create_guide` | Publish a step-by-step guide from agent-recorded steps — same pipeline as the capture extension, landing as a change request |
 
@@ -108,10 +109,10 @@ Check what's wired up before reading or writing (connecting itself happens in th
 1. Add the MCP server to Claude Code with your `lcmcp_` key.
 2. Ask: _"Our discount approval flow changed — update the docs that describe it."_
 3. The tool searches your docs, reads the current pages, pulls fresh metadata context, and drafts edits via `update_doc`.
-4. The edits arrive in LivingContext as **change requests** — you review and ship them like any other change.
+4. The edits arrive in LivingContext as a **draft** — open it from the draft switcher on the Docs page, review, and publish it like any other change. Ask the tool to keep using the same draft and every follow-up edit lands in one place.
 
 <Note>
-  Nothing bypasses review. Even a fully automated MCP client ends at the same gate as every agent: a human approves before anything merges.
+  Drafts are the default. Committing straight to Live is an explicit choice per call (`direct: true`) and is only available to roles that can edit Live in the app.
 </Note>
 
 <Warning>
