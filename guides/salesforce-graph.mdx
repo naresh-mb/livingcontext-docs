@@ -23,6 +23,8 @@ The catalog also includes available compound-field members, such as a contact's 
 
 Some dynamic Apex references can be resolved when their values are provable constants. Values supplied by users, changed by runtime branches or computed outside the analyzed code remain unproven.
 
+Typed Apex lists and maps retain their field references when code accesses an element, including nested collections. Operations on the collection itself, such as checking its size, are not presented as methods on the Salesforce object. An unknown custom-method return type remains an explicit analysis limitation.
+
 Expand **Trace a path to another component** to look for a resolved dependency path, up to six hops. A missing path means none was found within the current index and search budget—not that no relationship can exist.
 
 ## Understand coverage
@@ -55,5 +57,7 @@ Use **Fetch latest metadata** on the Salesforce connection, then refresh Graph. 
 5. Graph loads a bounded neighborhood when you explore. Shareable component links and source excerpts keep an investigation tied to evidence.
 
 Indexed lookups speed up repeated exploration without downloading the whole organization's graph to your browser. Access is checked again on every request.
+
+Compact snapshots reduce transfer and memory costs while preserving relationship and source evidence. The first exploration after an idle period can still take longer than subsequent queries; smaller snapshots are not a guarantee of instant startup.
 
 Protected package code cannot be recovered by a parser. Binary resources, manifest-limited Profiles, unsupported reference syntax and runtime-only values also remain coverage limits. A component with no proven link is still discoverable; the graph does not add a relationship merely to connect every node.
