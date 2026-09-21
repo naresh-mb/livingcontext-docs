@@ -25,6 +25,8 @@ Some dynamic Apex references can be resolved when their values are provable cons
 
 Nested-folder reports and dashboards keep stable component links even when Salesforce returns a longer folder path. References use verified identities and full paths; similarly named reports in different folders are not guessed to be the same component.
 
+Report field aliases are matched using the column definitions Salesforce exposes for that report type. Only fields actually referenced in a report create usages—not every field available to its report type. This reads reporting metadata without executing reports or retrieving their result rows. Inaccessible report definitions and unsupported calculated columns remain gaps.
+
 Typed Apex lists and maps retain their field references when code accesses an element, including nested collections. Operations on the collection itself, such as checking its size, are not presented as methods on the Salesforce object. An unknown custom-method return type remains an explicit analysis limitation.
 
 Expand **Trace a path to another component** to look for a resolved dependency path, up to six hops. A missing path means none was found within the current index and search budget—not that no relationship can exist.
@@ -51,6 +53,8 @@ A catalog-only field can still have proven incoming usages from a Flow, layout, 
 Use **Fetch latest metadata** on the Salesforce connection, then refresh Graph. Dependency-bearing source is retrieved ahead of large content assets, and useful snapshots become available as indexing progresses. Component-type and managed-package ingest settings also scope the graph.
 
 Unchanged, successfully verified source can skip another download. Partial or omitted source stays eligible for retry. A successful retrieval request does not mean every requested component was returned; missing-source and permission limitations remain coverage gaps, even when older source is available.
+
+Report-type definitions are shared across reports and reused for up to one day, unless a newer recorded modification or a full metadata refresh requires another check. Large column-definition dictionaries stay out of interactive graph responses.
 
 ## From Salesforce to a useful graph
 
