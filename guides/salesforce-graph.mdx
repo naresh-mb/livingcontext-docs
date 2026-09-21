@@ -19,7 +19,9 @@ The direction buttons count directly connected components in the index. The canv
 
 Supported static references include Apex calls and field access, Flow reads and writes, layout field references, permission grants, Lightning imports, and email-template merge fields. For example, an email template using a custom field can appear in that field's **Where used** view.
 
-The catalog also includes available compound-field members, such as a contact's first name and individual address fields. References are matched to the declarations retrieved from your Salesforce connection.
+The catalog also includes available compound-field members, such as a contact's first name and individual address fields. Salesforce's live schema supplies standard fields, lookup targets and named child relationships, so supported field paths can be followed across objects. References are matched to declarations from your Salesforce connection, not guessed field names.
+
+Some dynamic Apex references can be resolved when their values are provable constants. Values supplied by users, changed by runtime branches or computed outside the analyzed code remain unproven.
 
 Expand **Trace a path to another component** to look for a resolved dependency path, up to six hops. A missing path means none was found within the current index and search budget—not that no relationship can exist.
 
@@ -43,3 +45,15 @@ A catalog-only field can still have proven incoming usages from a Flow, layout, 
 ## Keep the graph current
 
 Use **Fetch latest metadata** on the Salesforce connection, then refresh Graph. Dependency-bearing source is retrieved ahead of large content assets, and useful snapshots become available as indexing progresses. Component-type and managed-package ingest settings also scope the graph.
+
+## From Salesforce to a useful graph
+
+1. LivingContext discovers the metadata types and components your connection can access.
+2. It retrieves source and reads the actual object schema, keeping the two kinds of evidence distinguishable.
+3. Static analysis extracts declarations and references, then matches them across components.
+4. A new snapshot replaces the previous one only after a successful build. Unchanged source can reuse its previous analysis.
+5. Graph loads a bounded neighborhood when you explore. Shareable component links and source excerpts keep an investigation tied to evidence.
+
+Indexed lookups speed up repeated exploration without downloading the whole organization's graph to your browser. Access is checked again on every request.
+
+Protected package code cannot be recovered by a parser. Binary resources, manifest-limited Profiles, unsupported reference syntax and runtime-only values also remain coverage limits. A component with no proven link is still discoverable; the graph does not add a relationship merely to connect every node.
