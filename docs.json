@@ -42,6 +42,7 @@
               "guides/search",
               "guides/diagrams",
               "guides/schema-diagrams",
+              "guides/salesforce-graph",
               "guides/templates-and-style"
             ]
           },

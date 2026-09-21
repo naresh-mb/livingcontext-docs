@@ -1,0 +1,45 @@
+---
+title: "Salesforce dependency graph"
+description: "Explore what uses a Salesforce component, trace dependency paths, and inspect the source behind a relationship."
+icon: "network"
+---
+
+Open **Graph**, beside **Schema**, to explore metadata from the Salesforce connections in your current space. Schema shows object relationships; Graph connects code, automation, fields, templates, permissions, and other indexed metadata.
+
+## Investigate a component
+
+1. Search an API name, such as `Case.Status`, or filter by metadata type.
+2. Select a result. Fields open **Where used**; other components open **All connections**.
+3. Switch between **Where used** (incoming references) and **Depends on** (outgoing references). Increase the depth to investigate further.
+4. Select a relationship and choose **Open source** to inspect its supporting excerpt and line.
+
+The direction buttons count directly connected components in the index. The canvas count describes only the currently displayed, bounded view. Pan, zoom, fit, and drag nodes to explore. **Copy component link** gives you a shareable entry point; recipients still need access to the same workspace and connection.
+
+## Follow evidence across metadata
+
+Supported static references include Apex calls and field access, Flow reads and writes, layout field references, permission grants, Lightning imports, and email-template merge fields. For example, an email template using a custom field can appear in that field's **Where used** view.
+
+The catalog also includes available compound-field members, such as a contact's first name and individual address fields. References are matched to the declarations retrieved from your Salesforce connection.
+
+Expand **Trace a path to another component** to look for a resolved dependency path, up to six hops. A missing path means none was found within the current index and search budget—not that no relationship can exist.
+
+## Understand coverage
+
+The **Partial index** disclosure shows coverage by component type:
+
+| Level | Meaning |
+| --- | --- |
+| Semantic | Specialized static extraction rules ran |
+| Partial | Some parsing or retrieval limitations remain |
+| Structural | Structure is known, but specialized semantics are limited |
+| Catalog only | Identity is known without standalone indexed source |
+
+A catalog-only field can still have proven incoming usages from a Flow, layout, or template. Source previews are withheld when the retrieved source has changed since indexing, so old line numbers are not presented as current evidence.
+
+<Warning>
+  This is static analysis, not a runtime trace or a safe-delete recommendation. Dynamic code, inaccessible managed-package source, excluded metadata, and incomplete retrieval can hide dependencies. Support for a component's identity does not mean complete semantic support for every metadata type.
+</Warning>
+
+## Keep the graph current
+
+Use **Fetch latest metadata** on the Salesforce connection, then refresh Graph. Dependency-bearing source is retrieved ahead of large content assets, and useful snapshots become available as indexing progresses. Component-type and managed-package ingest settings also scope the graph.

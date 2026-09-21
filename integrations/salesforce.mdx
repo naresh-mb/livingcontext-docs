@@ -45,7 +45,7 @@ The catalog covers your org's structural metadata, with **source bodies where av
 
 ### Ingest settings
 
-The catalog itself — every metadata entity in your org — is always fully synced. Each connection's **Ingest settings** page controls what additionally gets embedded for AI search and grounding:
+The catalog attempts to discover metadata available to the connected Salesforce account. API permissions, package restrictions, and retrieval failures can limit coverage. Each connection's **Ingest settings** page scopes AI search, grounding, and the dependency graph:
 
 | Setting | What it controls |
 | --- | --- |
@@ -71,6 +71,7 @@ Choose an **Auto-fetch frequency** per connection: **Manual only**, **Hourly**, 
 | Impact analysis | Usages and dependencies across the org |
 | [API reference](/guides/api-reference) | Inbound and outbound API surface derived from metadata |
 | [Schema diagrams](/guides/schema-diagrams) | Interactive ER diagram of your objects and relationships |
+| [Dependency graph](/guides/salesforce-graph) | Interactive usages, dependencies, paths, and source evidence across metadata |
 | [Workspace agent](/agents/workspace-agent) | The full org-intelligence tool set |
 | [Coverage auditor](/agents/coverage-auditor) | Candidates for brand-new docs |
 
