@@ -25,6 +25,10 @@ Experience Cloud sites connect to their configured email templates, profiles, Vi
 
 Translations link to verified objects, fields and other supported metadata members; translated labels and picklist text do not become code dependencies. Lightning themes connect to branding sets and their verified image assets, so you can follow a theme → branding → asset path. Supported notification actions also link to their configured Apex class.
 
+Field-restriction rules link to their configured field sets and supported field expressions. Prompts link to image assets and documented permission/profile filters. Notification settings keep each notification's application references separate; a disabled setting is still configuration, not proof that a notification will be delivered.
+
+Data-cleaning rules show the Salesforce fields they read and write. Their virtual data-service fields stay separate from real Salesforce fields, and the explorer does not invent paths through unrelated mappings. Provider notification names, excluded applications, internal prompt context and unindexed virtual schemas remain explicit limitations. Group definitions, campaign-influence options and trusted-site policies can legitimately have no outgoing metadata links; group membership and effective access are not inferred from a group definition.
+
 An asset's metadata can be understood while its file contents remain unanalyzed. That limitation stays visible, even when the asset has proven incoming usages. Unverified translation aliases, unfamiliar branding properties and ambiguous identities remain partial instead of being matched by similar names. Value sets and remote-site settings may legitimately have no outgoing metadata links.
 
 Role access and presence settings describe configuration, not a user's effective access. Usernames are not expanded into user records. Internal navigation routes, runtime topics, Salesforce-only moderation fields and unverified console-component identities remain explicit gaps. Unknown metadata properties are reported as partial coverage, not guessed links. Labels, keywords, standard tabs and external URLs do not become invented dependencies.
