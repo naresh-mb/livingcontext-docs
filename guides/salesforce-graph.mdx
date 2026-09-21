@@ -21,7 +21,9 @@ Supported static references include Apex calls and field access, Flow reads and 
 
 Paths and celebration animations link to their configured objects, fields and record types. Lead-conversion mappings connect each input field to its own output field; unrelated mapping pairs are not treated as a dependency path. The explorer also follows supported role hierarchy, queue membership and routing, service-channel fields, profile policies, topic settings and moderation criteria.
 
-Role access settings describe configuration, not a user's effective access. Queue usernames are not expanded into user records. Salesforce-only moderation fields and unverified site or console-component identities remain explicit gaps. Unknown metadata properties are reported as partial coverage, not guessed links.
+Experience Cloud sites connect to their configured email templates, profiles, Visualforce pages and supported assets. Navigation menus link to their declared site or template, Salesforce objects, verified list views and tile images. Moderation rules, keyword lists and user criteria link back to their site. This makes it possible to investigate a supported site → email template → field path, not just a template's direct references.
+
+Role access and presence settings describe configuration, not a user's effective access. Usernames are not expanded into user records. Internal navigation routes, runtime topics, Salesforce-only moderation fields and unverified console-component identities remain explicit gaps. Unknown metadata properties are reported as partial coverage, not guessed links. Labels, keywords, standard tabs and external URLs do not become invented dependencies.
 
 The catalog also includes available compound-field members, such as a contact's first name and individual address fields. Salesforce's live schema supplies standard fields, lookup targets and named child relationships, so supported field paths can be followed across objects. References are matched to declarations from your Salesforce connection, not guessed field names.
 
