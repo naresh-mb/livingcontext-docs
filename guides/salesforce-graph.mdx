@@ -29,6 +29,8 @@ Field-restriction rules link to their configured field sets and supported field 
 
 Data-cleaning rules show the Salesforce fields they read and write. Their virtual data-service fields stay separate from real Salesforce fields, and the explorer does not invent paths through unrelated mappings. Provider notification names, excluded applications, internal prompt context and unindexed virtual schemas remain explicit limitations. Group definitions, campaign-influence options and trusted-site policies can legitimately have no outgoing metadata links; group membership and effective access are not inferred from a group definition.
 
+External-client settings link back to their application. Supported references also include authentication handlers, custom OAuth scopes, verified permission-set and signing-certificate identities, and qualified fields used in custom attributes. App menus can link to explicitly named applications, sites and tabs, but their undocumented behavior remains partial. Standard OAuth scope names are capabilities, not metadata dependencies or proof of effective access.
+
 An asset's metadata can be understood while its file contents remain unanalyzed. That limitation stays visible, even when the asset has proven incoming usages. Unverified translation aliases, unfamiliar branding properties and ambiguous identities remain partial instead of being matched by similar names. Value sets and remote-site settings may legitimately have no outgoing metadata links.
 
 Role access and presence settings describe configuration, not a user's effective access. Usernames are not expanded into user records. Internal navigation routes, runtime topics, Salesforce-only moderation fields and unverified console-component identities remain explicit gaps. Unknown metadata properties are reported as partial coverage, not guessed links. Labels, keywords, standard tabs and external URLs do not become invented dependencies.
@@ -64,6 +66,8 @@ The number of types with gaps is not a percentage of missing dependencies. A typ
 
 A catalog-only field can still have proven incoming usages from a Flow, layout, or template. Source previews are withheld when the retrieved source has changed since indexing, so old line numbers are not presented as current evidence.
 
+External OAuth and connected-app source previews redact credential and certificate contents while keeping the original reference lines. A sensitive source that cannot be safely parsed is withheld. This does not claim to detect every secret that might be embedded in arbitrary code.
+
 <Warning>
   This is static analysis, not a runtime trace or a safe-delete recommendation. Dynamic code, inaccessible managed-package source, excluded metadata, and incomplete retrieval can hide dependencies. Support for a component's identity does not mean complete semantic support for every metadata type.
 </Warning>
@@ -89,5 +93,7 @@ Successfully captured profile-backed permission records use the same one-day ref
 Indexed lookups speed up repeated exploration without downloading the whole organization's graph to your browser. Access and the latest published snapshot are checked on every request. If the graph is temporarily busy, retry shortly—this does not mean the component has no dependencies.
 
 Compact snapshots reduce transfer and memory costs while preserving relationship and source evidence. Static graph exploration does not need an AI model to start. The first exploration after an idle period can still take longer than subsequent queries; smaller snapshots are not a guarantee of instant startup.
+
+The initial **Connected sample** is prepared with each graph publication, so it can open without loading the entire dependency index. It has the same access checks, relationships and coverage information as that snapshot. The first deeper exploration can still take longer while the full index loads; this change does not keep the service awake between visits.
 
 Protected package code cannot be recovered by a parser. Binary resources, manifest-limited Profiles, unsupported reference syntax and runtime-only values also remain coverage limits. A component with no proven link is still discoverable; the graph does not add a relationship merely to connect every node.
