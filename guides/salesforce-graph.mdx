@@ -82,7 +82,7 @@ Successfully captured profile-backed permission records use the same one-day ref
 4. A new snapshot replaces the previous one only after a successful build. Unchanged source can reuse its previous analysis.
 5. Graph loads a bounded neighborhood when you explore. Shareable component links and source excerpts keep an investigation tied to evidence.
 
-Indexed lookups speed up repeated exploration without downloading the whole organization's graph to your browser. Access is checked again on every request.
+Indexed lookups speed up repeated exploration without downloading the whole organization's graph to your browser. Access and the latest published snapshot are checked on every request. If the graph is temporarily busy, retry shortly—this does not mean the component has no dependencies.
 
 Compact snapshots reduce transfer and memory costs while preserving relationship and source evidence. Static graph exploration does not need an AI model to start. The first exploration after an idle period can still take longer than subsequent queries; smaller snapshots are not a guarantee of instant startup.
 
