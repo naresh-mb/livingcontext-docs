@@ -43,7 +43,9 @@ CMS content-type definitions include their declared fields, while managed topics
 
 An asset's metadata can be understood while its file contents remain unanalyzed. That limitation stays visible, even when the asset has proven incoming usages. Unverified translation aliases, unfamiliar branding properties and ambiguous identities remain partial instead of being matched by similar names. Value sets and remote-site settings may legitimately have no outgoing metadata links.
 
-Supported CSV static resources are checked against both their declared file type and their actual table contents. The graph retains evidence for both sources; malformed, oversized or mismatched files remain incomplete. Table values are data, not automatic field dependencies. A CSV can therefore have proven incoming usages without outgoing metadata links. This support does not cover image, archive, JavaScript or site-file payloads.
+Supported CSV static resources are checked against both their declared file type and their actual table contents. The graph retains evidence for both sources; malformed, oversized or mismatched files remain incomplete. Table values are data, not automatic field dependencies. A CSV can therefore have proven incoming usages without outgoing metadata links.
+
+Supported PNG and JPEG Documents and static resources are validated against their original file contents and metadata. A Document links to its independently discovered folder; supported folder sharing can link to declared groups and roles. Image pixels and embedded text do not become guessed field references. Missing files, unsupported formats, invalid or oversized images and unknown folder settings remain incomplete. This does not cover archive, JavaScript, ContentAsset or site-file payload semantics, nor does it look up users named in folder sharing.
 
 Moderation rules distinguish ordinary fields from Salesforce's Metadata API-only `RawBody` and `RawCommentBody` content selectors. Those selectors link to the moderated object, retaining the exact selector in the supporting evidence. They do not create guessed usages of `Body` or `CommentBody`. Disabled rules still describe configuration, not proof that content was moderated.
 
@@ -116,4 +118,4 @@ Compact snapshots reduce transfer and memory costs while preserving relationship
 
 The initial **Connected sample** is prepared with each graph publication, so it can open without loading the entire dependency index. It has the same access checks, relationships and coverage information as that snapshot. The first deeper exploration can still take longer while the full index loads; this change does not keep the service awake between visits.
 
-Protected package code cannot be recovered by a parser. Binary resources, manifest-limited Profiles, unsupported reference syntax and runtime-only values also remain coverage limits. A component with no proven link is still discoverable; the graph does not add a relationship merely to connect every node.
+Protected package code cannot be recovered by a parser. Unsupported binary formats, manifest-limited Profiles, unsupported reference syntax and runtime-only values also remain coverage limits. A component with no proven link is still discoverable; the graph does not add a relationship merely to connect every node.
