@@ -23,6 +23,8 @@ Paths and celebration animations link to their configured objects, fields and re
 
 Experience Cloud sites connect to their configured email templates, profiles, Visualforce pages and supported assets. Navigation menus link to their declared site or template, Salesforce objects, verified list views and tile images. Moderation rules, keyword lists and user criteria link back to their site. This makes it possible to investigate a supported site → email template → field path, not just a template's direct references.
 
+Sites also link to configured headless registration and password-reset email templates. Audience definitions retain their site context and supported targeting criteria. Only documented, independently verified metadata targets create links; audience membership and users' runtime behavior are not inferred.
+
 Translations link to verified objects, fields and other supported metadata members; translated labels and picklist text do not become code dependencies. Lightning themes connect to branding sets and their verified image assets, so you can follow a theme → branding → asset path. Supported notification actions also link to their configured Apex class.
 
 Field-restriction rules link to their configured field sets and supported field expressions. Prompts link to image assets and documented permission/profile filters. Notification settings keep each notification's application references separate; a disabled setting is still configuration, not proof that a notification will be delivered.
@@ -32,6 +34,8 @@ Data-cleaning rules show the Salesforce fields they read and write. Their virtua
 External-client settings link back to their application. Supported references also include authentication handlers, custom OAuth scopes, verified permission-set and signing-certificate identities, and qualified fields used in custom attributes. App menus can link to explicitly named applications, sites and tabs, but their undocumented behavior remains partial. Standard OAuth scope names are capabilities, not metadata dependencies or proof of effective access.
 
 Supported settings now link to active custom themes, identity certificates, searchable objects, territory-assignment Apex handlers and forecast types. Home-page layouts link to custom components; standard widgets remain platform items. Forecast columns use exact field paths or verified identities, not display labels or guessed field names. Unmapped columns and unfamiliar settings remain partial.
+
+Supported Case settings include configured templates, email handlers, queues, flows and record types. Default picklist values remain values of their explicitly named fields, not components guessed from their labels. Known boolean, numeric and enumerated settings can be fully understood without outgoing links; unsupported nested settings and missing targets remain gaps.
 
 CMS content-type definitions include their declared fields, while managed topics retain site ownership and supported parent-topic relationships. These describe metadata configuration, not the CMS content records, actual topic assignments or users. A definition with no outgoing dependency can be fully understood without inventing a link.
 
@@ -79,6 +83,8 @@ External OAuth and connected-app source previews redact credential and certifica
 ## Keep the graph current
 
 Use **Fetch latest metadata** on the Salesforce connection, then refresh Graph. Dependency-bearing source is retrieved ahead of large content assets, and useful snapshots become available as indexing progresses. Component-type and managed-package ingest settings also scope the graph.
+
+With customer-owned metadata selected, package-owned fields stay excluded even when declared inside an otherwise in-scope object. A customer component's reference to an excluded target can remain visible as unresolved evidence; that does not include the package's source or expand your ingest scope.
 
 Unchanged, successfully verified source can skip another download. Partial or omitted source stays eligible for retry. A successful retrieval request does not mean every requested component was returned; missing-source and permission limitations remain coverage gaps, even when older source is available.
 
