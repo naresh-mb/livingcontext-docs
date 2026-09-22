@@ -31,6 +31,10 @@ Data-cleaning rules show the Salesforce fields they read and write. Their virtua
 
 External-client settings link back to their application. Supported references also include authentication handlers, custom OAuth scopes, verified permission-set and signing-certificate identities, and qualified fields used in custom attributes. App menus can link to explicitly named applications, sites and tabs, but their undocumented behavior remains partial. Standard OAuth scope names are capabilities, not metadata dependencies or proof of effective access.
 
+Supported settings now link to active custom themes, identity certificates, searchable objects, territory-assignment Apex handlers and forecast types. Home-page layouts link to custom components; standard widgets remain platform items. Forecast columns use exact field paths or verified identities, not display labels or guessed field names. Unmapped columns and unfamiliar settings remain partial.
+
+CMS content-type definitions include their declared fields, while managed topics retain site ownership and supported parent-topic relationships. These describe metadata configuration, not the CMS content records, actual topic assignments or users. A definition with no outgoing dependency can be fully understood without inventing a link.
+
 An asset's metadata can be understood while its file contents remain unanalyzed. That limitation stays visible, even when the asset has proven incoming usages. Unverified translation aliases, unfamiliar branding properties and ambiguous identities remain partial instead of being matched by similar names. Value sets and remote-site settings may legitimately have no outgoing metadata links.
 
 Role access and presence settings describe configuration, not a user's effective access. Usernames are not expanded into user records. Internal navigation routes, runtime topics, Salesforce-only moderation fields and unverified console-component identities remain explicit gaps. Unknown metadata properties are reported as partial coverage, not guessed links. Labels, keywords, standard tabs and external URLs do not become invented dependencies.
