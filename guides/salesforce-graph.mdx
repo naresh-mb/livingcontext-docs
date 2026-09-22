@@ -45,7 +45,7 @@ An asset's metadata can be understood while its file contents remain unanalyzed.
 
 Moderation rules distinguish ordinary fields from Salesforce's Metadata API-only `RawBody` and `RawCommentBody` content selectors. Those selectors link to the moderated object, retaining the exact selector in the supporting evidence. They do not create guessed usages of `Body` or `CommentBody`. Disabled rules still describe configuration, not proof that content was moderated.
 
-Role access and presence settings describe configuration, not a user's effective access. Usernames are not expanded into user records. Internal navigation routes, runtime topics and unverified console-component identities remain explicit gaps. Unknown metadata properties are reported as partial coverage, not guessed links. Labels, keywords, standard tabs and external URLs do not become invented dependencies.
+Role access and presence settings describe configuration, not a user's effective access. User IDs and usernames are not expanded into user records, even when a queue, site or email-notification setting references them. Those identity gaps remain visible under metadata-only indexing. Internal navigation routes, runtime topics and unverified console-component identities remain explicit gaps. Unknown metadata properties are reported as partial coverage, not guessed links. Labels, keywords, standard tabs and external URLs do not become invented dependencies.
 
 The catalog also includes available compound-field members, such as a contact's first name and individual address fields. Salesforce's live schema supplies standard fields, lookup targets and named child relationships, so supported field paths can be followed across objects. References are matched to declarations from your Salesforce connection, not guessed field names.
 
@@ -59,7 +59,9 @@ Profiles can also lead to their backing permission sets and the direct object, f
 
 These links explain permission configuration, not a user's effective access. Assignments, permission-set groups, muting, licenses and implicit access still need separate evaluation. Missing or excluded targets remain unresolved.
 
-Typed Apex lists and maps retain their field references when code accesses an element, including nested collections. Operations on the collection itself, such as checking its size, are not presented as methods on the Salesforce object. An unknown custom-method return type remains an explicit analysis limitation.
+Typed Apex lists and maps retain their field references when code accesses an element, including nested collections. The graph also follows supported method-return chains and declared class properties across indexed files. A returned Salesforce object can establish a real field usage; an ordinary Apex data-container property links to its declaring class, not an invented Salesforce field.
+
+Supported platform operations, such as formatting a returned date, are not presented as customer metadata dependencies. Return-type links include the supporting declarations in their source evidence and are re-evaluated when those declarations change or leave scope. Unknown return types, ambiguous overloads, unsupported reflection and runtime-dependent values remain explicit limitations.
 
 Expand **Trace a path to another component** to look for a resolved dependency path, up to six hops. A missing path means none was found within the current index and search budget—not that no relationship can exist.
 
