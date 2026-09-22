@@ -63,7 +63,9 @@ Typed Apex lists and maps retain their field references when code accesses an el
 
 Supported platform operations, such as formatting a returned date, are not presented as customer metadata dependencies. Return-type links include the supporting declarations in their source evidence and are re-evaluated when those declarations change or leave scope. Unknown return types, ambiguous overloads, unsupported reflection and runtime-dependent values remain explicit limitations.
 
-Expand **Trace a path to another component** to look for a resolved dependency path, up to six hops. A missing path means none was found within the current index and search budget—not that no relationship can exist.
+Supported static schema reflection also creates usages of the actual Salesforce object and record type. A constant developer-name selector can link its object-scoped record type; a constant record-type ID needs an independently known metadata identity. Display labels are not treated as developer names. Runtime selectors, ambiguous identities and unsupported reflection stay incomplete. This does not read User or business records or execute Apex.
+
+Expand **Trace a path to another component** to look for a resolved dependency path, up to six hops. Path discovery searches beyond the small display sample, so a busy component does not hide a reachable target merely by filling the canvas. Search work and displayed paths are still bounded. A missing path means none was found within the current index and search budget—not that no relationship can exist.
 
 ## Understand coverage
 
