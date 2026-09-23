@@ -55,6 +55,10 @@ Role access and presence settings describe configuration, not a user's effective
 
 The catalog also includes available compound-field members, such as a contact's first name and individual address fields. Salesforce's live schema supplies standard fields, lookup targets and named child relationships, so supported field paths can be followed across objects. References are matched to declarations from your Salesforce connection, not guessed field names.
 
+Fields missing from an object's source can also use Salesforce's field-definition metadata. This adds verified field-to-object and compound-member links, plus lookup targets that Salesforce explicitly names. Newly discovered targets are checked against available object schema in the same sync. An ownership link does not create a dependency path through unrelated sibling fields. This reads schema only—not users, record-access results or business records.
+
+Missing lookup targets, unavailable formulas and incomplete polymorphic or compound definitions remain partial. A display type such as “Lookup” is not enough to invent its target. Complete retrieval and complete semantic analysis are separate checks.
+
 Some dynamic Apex references can be resolved when their values are provable constants. Values supplied by users, changed by runtime branches or computed outside the analyzed code remain unproven.
 
 Nested-folder reports and dashboards keep stable component links even when Salesforce returns a longer folder path. References use verified identities and full paths; similarly named reports in different folders are not guessed to be the same component.
@@ -105,6 +109,8 @@ Unchanged, successfully verified source can skip another download. Partial or om
 Report-type definitions are shared across reports and reused for up to one day, unless a newer recorded modification or a full metadata refresh requires another check. Large column-definition dictionaries stay out of interactive graph responses.
 
 Successfully captured profile-backed permission records use the same one-day refresh policy. An unsuccessful refresh preserves the earlier capture but marks its evidence as no longer verified current. It does not turn a limited Profile retrieval into complete coverage.
+
+Supplemental field definitions also reuse successfully verified captures for up to one day, unless a newer recorded modification or full refresh requires another check. A failed refresh preserves the old capture but withholds it as current source evidence.
 
 ## From Salesforce to a useful graph
 
