@@ -8,16 +8,18 @@ Open **Graph**, beside **Schema**, to explore metadata from the Salesforce conne
 
 ## Investigate a component
 
-1. Search an API name, such as `Case.Status`, or filter by metadata type.
-2. Select a result. Fields open **Where used**; other components open **All connections**.
-3. Switch between **Where used** (incoming references) and **Depends on** (outgoing references). Increase the depth to investigate further.
-4. Select a relationship and choose **Open source** to inspect its supporting excerpt and line.
+1. Use **Search your Salesforce setup** to find a name, such as `Case.Status` or part of a report name. You can also start with a real item from your org or browse Fields, Emails, Reports, and Automations.
+2. Select a result. Fields answer **What uses this?**; other items open **All connections**. Choose **What does this use?** to explore the other direction.
+3. Explore the **Visual map**, or switch to **Connection list** to read the same links as sentences, grouped by the item making each reference.
+4. Select a connection to see why the two items are linked. Code is optional: expand **View source details (technical)** and choose **Open source** when you need its supporting excerpt and line.
+
+**How do I read the graph?** explains the dots, arrows, and limits. **Start over** returns to the simple search. On a phone, search is available directly on the page; close the details panel to give the map or list more room.
 
 The direction buttons count directly connected components in the index. The canvas count describes only the currently displayed, bounded view. Pan, zoom, fit, and drag nodes to explore. **Copy component link** gives you a shareable entry point; recipients still need access to the same workspace and connection.
 
 ## Follow evidence across metadata
 
-Supported static references include Apex calls and field access, Flow reads and writes, layout field references, permission grants, Lightning imports, and email-template merge fields. For example, an email template using a custom field can appear in that field's **Where used** view.
+Supported static references include Apex calls and field access, Flow reads and writes, layout field references, permission grants, Lightning imports, and email-template merge fields. For example, an email template using a custom field can appear in that field's **What uses this?** view.
 
 Paths and celebration animations link to their configured objects, fields and record types. Lead-conversion mappings connect each input field to its own output field; unrelated mapping pairs are not treated as a dependency path. The explorer also follows supported role hierarchy, queue membership and routing, service-channel fields, profile policies, topic settings and moderation criteria.
 
@@ -75,11 +77,11 @@ Supported platform operations, such as formatting a returned date, are not prese
 
 Supported static schema reflection also creates usages of the actual Salesforce object and record type. A constant developer-name selector can link its object-scoped record type; a constant record-type ID needs an independently known metadata identity. Display labels are not treated as developer names. Runtime selectors, ambiguous identities and unsupported reflection stay incomplete. This does not read User or business records or execute Apex.
 
-Expand **Trace a path to another component** to look for a resolved dependency path, up to six hops. Path discovery searches beyond the small display sample, so a busy component does not hide a reachable target merely by filling the canvas. Search work and displayed paths are still bounded. A missing path means none was found within the current index and search budget—not that no relationship can exist.
+Expand **More ways to explore** to adjust the number of steps or trace a path to another item, up to six steps. Path discovery searches beyond the small display sample, so a busy component does not hide a reachable target merely by filling the canvas. Search work and displayed paths are still bounded. A missing path means none was found within the current index and search budget—not that no relationship can exist.
 
 ## Understand coverage
 
-The **Partial index** disclosure shows coverage by component type:
+The **Some connections may be missing** disclosure shows coverage by component type:
 
 The number of types with gaps is not a percentage of missing dependencies. A type is counted if even one component has partial, structural or catalog-only coverage. Expand the disclosure to see the breakdown; a known component can still have proven links while other analysis remains incomplete.
 
@@ -124,6 +126,6 @@ Indexed lookups speed up repeated exploration without downloading the whole orga
 
 Compact snapshots reduce transfer and memory costs while preserving relationship and source evidence. Static graph exploration does not need an AI model to start. The first exploration after an idle period can still take longer than subsequent queries; smaller snapshots are not a guarantee of instant startup.
 
-The initial **Connected sample** is prepared with each graph publication, so it can open without loading the entire dependency index. It has the same access checks, relationships and coverage information as that snapshot. The first deeper exploration can still take longer while the full index loads; this change does not keep the service awake between visits.
+The starting examples and optional **Browse sample map** use a small selection prepared with each graph publication, without loading the entire dependency index. They have the same access checks, relationships and coverage information as that snapshot. The first deeper exploration can still take longer while the full index loads; this does not keep the service awake between visits.
 
 Protected package code cannot be recovered by a parser. Unsupported binary formats, manifest-limited Profiles, unsupported reference syntax and runtime-only values also remain coverage limits. A component with no proven link is still discoverable; the graph does not add a relationship merely to connect every node.
