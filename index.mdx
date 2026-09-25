@@ -1,20 +1,26 @@
 ---
 title: "Welcome to LivingContext"
-description: "AI agents that create and maintain living documentation for your Salesforce team"
+description: "A Salesforce-first knowledge layer: explore dependencies and create documentation your team can review."
 icon: "house"
 ---
 
-LivingContext is a documentation platform where AI agents do the documenting. Instead of asking your team to write and maintain docs, LivingContext connects to your Salesforce org and your git repositories, watches what changes, and keeps a searchable, always-fresh documentation site up to date — with a human reviewing every change before it ships.
+LivingContext is a knowledge layer for Salesforce teams and their AI tools. It brings together synced metadata, an interactive dependency graph and your team's documentation, so you can investigate a change and preserve what you learn.
+
+Use **Graph** to explore where a field, report or email template is referenced and what it depends on. Use the **documentation agent** to draft explanations from linked metadata, review proposed edits and refresh documentation when its sources change. Available connections, permissions and workspace settings determine the context each workflow can use.
 
 ## What LivingContext does
 
 <CardGroup cols={2}>
+  <Card title="Salesforce dependency graph" icon="network" href="/guides/salesforce-graph">
+    Search your setup, explore a visual map or connection list, and inspect the source behind a relationship. Coverage gaps remain visible; a missing link does not mean unused.
+  </Card>
+
   <Card title="Living documentation" icon="book-open" href="/guides/docs-viewer">
     A docs site backed by your own GitHub or GitLab repo. Markdown in git stays the source of truth; LivingContext renders, searches, and maintains it.
   </Card>
 
   <Card title="AI documentation agents" icon="robot" href="/agents/overview">
-    Agents watch commits and Salesforce metadata, draft updates and brand-new pages, and file them for your review. Nothing ships without a human accepting it.
+    Draft pages from linked metadata and templates, review tracked editor suggestions, and use configured change-tracking and coverage workflows to propose documentation updates.
   </Card>
 
   <Card title="Browser capture" icon="camera" href="/capture/overview">
@@ -31,7 +37,7 @@ LivingContext is a documentation platform where AI agents do the documenting. In
 1. **Connect your tools.** Link GitHub or GitLab (where your docs live) and optionally Salesforce, Confluence, and Slack.
 2. **Agents observe.** Every 15 minutes, LivingContext sweeps tracked branches and Salesforce metadata for changes and documentation gaps.
 3. **Review in the Inbox.** Proposed updates and new pages land in a triage queue. Accept or reject each one — accepted work ships as a pull request or change request.
-4. **Everyone reads fresh docs.** Your team browses, searches, and asks questions against documentation that never goes stale.
+4. **Investigate and maintain context.** Explore metadata relationships in Graph, review suggested documentation changes, and browse or ask questions against the context your workspace has indexed.
 
 ## The review principle
 
