@@ -35,7 +35,7 @@ Run `lc status` any time to confirm connectivity and that your keys are valid.
     `search` for docs, `get` one's markdown, and list recent `changes`.
   </Card>
   <Card title="Reviewed writes" icon="pen-to-square">
-    `doc create`, `doc update`, and `doc tag` — every write lands as a change request.
+    `doc create`, `doc update`, `doc drafts`, and `doc tag` — writes land in a draft by default, or straight to Live with `--direct`.
   </Card>
   <Card title="Salesforce intelligence" icon="salesforce">
     `sf context`, `search`, `deps`, `schema`, `access`, `debt`, and more.
@@ -69,16 +69,21 @@ Most read commands accept `--json` to print the raw payload for scripting.
 
 ### Writing docs
 
-Writes never go straight to `main` — they land as a [change request](/guides/editing-and-change-requests) for human review, exactly like edits made in the app:
+By default a write lands in a new **draft** — a private copy of the docs that readers don't see until a person publishes it, exactly like the draft switcher in the app. Add to an existing draft with `--draft`, or commit straight to Live with `--direct` if your role can edit Live:
 
 ```sh
 lc doc create --repo acme/docs --path docs/runbooks/refunds.md \
   --file refunds.md --tag ApexClass:RefundService --submit
 
-echo "# Updated" | lc doc update --repo acme/docs --path docs/intro.md --file -
+lc doc drafts --repo acme/docs             # open drafts and their branch names
+
+echo "# Updated" | lc doc update --repo acme/docs --path docs/intro.md --file - \
+  --draft users/sam/2026-09-15-ab12       # same draft as an earlier write
+
+echo "# Hotfix" | lc doc update --repo acme/docs --path docs/intro.md --file - --direct
 ```
 
-Add `--submit` to open the pull request immediately, or `lc doc submit <changeRequestId>` later.
+Add `--submit` to open the pull request for the draft immediately, or `lc doc submit <draftId>` later.
 
 ## Command reference
 
@@ -109,10 +114,11 @@ Arguments in `<angle brackets>` are required; `[square brackets]` are optional. 
     | `lc get <docId>` | Print a doc's markdown. Content goes to stdout and provenance (title, source, indexed time) to stderr, so piping captures clean markdown. |
     | `lc changes [--since ISO] [--limit N]` | Recently updated docs, newest first. |
     | `lc suggest --doc <docId> [--limit N]` | AI-suggested Salesforce tags for an indexed doc; use `--file <path>` to suggest for a local file instead. |
-    | `lc doc create --repo owner/name --path docs/x.md --file <f>` | Create a page as a draft change request. Optional: `--title`, repeatable `--tag Type:Name`, `--submit` to open the PR now. Use `--file -` to read from stdin. |
-    | `lc doc update --repo owner/name --path docs/x.md --file <f>` | Replace an existing page's content on a fresh change-request branch. Optional: `--message`, `--submit`. |
-    | `lc doc tag --repo owner/name --path docs/x.md [--add Type:Name]... [--remove Type:Name]...` | Add or remove Salesforce tags on a doc — applied immediately, no change request. |
-    | `lc doc submit <changeRequestId> [--body text]` | Open the pull request for a draft change request. |
+    | `lc doc create --repo owner/name --path docs/x.md --file <f>` | Create a page in a new draft. Optional: `--title`, repeatable `--tag Type:Name`, `--draft <branch>` to add to an existing draft, `--direct` to commit to Live, `--submit` to open the PR now. Use `--file -` to read from stdin. |
+    | `lc doc update --repo owner/name --path docs/x.md --file <f>` | Replace an existing page's content — in a new draft, an existing one (`--draft <branch>`), or on Live (`--direct`). Optional: `--message`, `--submit`. |
+    | `lc doc drafts [--repo owner/name]` | Open drafts in your key's space, with the branch names `--draft` takes. |
+    | `lc doc tag --repo owner/name --path docs/x.md [--add Type:Name]... [--remove Type:Name]...` | Add or remove Salesforce tags on a doc — applied immediately, no draft needed. |
+    | `lc doc submit <draftId> [--body text]` | Open the pull request for a draft. |
   </Accordion>
 
   <Accordion title="Salesforce intelligence — sf">
@@ -180,7 +186,7 @@ rm -r ~/.config/livingcontext   # stored keys
 ```
 
 <Note>
-`lc` speaks to the same [MCP server](/integrations/mcp-server) your AI coding tools use, so it inherits the same guarantees: keys are org-scoped, your membership is re-checked on every call, and writes respect your [role](/admin/roles-and-permissions) and always end at review.
+`lc` speaks to the same [MCP server](/integrations/mcp-server) your AI coding tools use, so it inherits the same guarantees: keys are scoped to one space, your membership is re-checked on every call, writes respect your [role](/admin/roles-and-permissions), and they land in a draft unless you ask for Live.
 </Note>
 
 Run `lc help` for the full command list, or `lc tools` to see every underlying tool.
